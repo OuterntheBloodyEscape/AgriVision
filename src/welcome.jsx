@@ -1,7 +1,10 @@
 import info from './assets/info-recolored.png'
 import up_right from './assets/up-right-arrow.png'
 import './welcome.css'
-function welcome({ cl }) {
+let Welcome = ({ cp }) => {
+    let cl = () => {
+        cp(1);
+    }
     return (
         <>
             <div id="bg_image"></div>
@@ -11,10 +14,9 @@ function welcome({ cl }) {
                     <div id='about'><p>About us</p><img src={info} height={20} width={20} draggable={false} /></div>
                     <div id='join' onClick={cl}><p>Join us </p><img src={up_right} height={20} width={20} draggable={false} /></div>
                 </div>
-            </div>
-
+            </div >
         </>
     );
 }
 
-export default welcome
+export default Welcome

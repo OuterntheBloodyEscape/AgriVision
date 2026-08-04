@@ -1,13 +1,18 @@
 import { useState } from 'react'
 import './App.css'
-import WelcomeScreen from './welcome'
-import Login from './login';
+import WelcomeScreen from './welcome.jsx'
+import Login from './login.jsx';
+import MainApp from './tamplate.jsx';
 function App() {
   const [page, setPage] = useState(0);
   return (
     (page == 0) ? (
-      <WelcomeScreen cl={() => { setPage(1) }} />
-    ) : (<Login />)
+      <WelcomeScreen cp={setPage} />
+    ) : ((page == 1) ? (
+      <Login cp={setPage} />
+    ) : (
+      <MainApp />
+    ))
   );
 }
 
