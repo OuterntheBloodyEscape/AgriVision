@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Market Prices BD</title>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    .Motivation_container {
+      width: 100%;
+      height: 260px;
+      background-color: #0b7445;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .live {
+      font-size: 20px;
+      font-weight: 540px;
+      color: rgb(94, 225, 103);
+      font-family: sans-serif;
+      margin-left: 12%;
+      margin-bottom: 10px;
+      margin-top: 50px;
+    }
+
+    .know {
+      font-size: 40px;
+      font-weight: bold;
+      color: white;
+      font-family: serif;
+      margin-left: 13%;
+    }
+
+    .grow {
+      font-size: 40px;
+      font-weight: bold;
+      color: rgb(249, 152, 25);
+      font-family: serif;
+      margin-left: 14%;
+    }
+
+    .Search_container {
+      width: 80%;
+      height: 200px;
+      background-color: #75d8aa;
+      position: absolute;
+      top: 28%;
+      left: 10%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      padding: 30px;
+      border-radius: 16px;
+    }
+
+    .pro,
+    .filter {
+      font-size: 18px;
+      color: rgb(7, 101, 104);
+      font-weight: 600;
+    }
+
+    .search-bar {
+      display: flex;
+    }
+
+    .search-box {
+      width: 90%;
+      font-size: 14px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid grey;
+    }
+
+    .search-button {
+      font-size: 14px;
+      padding: 10px 24px;
+      margin-left: 16px;
+      border-radius: 8px;
+      border: 1px solid grey;
+      background-color: #145c25;
+      color: white;
+    }
+
+    .filter {
+      margin-top: 10px;
+    }
+
+    .for-all-button {
+      padding: 6px 10px;
+      margin-right: 6px;
+      border-radius: 8px;
+      border: 1px solid gray;
+      color: rgb(108, 106, 106);
+    }
+
+    .marketprices {
+      position: absolute;
+      background-color: bisque;
+      height: 50px;
+      width: 80%;
+      top: 56%;
+      left: 10%;
+    }
+
+    .market {
+      font-size: 26px;
+      font-weight: 600;
+    }
+
+    .showing {
+      margin-bottom: 10px;
+    }
+
+    .cart-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      gap: 12px;
+      position: absolute;
+      top: 66%;
+      width: 80%;
+      left: 10%;
+    }
+
+    .cart-details {
+      width: 100%;
+      height: 200px;
+      background-color: #a5cfbc;
+      border-radius: 8px;
+     
+    }
+
+    .all-container-pics {
+      width: 100%;
+      height: 70%;
+      object-fit: cover;
+      object-position: center;
+
+    }
+
+    .product-name {
+      position: relative;
+      font-weight: bold;
+      left: 8px;
+      top: 4px;
+    }
+
+    .product-price {
+      position: relative;
+      font-weight: bold;
+      top: 6px;
+      right: 8px;
+    }
+
+    .product-details {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      padding-bottom: 6px;
+      margin-bottom: 4px;
+    }
+     
+    .date{
+      border-top: 1px dashed grey;
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      color: grey;
+      padding: 4px 6px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="Motivation_container">
+
+    <p class="live">
+      Live Agricultural Prices BD
+    </p>
+    <p class="know">Know the Market.</p>
+    <p class="grow">Grow Smarter.</p>
+
+  </div>
+
+
+  <div class="Search_container">
+
+    <p class="pro">
+      Product Name
+    </p>
+
+    <div class="search-bar">
+      <input class="search-box" type="text" placeholder="e.g. Tomato, Rice, Bangus...">
+      <button class="search-button">
+        Search
+      </button>
+    </div>
+
+    <p class="filter">
+      Filter by Category
+    </p>
+
+    <div>
+      <button class="for-all-button">
+        All
+      </button>
+      <button class="for-all-button">
+        Crops
+      </button>
+      <button class="for-all-button">
+        Fishery Products
+      </button>
+      <button class="for-all-button">
+        Poultry
+      </button>
+    </div>
+
+  </div>
+
+  <div class="marketprices">
+    <p class="market">
+      Market Prices
+    </p>
+    <p class="showing">
+      Showing 1-8 of 306 products
+    </p>
+
+  </div>
+
+  <div class="cart-container">
+    <div class="cart-details">
+      <img class="all-container-pics" src="images/Tomato.jpg">
+      <div class="product-details">
+        <p class="product-name">
+          Tomato
+        </p>
+        <p class="product-price">
+          Taka <sub>200/kg</sub>
+        </p>
+      </div>
+
+      <p class="date">
+        August 16, 2026
+      </p>
+
+    </div>
+
+     <div class="cart-details">
+      <img class="all-container-pics" src="images/broccoli.jpg">
+      <div class="product-details">
+        <p class="product-name">
+          Broccoli
+        </p>
+        <p class="product-price">
+          Taka <sub>200/kg</sub>
+        </p>
+      </div>
+      
+      <p class="date">
+        August 16, 2026
+      </p>
+
+    </div>
+
+    <div class="cart-details">
+      <img class="all-container-pics" src="images/rui-fish.jpg">
+      <div class="product-details">
+        <p class="product-name">
+          Broccoli
+        </p>
+        <p class="product-price">
+          Taka <sub>200/kg</sub>
+        </p>
+      </div>
+      
+      <p class="date">
+        August 16, 2026
+      </p>
+
+    </div>
+
+
+    <div class="cart-details">
+      ayon
+    </div>
+
+    <div class="cart-details">
+      ayon
+    </div>
+
+    <div class="cart-details">
+      ayon
+    </div>
+
+    <div class="cart-details">
+      ayon
+    </div>
+
+  </div>
+
+
+</body>
+
+</html>
