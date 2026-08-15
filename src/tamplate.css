@@ -39,12 +39,13 @@
     width: 36px;
     padding: 4px;
     user-select: none;
+    cursor: pointer;
 }
 
 .iconContainer:hover {
     background-color: white;
-    transition: background-color 300ms ease-in-out;
-    cursor: pointer;
+    box-shadow: 2px 2px 10px #29854D;
+    transition: background-color 300ms ease-in-out, box-shadow 300ms ease-out;
 }
 
 #menu_icon_container {
@@ -62,7 +63,8 @@
 }
 
 #main_app_p2 {
-    width: 100%;
+    flex: 1;
+    min-width: 0;
     height: 100%;
     position: relative;
     display: flex;
@@ -129,9 +131,17 @@
     cursor: pointer;
 }
 
+.iconContainer2:hover {
+    /* background-color: rgba(22, 151, 41, 0.309);
+    transition: background-color 300ms ease-in; */
+    box-shadow: 0px 0px 10px #29854D;
+    transition: box-shadow 300ms ease-in;
+}
+
 .active {
     background-color: white;
     color: #29854D;
+    box-shadow: 2px 2px 10px #29854D;
 }
 
 .iconTxt {
@@ -145,20 +155,107 @@
     text-align: center;
 }
 
+
+
 .hintTxtcontainer {
     background-color: rgba(84, 83, 83, 0.744);
     color: white;
     border-radius: 20px;
     position: absolute;
     padding: 10px;
-    left: 120px;
+    left: 54px;
     z-index: 1;
     width: 70px;
-    display: flex;
+    display: none;
     flex-direction: row;
     justify-content: center;
     text-align: center;
     pointer-events: none;
     user-select: none;
+}
+
+
+#market_icon_container:hover .market_hint,
+#moon_icon_container:hover .night_hint,
+#map_icon_container:hover .map_hint,
+#ai_icon_container:hover .ai_hint,
+#home_icon_container:hover .home_hint,
+#menu_icon_container:hover .menu_hint {
+    display: flex;
+    transition: display 300ms ease-in;
+}
+
+.Search_page {
+    background-color: rgba(128, 128, 128, 0.616);
+    position: absolute;
+    height: 100%;
+    width: 100%;
     display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+#search_container {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    border-radius: 20px;
+}
+
+#search_bar {
+    height: 40px;
+    width: 500px;
+    padding: 7px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    outline-color: #29854D;
+}
+
+#search_button {
+    margin-left: 10px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+.big_picture {
+    background-color: rgba(128, 128, 128, 0.616);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#big_picture_container {
+    height: 512px;
+    width: 512px;
+    user-select: none;
+}
+
+.Settings_page {
+    background-color: rgba(128, 128, 128, 0.616);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#settings_container {
+    background-color: white;
+    border-radius: 20px;
+    height: 600px;
+    width: 700px;
+}
+
+.pageActive {
+    display: flex;
 }

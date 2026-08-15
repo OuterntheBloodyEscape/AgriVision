@@ -8,6 +8,8 @@ import menu_ia from './assets/nav_icons/menu_dots_inactive.png'
 import menu_a from './assets/nav_icons/menu_dots_active.png'
 import map_ia from './assets/nav_icons/map_inactive.png'
 import map_a from './assets/nav_icons/map_active.png'
+import market_ia from './assets/nav_icons/online-shop-inactive.png'
+import market_a from './assets/nav_icons/online-shop-active.png'
 import moon_ia from './assets/nav_icons/moon_inactive.png'
 import moon_a from './assets/nav_icons/moon_active.png'
 import webIcon from './assets/webIcon.png'
@@ -15,13 +17,18 @@ import settings_ia from './assets/nav_icons/settings_inactive.png'
 import search_ia from './assets/nav_icons/search_inactive.png'
 import userP from './assets/nav_icons/user.png'
 import AI_Disease_Detection from './AI_Disease_Detection.jsx'
+import Contract_Farming from './Contract_Farming.jsx'
 
 let MainApp = () => {
     const [mainPage, setMainPage] = useState(0);
     const [menuActive, setMenu] = useState(false);
     const [nightMood, setNightMood] = useState(false);
+    const [isSearchPage, setSearchPage] = useState(false);
+    const [isSettingsPage, setSettingsPage] = useState(false);
+    const [isBigPicture, setBigPicture] = useState(false);
+    const [bigPictureLink, setBigPictureLink] = useState('');
     let onMenuClick = () => {
-        setMenu((currentState) => (!currentState))
+        setMenu((v) => (!v))
         // console.log(menuActive)
         document.getElementById("main_app_p1").style.width = ((!menuActive) ? ("120px") : ("60px"))
         let displayState = ((!menuActive) ? ("block") : ("none"))
@@ -38,49 +45,71 @@ let MainApp = () => {
                     <div id='menu_icon_container' onClick={onMenuClick} className={`iconContainer ${(menuActive) ? "active" : ""}`}>
                         <img src={(menuActive) ? (menu_a) : (menu_ia)} alt="menu_icon" className='icon' draggable={false} />
                         <div className='iconTxtcontainer'><p className='iconTxt'>Menu</p></div>
-                        <div className='hintTxtcontainer'><p className='hintTxt'>Menu</p></div>
+                        <div className={`hintTxtcontainer ${(!menuActive) ? "menu_hint" : ""}`}><p className='hintTxt'>Menu</p></div>
                     </div>
-                    <div onClick={() => { setMainPage(0) }} className={`iconContainer ${(mainPage == 0) ? "active" : ""}`}>
+                    <div id='home_icon_container' onClick={() => { setMainPage(0) }} className={`iconContainer ${(mainPage == 0) ? "active" : ""}`}>
                         <img src={(mainPage == 0) ? (homeIcon_a) : (homeIcon_ia)} alt="home_icon" className='icon' draggable={false} />
                         <div className='iconTxtcontainer'><p className='iconTxt'>Home</p></div>
-                        <div className='hintTxtcontainer'><p className='hintTxt'>Home</p></div>
+                        <div className={`hintTxtcontainer ${(!menuActive) ? "home_hint" : ""}`}><p className='hintTxt'>Home</p></div>
                     </div>
-                    <div onClick={() => { setMainPage(1) }} className={`iconContainer ${(mainPage == 1) ? "active" : ""}`}>
+                    <div id='ai_icon_container' onClick={() => { setMainPage(1) }} className={`iconContainer ${(mainPage == 1) ? "active" : ""}`}>
                         <img src={(mainPage == 1) ? (ai_a) : (ai_ia)} alt="ai_icon" className='icon' draggable={false} />
                         <div className='iconTxtcontainer'><p className='iconTxt'>AI</p></div>
-                        <div className='hintTxtcontainer'><p className='hintTxt'>AI Activities</p></div>
+                        <div className={`hintTxtcontainer ${(!menuActive) ? "ai_hint" : ""}`}><p className='hintTxt'>AI</p></div>
                     </div>
-                    <div onClick={() => { setMainPage(2) }} className={`iconContainer ${(mainPage == 2) ? "active" : ""}`}>
+                    <div id='map_icon_container' onClick={() => { setMainPage(2) }} className={`iconContainer ${(mainPage == 2) ? "active" : ""}`}>
                         <img src={(mainPage == 2) ? (map_a) : (map_ia)} alt="map_icon" className='icon' draggable={false} />
                         <div className='iconTxtcontainer'><p className='iconTxt'>Map</p></div>
-                        <div className='hintTxtcontainer'><p className='hintTxt'>Find your map area</p></div>
+                        <div className={`hintTxtcontainer ${(!menuActive) ? "map_hint" : ""}`}><p className='hintTxt'>Map</p></div>
+                    </div>
+                    <div id='market_icon_container' onClick={() => { setMainPage(3) }} className={`iconContainer ${(mainPage == 3) ? "active" : ""}`}>
+                        <img src={(mainPage == 3) ? (market_a) : (market_ia)} alt="market_icon" className='icon' draggable={false} />
+                        <div className='iconTxtcontainer'><p className='iconTxt'>Market</p></div>
+                        <div className={`hintTxtcontainer ${(!menuActive) ? "market_hint" : ""}`}><p className='hintTxt'>Market</p></div>
                     </div>
                     <div id='main_app_p1_bottom'>
                         <div id='moon_icon_container' onClick={() => { setNightMood((currentState) => (!currentState)) }} className={`iconContainer ${(nightMood) ? "active" : ""}`}>
                             <img src={(nightMood) ? (moon_a) : (moon_ia)} alt="moon_icon" className='icon' draggable={false} />
                             <div className='iconTxtcontainer'><p className='iconTxt'>Night</p></div>
-                            <div className='hintTxtcontainer'><p className='hintTxt'>Night Mood</p></div>
+                            <div className={`hintTxtcontainer ${(!menuActive) ? "night_hint" : ""}`}><p className='hintTxt'>Night Mood</p></div>
                         </div>
                     </div>
                 </div>
                 <div id='main_app_p2'>
-                    <dev id='main_app_p2_top'>
+                    <div id='main_app_p2_top'>
                         <div id='main_app_p2_top_p1'><img src={webIcon} alt='web_icon' id='webIcon' /><h2>AgriVision</h2></div>
                         <div id='main_app_p2_top_p2'>
-                            <div className='iconContainer2'>
+                            <div className='iconContainer2' onClick={() => { setSettingsPage(true) }}>
                                 <img src={settings_ia} alt="settings_icon" draggable={false} className='icon2' />
                             </div>
-                            <div className='iconContainer2'>
+                            <div className='iconContainer2' onClick={() => { setSearchPage(true) }}>
                                 <img src={search_ia} alt="search_icon" draggable={false} className='icon2' />
                             </div>
                             <div className='iconContainer2'>
                                 <img src={userP} alt="user_icon" draggable={false} className='icon2' />
                             </div>
                         </div>
-                    </dev>
-                    <div id='main_app_p2_body'>
-                        {(mainPage == 1) ? (<AI_Disease_Detection />) : (<></>)}
                     </div>
+                    <div id='main_app_p2_body'>
+                        {(mainPage == 1) ? (<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />) : (mainPage == 3) ? (<Contract_Farming />) : (<></>)}
+                    </div>
+                </div>
+            </div>
+            <div className={`Search_page ${(isSearchPage) ? ("pageActive") : ("")}`} onClick={() => { setSearchPage(false) }}>
+                <div id='search_container' onClick={(v) => v.stopPropagation()}>
+                    <input type='search' placeholder='Search...' id='search_bar' />
+                    <div id='search_button'>
+                        <img src={search_ia} alt="search_icon" height={20} width={20} />
+                    </div>
+                </div>
+            </div>
+            <div className={`big_picture ${(isBigPicture) ? ("pageActive") : ("")}`} onClick={() => { setBigPicture(false) }}>
+                <div id='big_picture_container' onClick={(v) => v.stopPropagation()}>
+                    <img src={bigPictureLink} alt="big-picture" height={600} width={600} />
+                </div>
+            </div>
+            <div className={`Settings_page ${(isSettingsPage) ? ("pageActive") : ("")}`} onClick={() => { setSettingsPage(false) }}>
+                <div id='settings_container' onClick={(v) => v.stopPropagation()}>
                 </div>
             </div>
         </>

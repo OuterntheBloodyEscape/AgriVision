@@ -14,6 +14,11 @@ let Welcome = ({ cp }) => {
                     <div id='about'><p>About us</p><img src={info} height={20} width={20} draggable={false} /></div>
                     <div id='join' onClick={cl}><p>Join us </p><img src={up_right} height={20} width={20} draggable={false} /></div>
                 </div>
+                <div id='goal_section'>
+                    <div><h3>Our Goal:</h3></div>
+                    <div><p>To create a smart and connected agricultural platform that empowers farmers with AI technology,
+                        direct market access, real-time information, modern farming services, and transparent product traceability.</p></div>
+                </div>
             </div >
         </>
     );
