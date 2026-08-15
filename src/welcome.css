@@ -6,7 +6,6 @@
     background-position: center;
     position: absolute;
     animation: bg_image_anim 1s linear 2s forwards;
-
 }
 
 @keyframes bg_image_anim {
@@ -154,4 +153,10 @@ img {
     to {
         outline-offset: 7px;
     }
+}
+
+#goal_section {
+    position: absolute;
+    color: white;
+    bottom: 3%;
 }
