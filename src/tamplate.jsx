@@ -18,6 +18,7 @@ import search_ia from './assets/nav_icons/search_inactive.png'
 import userP from './assets/nav_icons/user.png'
 import AI_Disease_Detection from './AI_Disease_Detection.jsx'
 import Contract_Farming from './Contract_Farming.jsx'
+import Dashboard from './Dashboard.jsx'
 
 let MainApp = () => {
     const [mainPage, setMainPage] = useState(0);
@@ -91,7 +92,7 @@ let MainApp = () => {
                         </div>
                     </div>
                     <div id='main_app_p2_body'>
-                        {(mainPage == 1) ? (<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />) : (mainPage == 3) ? (<Contract_Farming />) : (<></>)}
+                        {(mainPage == 0) ? (<Dashboard />) : (mainPage == 1) ? (<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />) : (mainPage == 3) ? (<Contract_Farming />) : (<></>)}
                     </div>
                 </div>
             </div>
