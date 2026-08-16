@@ -20,6 +20,7 @@ import AI_Disease_Detection from './AI_Disease_Detection.jsx'
 import Contract_Farming from './Contract_Farming.jsx'
 import Dashboard from './Dashboard.jsx'
 
+
 let MainApp = () => {
     const [mainPage, setMainPage] = useState(0);
     const [menuActive, setMenu] = useState(false);
