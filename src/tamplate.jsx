@@ -1,4 +1,5 @@
 import './tamplate.css'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import homeIcon_ia from './assets/nav_icons/home_inactive.png'
 import homeIcon_a from './assets/nav_icons/home_active.png'
@@ -18,15 +19,13 @@ import search_ia from './assets/nav_icons/search_inactive.png'
 import userP from './assets/nav_icons/user.png'
 import AI_Disease_Detection from './AI_Disease_Detection.jsx'
 import Contract_Farming from './Contract_Farming.jsx'
-import Dashboard from './Dashboard.jsx'
-<<<<<<< Updated upstream
-import Live_MarketPrices from './Live_MarketPrices.jsx'
-=======
->>>>>>> Stashed changes
+
+
 
 let MainApp = () => {
-    
-    const [mainPage, setMainPage] = useState(0);
+    const nev = useNavigate()
+    const pathlocation = useLocation()
+    let pathName = pathlocation.pathname
     const [menuActive, setMenu] = useState(false);
     const [nightMood, setNightMood] = useState(false);
     const [isSearchPage, setSearchPage] = useState(false);
@@ -34,6 +33,7 @@ let MainApp = () => {
     const [isBigPicture, setBigPicture] = useState(false);
     const [bigPictureLink, setBigPictureLink] = useState('');
     const [marketPage, setMarketpage] = useState(0);
+    const mainSubPageLink = ['/MainPage/Home', '/MainPage/AI_Disease_Detection', '/MainPage/Map', '/MainPage/Contract_Farming']
     let onMenuClick = () => {
         setMenu((v) => (!v))
         // console.log(menuActive)
@@ -54,23 +54,23 @@ let MainApp = () => {
                         <div className='iconTxtcontainer'><p className='iconTxt'>Menu</p></div>
                         <div className={`hintTxtcontainer ${(!menuActive) ? "menu_hint" : ""}`}><p className='hintTxt'>Menu</p></div>
                     </div>
-                    <div id='home_icon_container' onClick={() => { setMainPage(0) }} className={`iconContainer ${(mainPage == 0) ? "active" : ""}`}>
-                        <img src={(mainPage == 0) ? (homeIcon_a) : (homeIcon_ia)} alt="home_icon" className='icon' draggable={false} />
+                    <div id='home_icon_container' onClick={() => { nev(mainSubPageLink[0]) }} className={`iconContainer ${(pathName == mainSubPageLink[0]) ? "active" : ""}`}>
+                        <img src={(pathName == mainSubPageLink[0]) ? (homeIcon_a) : (homeIcon_ia)} alt="home_icon" className='icon' draggable={false} />
                         <div className='iconTxtcontainer'><p className='iconTxt'>Home</p></div>
                         <div className={`hintTxtcontainer ${(!menuActive) ? "home_hint" : ""}`}><p className='hintTxt'>Home</p></div>
                     </div>
-                    <div id='ai_icon_container' onClick={() => { setMainPage(1) }} className={`iconContainer ${(mainPage == 1) ? "active" : ""}`}>
-                        <img src={(mainPage == 1) ? (ai_a) : (ai_ia)} alt="ai_icon" className='icon' draggable={false} />
+                    <div id='ai_icon_container' onClick={() => { nev(mainSubPageLink[1]); }} className={`iconContainer ${(pathName == mainSubPageLink[1]) ? "active" : ""}`}>
+                        <img src={(pathName == mainSubPageLink[1]) ? (ai_a) : (ai_ia)} alt="ai_icon" className='icon' draggable={false} />
                         <div className='iconTxtcontainer'><p className='iconTxt'>AI</p></div>
                         <div className={`hintTxtcontainer ${(!menuActive) ? "ai_hint" : ""}`}><p className='hintTxt'>AI</p></div>
                     </div>
-                    <div id='map_icon_container' onClick={() => { setMainPage(2) }} className={`iconContainer ${(mainPage == 2) ? "active" : ""}`}>
-                        <img src={(mainPage == 2) ? (map_a) : (map_ia)} alt="map_icon" className='icon' draggable={false} />
+                    <div id='map_icon_container' onClick={() => { nev(mainSubPageLink[2]); }} className={`iconContainer ${(pathName == mainSubPageLink[2]) ? "active" : ""}`}>
+                        <img src={(pathName == mainSubPageLink[2]) ? (map_a) : (map_ia)} alt="map_icon" className='icon' draggable={false} />
                         <div className='iconTxtcontainer'><p className='iconTxt'>Map</p></div>
                         <div className={`hintTxtcontainer ${(!menuActive) ? "map_hint" : ""}`}><p className='hintTxt'>Map</p></div>
                     </div>
-                    <div id='market_icon_container' onClick={() => { setMainPage(3) }} className={`iconContainer ${(mainPage == 3) ? "active" : ""}`}>
-                        <img src={(mainPage == 3) ? (market_a) : (market_ia)} alt="market_icon" className='icon' draggable={false} />
+                    <div id='market_icon_container' onClick={() => { nev(mainSubPageLink[3]); }} className={`iconContainer ${(pathName == mainSubPageLink[3]) ? "active" : ""}`}>
+                        <img src={(pathName == mainSubPageLink[3]) ? (market_a) : (market_ia)} alt="market_icon" className='icon' draggable={false} />
                         <div className='iconTxtcontainer'><p className='iconTxt'>Market</p></div>
                         <div className={`hintTxtcontainer ${(!menuActive) ? "market_hint" : ""}`}><p className='hintTxt'>Market</p></div>
                     </div>
@@ -112,12 +112,13 @@ let MainApp = () => {
                         </div>
 
                     </div>
-                    <div id='main_app_p2_body'>
-<<<<<<< Updated upstream
-                        {(mainPage == 0) ? (<Dashboard />) : (mainPage == 1) ? (<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />) : (mainPage == 3) ? ((marketPage == 0) ? (<Contract_Farming />) : (<Live_MarketPrices />)) : (<></>)}
-=======
-                        {(mainPage == 0) ? (<Dashboard />) : (mainPage == 1) ? (<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />) : (mainPage == 3) ? (<Contract_Farming />) : (<></>)}
->>>>>>> Stashed changes
+                    <div id='main_app_p2_body'>                 
+                        <Routes>
+                            <Route path='Home' element={<></>} />
+                            <Route path='AI_Disease_Detection' element={<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />} />
+                            <Route path='Map' element={<></>} />
+                            <Route path='Contract_Farming' element={<Contract_Farming />} />
+                        </Routes>
                     </div>
                 </div>
             </div>
