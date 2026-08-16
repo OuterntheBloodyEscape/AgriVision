@@ -103,14 +103,50 @@
 }
 
 #main_app_p2_top_p2 {
+    height: 40px;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+}
+
+#main_app_p2_top_p2_1 {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 12px;
-    margin-right: 12px;
-    position: absolute;
-    right: 0px;
+    flex: 1;
+}
+
+#main_app_p2_top_p2_2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.P2_2_1_button {
+    padding: 10px;
+    margin: 10px;
+    background-color: white;
+    border: 0px solid transparent;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.P2_2_1_button:hover {
+    outline: 1px solid #29854D;
+    outline-offset: 5px;
+}
+
+.P2_2_1_button:active {
+    background-color: #29854ca8;
+    color: white;
+}
+
+.P2_2_1_button:focus {
+    outline: 1px solid #29854D;
 }
 
 .icon2 {

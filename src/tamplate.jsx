@@ -20,6 +20,8 @@ import userP from './assets/nav_icons/user.png'
 import AI_Disease_Detection from './AI_Disease_Detection.jsx'
 import Contract_Farming from './Contract_Farming.jsx'
 
+
+
 let MainApp = () => {
     const nev = useNavigate()
     const pathlocation = useLocation()
@@ -30,6 +32,7 @@ let MainApp = () => {
     const [isSettingsPage, setSettingsPage] = useState(false);
     const [isBigPicture, setBigPicture] = useState(false);
     const [bigPictureLink, setBigPictureLink] = useState('');
+    const [marketPage, setMarketpage] = useState(0);
     const mainSubPageLink = ['/MainPage/Home', '/MainPage/AI_Disease_Detection', '/MainPage/Map', '/MainPage/Contract_Farming']
     let onMenuClick = () => {
         setMenu((v) => (!v))
@@ -81,20 +84,35 @@ let MainApp = () => {
                 </div>
                 <div id='main_app_p2'>
                     <div id='main_app_p2_top'>
-                        <div id='main_app_p2_top_p1'><img src={webIcon} alt='web_icon' id='webIcon' /><h2>AgriVision</h2></div>
+                        <div id='main_app_p2_top_p1'>
+                            <img src={webIcon} alt='web_icon' id='webIcon' />
+                            <h2>AgriVision</h2>
+                        </div>
                         <div id='main_app_p2_top_p2'>
-                            <div className='iconContainer2' onClick={() => { setSettingsPage(true) }}>
-                                <img src={settings_ia} alt="settings_icon" draggable={false} className='icon2' />
+                            <div id='main_app_p2_top_p2_1'>
+                                {(mainPage == 3) ? (
+                                    <>
+                                        <button className='P2_2_1_button' onClick={() => { setMarketpage(0) }}>Contract Farming</button>
+                                        <button className='P2_2_1_button' onClick={() => { setMarketpage(1) }}>Live Market Prices</button>
+                                    </>
+                                ) : (<></>)}
+
                             </div>
-                            <div className='iconContainer2' onClick={() => { setSearchPage(true) }}>
-                                <img src={search_ia} alt="search_icon" draggable={false} className='icon2' />
-                            </div>
-                            <div className='iconContainer2'>
-                                <img src={userP} alt="user_icon" draggable={false} className='icon2' />
+                            <div id='main_app_p2_top_p2_2'>
+                                <div className='iconContainer2' onClick={() => { setSettingsPage(true) }}>
+                                    <img src={settings_ia} alt="settings_icon" draggable={false} className='icon2' />
+                                </div>
+                                <div className='iconContainer2' onClick={() => { setSearchPage(true) }}>
+                                    <img src={search_ia} alt="search_icon" draggable={false} className='icon2' />
+                                </div>
+                                <div className='iconContainer2'>
+                                    <img src={userP} alt="user_icon" draggable={false} className='icon2' />
+                                </div>
                             </div>
                         </div>
+
                     </div>
-                    <div id='main_app_p2_body'>
+                    <div id='main_app_p2_body'>                 
                         <Routes>
                             <Route path='Home' element={<></>} />
                             <Route path='AI_Disease_Detection' element={<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />} />

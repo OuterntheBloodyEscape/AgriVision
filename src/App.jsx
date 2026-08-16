@@ -4,6 +4,7 @@ import './App.css'
 import WelcomeScreen from './welcome.jsx'
 import Login from './login.jsx';
 import MainApp from './tamplate.jsx';
+import Registration from './registration.jsx';
 function App() {
 
   return (
