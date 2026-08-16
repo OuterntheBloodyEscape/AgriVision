@@ -90,7 +90,7 @@ let MainApp = () => {
                         </div>
                         <div id='main_app_p2_top_p2'>
                             <div id='main_app_p2_top_p2_1'>
-                                {(mainPage == 3) ? (
+                                {(pathName === mainSubPageLink[3]) ? (
                                     <>
                                         <button className='P2_2_1_button' onClick={() => { setMarketpage(0) }}>Contract Farming</button>
                                         <button className='P2_2_1_button' onClick={() => { setMarketpage(1) }}>Live Market Prices</button>
