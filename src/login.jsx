@@ -46,8 +46,10 @@ let Login = () => {
                             <h1 id='Login_heading'>Login you account</h1>
                         </div>
                         <div id='form_container'>
-                            <form autoComplete='on' id='login_form' onSubmit={(e) => { e.preventDefault(); nev('/MainPage/Home') }} autoSave='off'>
-                                <label htmlFor='user_email' className='form_label'>Email: </label>
+                            <form autoComplete='on' id='login_form' onSubmit={(e) => {
+                                e.preventDefault(); nev('/MainPage/')
+                            }} autoSave='off'>
+                                < label htmlFor='user_email' className='form_label' > Email: </label>
                                 <input name='user_email' id='user_email' type='email' placeholder='example@mail.com' required autoFocus />
                                 <label htmlFor='user_pass' className='form_label'>Password: </label>
                                 <input name='user_pass' id='user_pass' type='password' placeholder='Your Account Password' minLength={8} maxLength={16} required />
@@ -55,9 +57,9 @@ let Login = () => {
                             </form>
                         </div>
                         <div id='lcp2_bottom_txt'><p>Don't have any account? </p><a href=''>Regis</a></div>
-                    </div>
-                </dev>
-            </div>
+                    </div >
+                </dev >
+            </div >
         </>
     );
 }
