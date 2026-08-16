@@ -19,7 +19,6 @@ import search_ia from './assets/nav_icons/search_inactive.png'
 import userP from './assets/nav_icons/user.png'
 import AI_Disease_Detection from './AI_Disease_Detection.jsx'
 import Contract_Farming from './Contract_Farming.jsx'
-<<<<<<< Updated upstream
 
 
 
@@ -27,13 +26,6 @@ let MainApp = () => {
     const nev = useNavigate()
     const pathlocation = useLocation()
     let pathName = pathlocation.pathname
-=======
-import Dashboard from './Dashboard.jsx'
-
-let MainApp = () => {
-
-    const [mainPage, setMainPage] = useState(0);
->>>>>>> Stashed changes
     const [menuActive, setMenu] = useState(false);
     const [nightMood, setNightMood] = useState(false);
     const [isSearchPage, setSearchPage] = useState(false);
@@ -118,9 +110,7 @@ let MainApp = () => {
                                 </div>
                             </div>
                         </div>
-
                     </div>
-<<<<<<< Updated upstream
                     <div id='main_app_p2_body'>                 
                         <Routes>
                             <Route path='Home' element={<></>} />
@@ -128,10 +118,6 @@ let MainApp = () => {
                             <Route path='Map' element={<></>} />
                             <Route path='Contract_Farming' element={<Contract_Farming />} />
                         </Routes>
-=======
-                    <div id='main_app_p2_body'>
-                        {(mainPage == 0) ? (<Dashboard />) : (mainPage == 1) ? (<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />) : (mainPage == 3) ? (<Contract_Farming />) : (<></>)}
->>>>>>> Stashed changes
                     </div>
                 </div>
             </div>
