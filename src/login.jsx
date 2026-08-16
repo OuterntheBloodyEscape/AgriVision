@@ -56,7 +56,7 @@ let Login = () => {
                                 <div id='form_submit_container'><input type='submit' id='form_submit'></input></div>
                             </form>
                         </div>
-                        <div id='lcp2_bottom_txt'><p>Don't have any account? </p><a href=''>Regis</a></div>
+                        <div id='lcp2_bottom_txt'><p>Don't have any account? </p><a href='/Registration'>Registration</a></div>
                     </div >
                 </dev >
             </div >
