@@ -112,7 +112,7 @@ let MainApp = () => {
                         </div>
 
                     </div>
-                    <div id='main_app_p2_body'>                 
+                    <div id='main_app_p2_body'>
                         <Routes>
                             <Route path='Home' element={<></>} />
                             <Route path='AI_Disease_Detection' element={<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />} />
