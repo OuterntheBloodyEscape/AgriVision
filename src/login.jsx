@@ -47,7 +47,7 @@ let Login = () => {
                         </div>
                         <div id='form_container'>
                             <form autoComplete='on' id='login_form' onSubmit={(e) => {
-                                e.preventDefault(); nev('/MainPage/')
+                                e.preventDefault(); nev('/MainPage/Home')
                             }} autoSave='off'>
                                 < label htmlFor='user_email' className='form_label' > Email: </label>
                                 <input name='user_email' id='user_email' type='email' placeholder='example@mail.com' required autoFocus />
