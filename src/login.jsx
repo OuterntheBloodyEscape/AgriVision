@@ -13,6 +13,7 @@ let Login = ({ cp }) => {
     const [photoIndex, setIndex] = useState(0);
 
 
+
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((currentIndex) => {
@@ -57,7 +58,7 @@ let Login = ({ cp }) => {
                                 <div id='form_submit_container'><input type='submit' id='form_submit'></input></div>
                             </form>
                         </div>
-                        <div id='lcp2_bottom_txt'><p>Don't have any account? </p><a href=''>Regis</a></div>
+                        <div id='lcp2_bottom_txt'><p>Don't have any account? </p><a href='#' onClick={(e) => {e.preventDefault(); cp(2) }}>Registration</a></div>
                     </div>
                 </dev>
             </div>

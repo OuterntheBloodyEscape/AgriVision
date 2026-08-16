@@ -21,8 +21,8 @@ import Contract_Farming from './Contract_Farming.jsx'
 import Dashboard from './Dashboard.jsx'
 import Live_MarketPrices from './Live_MarketPrices.jsx'
 
-
 let MainApp = () => {
+    
     const [mainPage, setMainPage] = useState(0);
     const [menuActive, setMenu] = useState(false);
     const [nightMood, setNightMood] = useState(false);
