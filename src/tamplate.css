@@ -131,7 +131,7 @@
     margin: 10px;
     background-color: white;
     border: 0px solid transparent;
-    border-radius: 10px;
+    border-radius: 20px;
     text-align: center;
 }
 
@@ -143,6 +143,10 @@
 .P2_2_1_button:active {
     background-color: #29854ca8;
     color: white;
+}
+
+.P2_2_1_button:focus {
+    outline: 1px solid #29854D;
 }
 
 .icon2 {
