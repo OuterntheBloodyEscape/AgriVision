@@ -19,7 +19,10 @@ import userP from './assets/nav_icons/user.png'
 import AI_Disease_Detection from './AI_Disease_Detection.jsx'
 import Contract_Farming from './Contract_Farming.jsx'
 import Dashboard from './Dashboard.jsx'
+<<<<<<< Updated upstream
 import Live_MarketPrices from './Live_MarketPrices.jsx'
+=======
+>>>>>>> Stashed changes
 
 let MainApp = () => {
     
@@ -110,7 +113,11 @@ let MainApp = () => {
 
                     </div>
                     <div id='main_app_p2_body'>
+<<<<<<< Updated upstream
                         {(mainPage == 0) ? (<Dashboard />) : (mainPage == 1) ? (<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />) : (mainPage == 3) ? ((marketPage == 0) ? (<Contract_Farming />) : (<Live_MarketPrices />)) : (<></>)}
+=======
+                        {(mainPage == 0) ? (<Dashboard />) : (mainPage == 1) ? (<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />) : (mainPage == 3) ? (<Contract_Farming />) : (<></>)}
+>>>>>>> Stashed changes
                     </div>
                 </div>
             </div>
