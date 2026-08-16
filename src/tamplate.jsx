@@ -19,6 +19,7 @@ import userP from './assets/nav_icons/user.png'
 import AI_Disease_Detection from './AI_Disease_Detection.jsx'
 import Contract_Farming from './Contract_Farming.jsx'
 import Dashboard from './Dashboard.jsx'
+import Live_MarketPrices from './Live_MarketPrices.jsx'
 
 
 let MainApp = () => {
@@ -29,6 +30,7 @@ let MainApp = () => {
     const [isSettingsPage, setSettingsPage] = useState(false);
     const [isBigPicture, setBigPicture] = useState(false);
     const [bigPictureLink, setBigPictureLink] = useState('');
+    const [marketPage, setMarketpage] = useState(0);
     let onMenuClick = () => {
         setMenu((v) => (!v))
         // console.log(menuActive)
@@ -79,21 +81,36 @@ let MainApp = () => {
                 </div>
                 <div id='main_app_p2'>
                     <div id='main_app_p2_top'>
-                        <div id='main_app_p2_top_p1'><img src={webIcon} alt='web_icon' id='webIcon' /><h2>AgriVision</h2></div>
+                        <div id='main_app_p2_top_p1'>
+                            <img src={webIcon} alt='web_icon' id='webIcon' />
+                            <h2>AgriVision</h2>
+                        </div>
                         <div id='main_app_p2_top_p2'>
-                            <div className='iconContainer2' onClick={() => { setSettingsPage(true) }}>
-                                <img src={settings_ia} alt="settings_icon" draggable={false} className='icon2' />
+                            <div id='main_app_p2_top_p2_1'>
+                                {(mainPage == 3) ? (
+                                    <>
+                                        <button className='P2_2_1_button' onClick={() => { setMarketpage(0) }}>Contract Farming</button>
+                                        <button className='P2_2_1_button' onClick={() => { setMarketpage(1) }}>Live Market Prices</button>
+                                    </>
+                                ) : (<></>)}
+
                             </div>
-                            <div className='iconContainer2' onClick={() => { setSearchPage(true) }}>
-                                <img src={search_ia} alt="search_icon" draggable={false} className='icon2' />
-                            </div>
-                            <div className='iconContainer2'>
-                                <img src={userP} alt="user_icon" draggable={false} className='icon2' />
+                            <div id='main_app_p2_top_p2_2'>
+                                <div className='iconContainer2' onClick={() => { setSettingsPage(true) }}>
+                                    <img src={settings_ia} alt="settings_icon" draggable={false} className='icon2' />
+                                </div>
+                                <div className='iconContainer2' onClick={() => { setSearchPage(true) }}>
+                                    <img src={search_ia} alt="search_icon" draggable={false} className='icon2' />
+                                </div>
+                                <div className='iconContainer2'>
+                                    <img src={userP} alt="user_icon" draggable={false} className='icon2' />
+                                </div>
                             </div>
                         </div>
+
                     </div>
                     <div id='main_app_p2_body'>
-                        {(mainPage == 0) ? (<Dashboard />) : (mainPage == 1) ? (<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />) : (mainPage == 3) ? (<Contract_Farming />) : (<></>)}
+                        {(mainPage == 0) ? (<Dashboard />) : (mainPage == 1) ? (<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />) : (mainPage == 3) ? ((marketPage == 0) ? (<Contract_Farming />) : (<Live_MarketPrices />)) : (<></>)}
                     </div>
                 </div>
             </div>
