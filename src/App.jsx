@@ -1,18 +1,19 @@
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
 import WelcomeScreen from './welcome.jsx'
 import Login from './login.jsx';
 import MainApp from './tamplate.jsx';
 function App() {
-  const [page, setPage] = useState(0);
+
   return (
-    (page == 0) ? (
-      <WelcomeScreen cp={setPage} />
-    ) : ((page == 1) ? (
-      <Login cp={setPage} />
-    ) : (
-      <MainApp />
-    ))
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<WelcomeScreen />} />
+        <Route path='/LoginPage' element={<Login />} />
+        <Route path='/MainPage/*' element={<MainApp />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

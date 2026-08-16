@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router-dom'
 import info from './assets/info-recolored.png'
 import up_right from './assets/up-right-arrow.png'
 import './welcome.css'
-let Welcome = ({ cp }) => {
-    let cl = () => {
-        cp(1);
+let Welcome = () => {
+    const navigate = useNavigate();
+    const cl = () => {
+        navigate('/LoginPage');
     }
     return (
         <>
