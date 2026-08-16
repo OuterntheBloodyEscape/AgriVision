@@ -30,6 +30,11 @@
     align-items: center;
 }
 
+#login_photo_display_img {
+    width: 300px;
+    height: 300px;
+}
+
 #login_photo_display {
     width: 300px;
     height: 300px;
@@ -176,4 +181,107 @@ a:link {
 
 a:visited {
     color: rgb(255, 153, 0);
+}
+
+@media (max-width: 768px) {
+    #login_container {
+        flex-direction: column;
+        height: 850px;
+        width: 350;
+    }
+
+    #lcp2 {
+        height: 500px;
+        width: 350px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+    }
+
+    #lcp1 {
+        height: 350px;
+        width: 350px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    #login_photo_display_img {
+        width: 180px;
+        height: 180px;
+    }
+
+    #login_photo_display {
+        width: 200px;
+        height: 200px;
+    }
+
+    #login_photo_change_bar {
+        width: 150px;
+        height: 50px;
+    }
+
+    .login_change_bar {
+        height: 10px;
+        width: 10px;
+        margin: 5px;
+    }
+
+    #Login_heading_container {
+        width: 270px;
+        top: -30px;
+    }
+
+    #form_submit {
+        width: 280px;
+    }
+
+}
+
+@media (max-width:992px) {
+    #login_container {
+        height: 460px;
+        width: 700px;
+    }
+
+    #lcp2,
+    #lcp1 {
+        width: 350px;
+    }
+
+    #login_photo_display_img {
+        width: 200px;
+        height: 200px;
+    }
+
+    #login_photo_display {
+        width: 200px;
+        height: 200px;
+    }
+
+    #login_photo_change_bar {
+        width: 150px;
+        height: 50px;
+    }
+
+    .login_change_bar {
+        height: 10px;
+        width: 10px;
+        margin: 5px;
+    }
+
+    #Login_heading_container {
+        width: 270px;
+        top: -30px;
+    }
+
+    #form_submit {
+        width: 280px;
+    }
+
+    #form_container {
+        margin-bottom: 8px;
+    }
 }

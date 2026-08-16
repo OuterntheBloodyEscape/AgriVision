@@ -98,7 +98,28 @@
 #Contract_Farming_others_bottom_cc {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    overflow-y: auto;
+    overflow: auto;
+}
+
+@media (max-width: 1900px) {
+    #Contract_Farming_others_bottom_cc {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width: 1420px) {
+    #Contract_Farming_others_bottom_cc {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    #Contract_Farming_others_bottom_cc {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
 }
 
 .CFC_div {

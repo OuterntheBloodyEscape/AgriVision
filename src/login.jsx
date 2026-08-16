@@ -33,7 +33,7 @@ let Login = ({ cp }) => {
                 <dev id='login_container'>
                     <div id='lcp1'>
                         <div id='login_photo_display'>
-                            <img src={slidephotos[photoIndex]} alt="photo_display" height={300} width={300} />
+                            <img src={slidephotos[photoIndex]} alt="photo_display" id='login_photo_display_img' />
                         </div>
                         <div id='login_photo_change_bar'>
                             <input type='radio' checked={(photoIndex == 0)} className='login_change_bar' />

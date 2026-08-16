@@ -19,6 +19,7 @@ import userP from './assets/nav_icons/user.png'
 import AI_Disease_Detection from './AI_Disease_Detection.jsx'
 import Contract_Farming from './Contract_Farming.jsx'
 
+
 let MainApp = () => {
     const [mainPage, setMainPage] = useState(0);
     const [menuActive, setMenu] = useState(false);
