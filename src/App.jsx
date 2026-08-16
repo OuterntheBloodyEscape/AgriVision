@@ -12,6 +12,7 @@ function App() {
       <Routes>
         <Route path='/' element={<WelcomeScreen />} />
         <Route path='/LoginPage' element={<Login />} />
+        <Route path='/Registration' element={<Registration />} />
         <Route path='/MainPage/*' element={<MainApp />} />
       </Routes>
     </BrowserRouter>

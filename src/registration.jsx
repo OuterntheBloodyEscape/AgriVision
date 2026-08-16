@@ -53,7 +53,7 @@ function Registration({ cp }) {
 
             <div>
               <span className="already">
-                Already have an account?<a href="#" onClick={(e) => { e.preventDefault(); cp(1); }}> Log in</a>
+                Already have an account?<a href="/LoginPage"> Log in</a>
               </span>
             </div>
           </div>

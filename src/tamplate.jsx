@@ -19,6 +19,7 @@ import search_ia from './assets/nav_icons/search_inactive.png'
 import userP from './assets/nav_icons/user.png'
 import AI_Disease_Detection from './AI_Disease_Detection.jsx'
 import Contract_Farming from './Contract_Farming.jsx'
+import Dashboard from './Dashboard.jsx'
 
 
 
@@ -114,7 +115,7 @@ let MainApp = () => {
                     </div>
                     <div id='main_app_p2_body'>
                         <Routes>
-                            <Route path='Home' element={<></>} />
+                            <Route path='Home' element={<Dashboard />} />
                             <Route path='AI_Disease_Detection' element={<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />} />
                             <Route path='Map' element={<></>} />
                             <Route path='Contract_Farming' element={<Contract_Farming />} />
