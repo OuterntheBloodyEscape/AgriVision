@@ -1,5 +1,5 @@
-.regbody {
-  height: 100%;
+.registration-page{
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

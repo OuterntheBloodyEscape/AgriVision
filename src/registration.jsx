@@ -5,7 +5,7 @@ import AgriVisionLogo from './assets/Agri_Vision_logo-main.png'
 function Registration({ cp }) {
   return (
     <>
-      <div className="regbody">
+      <div className="registration-page">
         <div className="registration-page-container">
 
           <div className="container1">
