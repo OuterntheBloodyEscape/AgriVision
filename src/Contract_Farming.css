@@ -98,7 +98,6 @@
 #Contract_Farming_others_bottom_cc {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    overflow: auto;
 }
 
 @media (max-width: 1900px) {
