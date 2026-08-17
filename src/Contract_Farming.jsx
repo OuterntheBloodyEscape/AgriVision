@@ -4,11 +4,11 @@ import list_search from './assets/nav_icons/list_search.png'
 import rating from './assets/star.png'
 
 let Contract_Farming = () => {
-    const [Card_Titel, setCardTitle] = useState(["Need Tomato", "Mango Required", "Alu Needed", "Rice Required", "Cucumber Needed", "Banana Needed"]);
-    const [Companys, setCompanys] = useState(["ABC", "XYZ", "potato", "AgroMart", "Fresh BD", "AgroMart"]);
-    const [amount, setAmount] = useState(["100", "50", "1000", "2000", "200", "120"]);
-    const [price, setPrice] = useState(["50", "70", "30", '60', '30', '120']);
-    const [Card_rating, setRating] = useState(["4.8", "4.5", "4.7", "3.9", "4.2", "4.5"]);
+    const [Card_Titel, setCardTitle] = useState(["Need Tomato", "Mango Required", "Alu Needed", "Rice Required", "Cucumber Needed", "Banana Needed", "Banana Needed", "Banana Needed", "Banana Needed", "Banana Needed", "Rice Required", "Rice Required", "Rice Required", "Rice Required"]);
+    const [Companys, setCompanys] = useState(["ABC", "XYZ", "potato", "AgroMart", "Fresh BD", "AgroMart", "AgroMart", "AgroMart", "AgroMart", "AgroMart", "ABC", "ABC", "ABC", "ABC"]);
+    const [amount, setAmount] = useState(["100", "50", "1000", "2000", "200", "120", "200", "200", "200", "200", "1000", "1000", "1000", "1000"]);
+    const [price, setPrice] = useState(["50", "70", "30", '60', '30', '120', '60', '60', '60', '60', '90', '80', '80', '72']);
+    const [Card_rating, setRating] = useState(["4.8", "4.5", "4.7", "3.9", "4.2", "4.5", "4.2", "4.2", "4.2", "4.2", "4.7", "4.2", "4.5", "3.7"]);
 
     return (
         <>
