@@ -86,6 +86,14 @@
     overflow-x: hidden;
 }
 
+#main_app_p2_body::-webkit-scrollbar {
+    width: 5px;
+}
+
+#main_app_p2_body::-webkit-scrollbar-thumb {
+    background: #29854D;
+}
+
 #webIcon {
     height: 40px;
     width: 40px;
