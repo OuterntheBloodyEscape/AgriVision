@@ -21,6 +21,7 @@ import AI_Disease_Detection from './AI_Disease_Detection.jsx'
 import Contract_Farming from './Contract_Farming.jsx'
 import Dashboard from './Dashboard.jsx'
 import Contract_Farming_my from './Contract_Farming_my.jsx'
+import Live_MarketPrices from './Live_MarketPrices.jsx'
 
 
 
@@ -35,7 +36,7 @@ let MainApp = () => {
     const [isBigPicture, setBigPicture] = useState(false);
     const [bigPictureLink, setBigPictureLink] = useState('');
     const [marketPage, setMarketpage] = useState(0);
-    const mainSubPageLink = ['/MainPage/Home', '/MainPage/AI_Disease_Detection', '/MainPage/Map', '/MainPage/Contract_Farming']
+    const mainSubPageLink = ['/MainPage/Home', '/MainPage/AI_Disease_Detection', '/MainPage/Map', '/MainPage/Contract_Farming', '/MainPage/Live_Market_Prices']
     let onMenuClick = () => {
         setMenu((v) => (!v))
         // console.log(menuActive)
@@ -46,6 +47,10 @@ let MainApp = () => {
         it[4].style.display = it[3].style.display = it[2].style.display = it[1].style.display = it[0].style.display = displayState
         let ic = document.getElementsByClassName("iconContainer")
         ic[4].style.width = ic[3].style.width = ic[2].style.width = ic[1].style.width = ic[0].style.width = displaySize
+    }
+
+    const checkInMarket = () => {
+        return (pathName == mainSubPageLink[3]) || (pathName == mainSubPageLink[4]) || (pathName == '/MainPage/Contract_Farming_my')
     }
     return (
         <>
@@ -71,8 +76,8 @@ let MainApp = () => {
                         <div className='iconTxtcontainer'><p className='iconTxt'>Map</p></div>
                         <div className={`hintTxtcontainer ${(!menuActive) ? "map_hint" : ""}`}><p className='hintTxt'>Map</p></div>
                     </div>
-                    <div id='market_icon_container' onClick={() => { nev(mainSubPageLink[3]); }} className={`iconContainer ${(pathName == mainSubPageLink[3] || pathName == '/MainPage/Contract_Farming_my') ? "active" : ""}`}>
-                        <img src={(pathName == mainSubPageLink[3] || pathName == '/MainPage/Contract_Farming_my') ? (market_a) : (market_ia)} alt="market_icon" className='icon' draggable={false} />
+                    <div id='market_icon_container' onClick={() => { nev(mainSubPageLink[4]); }} className={`iconContainer ${(checkInMarket()) ? "active" : ""}`}>
+                        <img src={(checkInMarket()) ? (market_a) : (market_ia)} alt="market_icon" className='icon' draggable={false} />
                         <div className='iconTxtcontainer'><p className='iconTxt'>Market</p></div>
                         <div className={`hintTxtcontainer ${(!menuActive) ? "market_hint" : ""}`}><p className='hintTxt'>Market</p></div>
                     </div>
@@ -92,10 +97,11 @@ let MainApp = () => {
                         </div>
                         <div id='main_app_p2_top_p2'>
                             <div id='main_app_p2_top_p2_1'>
-                                {(pathName === mainSubPageLink[3]) ? (
+                                {(checkInMarket()) ? (
                                     <>
-                                        <button className='P2_2_1_button' onClick={() => { setMarketpage(0) }}>Contract Farming</button>
-                                        <button className='P2_2_1_button' onClick={() => { setMarketpage(1) }}>Live Market Prices</button>
+                                        <button className='P2_2_1_button' onClick={() => { nev(mainSubPageLink[4]) }}>Live Market Prices</button>
+                                        <button className='P2_2_1_button' onClick={() => { nev(mainSubPageLink[3]) }}>Contract Farming</button>
+
                                     </>
                                 ) : (<></>)}
 
@@ -121,6 +127,7 @@ let MainApp = () => {
                             <Route path='Map' element={<></>} />
                             <Route path='Contract_Farming' element={<Contract_Farming />} />
                             <Route path='Contract_Farming_my' element={<Contract_Farming_my />} />
+                            <Route path='Live_Market_Prices' element={<Live_MarketPrices />} />
                         </Routes>
                     </div>
                 </div>
