@@ -49,7 +49,9 @@ let Contract_Farming = () => {
                                 </div>))
                         }
                     </div>
+
                 </div>
+                <div id='Contract_Farming_end'></div>
             </div>
         </>
     );

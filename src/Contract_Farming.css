@@ -2,6 +2,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    user-select: none;
 }
 
 #Contract_Farming_others_top {
@@ -23,6 +24,11 @@
     margin: 20px;
     margin-top: 0px;
     border-radius: 20px;
+    padding-bottom: 20px;
+}
+
+#Contract_Farming_end {
+    border: 1px solid transparent;
 }
 
 #search_div {
