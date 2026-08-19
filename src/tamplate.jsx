@@ -20,6 +20,7 @@ import userP from './assets/nav_icons/user.png'
 import AI_Disease_Detection from './AI_Disease_Detection.jsx'
 import Contract_Farming from './Contract_Farming.jsx'
 import Dashboard from './Dashboard.jsx'
+import Contract_Farming_my from './Contract_Farming_my.jsx'
 import Live_MarketPrices from './Live_MarketPrices.jsx'
 
 
@@ -49,7 +50,7 @@ let MainApp = () => {
     }
 
     const checkInMarket = () => {
-        return (pathName == mainSubPageLink[3]) || (pathName == mainSubPageLink[4])
+        return (pathName == mainSubPageLink[3]) || (pathName == mainSubPageLink[4]) || (pathName == '/MainPage/Contract_Farming_my')
     }
     return (
         <>
@@ -125,6 +126,7 @@ let MainApp = () => {
                             <Route path='AI_Disease_Detection' element={<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />} />
                             <Route path='Map' element={<></>} />
                             <Route path='Contract_Farming' element={<Contract_Farming />} />
+                            <Route path='Contract_Farming_my' element={<Contract_Farming_my />} />
                             <Route path='Live_Market_Prices' element={<Live_MarketPrices />} />
                         </Routes>
                     </div>
