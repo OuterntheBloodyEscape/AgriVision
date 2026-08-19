@@ -20,6 +20,7 @@ import userP from './assets/nav_icons/user.png'
 import AI_Disease_Detection from './AI_Disease_Detection.jsx'
 import Contract_Farming from './Contract_Farming.jsx'
 import Dashboard from './Dashboard.jsx'
+import Contract_Farming_my from './Contract_Farming_my.jsx'
 
 
 
@@ -70,8 +71,8 @@ let MainApp = () => {
                         <div className='iconTxtcontainer'><p className='iconTxt'>Map</p></div>
                         <div className={`hintTxtcontainer ${(!menuActive) ? "map_hint" : ""}`}><p className='hintTxt'>Map</p></div>
                     </div>
-                    <div id='market_icon_container' onClick={() => { nev(mainSubPageLink[3]); }} className={`iconContainer ${(pathName == mainSubPageLink[3]) ? "active" : ""}`}>
-                        <img src={(pathName == mainSubPageLink[3]) ? (market_a) : (market_ia)} alt="market_icon" className='icon' draggable={false} />
+                    <div id='market_icon_container' onClick={() => { nev(mainSubPageLink[3]); }} className={`iconContainer ${(pathName == mainSubPageLink[3] || pathName == '/MainPage/Contract_Farming_my') ? "active" : ""}`}>
+                        <img src={(pathName == mainSubPageLink[3] || pathName == '/MainPage/Contract_Farming_my') ? (market_a) : (market_ia)} alt="market_icon" className='icon' draggable={false} />
                         <div className='iconTxtcontainer'><p className='iconTxt'>Market</p></div>
                         <div className={`hintTxtcontainer ${(!menuActive) ? "market_hint" : ""}`}><p className='hintTxt'>Market</p></div>
                     </div>
@@ -119,6 +120,7 @@ let MainApp = () => {
                             <Route path='AI_Disease_Detection' element={<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />} />
                             <Route path='Map' element={<></>} />
                             <Route path='Contract_Farming' element={<Contract_Farming />} />
+                            <Route path='Contract_Farming_my' element={<Contract_Farming_my />} />
                         </Routes>
                     </div>
                 </div>

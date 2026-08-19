@@ -63,6 +63,11 @@
     margin-right: 15px;
 }
 
+#list_search_div:hover {
+    background-color: #063620;
+    transition: background-color 300ms ease-in;
+}
+
 #cf_others_div {
     display: flex;
     flex-direction: row-reverse;
@@ -85,6 +90,15 @@
     padding: 10px;
     text-align: center;
     cursor: pointer;
+}
+
+#My_list_button:hover {
+    background-color: #063620;
+    transition: background-color 300ms ease-in;
+}
+
+#My_list_button:active {
+    background-color: black;
 }
 
 #cf_sort {
@@ -136,6 +150,11 @@
     border-radius: 20px;
     display: flex;
     flex-direction: row;
+    cursor: pointer;
+}
+
+.CFC_div:hover {
+    transform: scale(1.01);
 }
 
 .rating_div {
@@ -180,6 +199,15 @@
     cursor: pointer;
 }
 
+.cf_apply_button:hover {
+    background-color: #063620;
+    transition: background-color 300ms ease-in;
+}
+
+.cf_apply_button:active {
+    background-color: black;
+}
+
 .cf_more_info {
     width: 120px;
     background-color: white;
@@ -189,4 +217,10 @@
     padding: 10px;
     margin-top: 15px;
     cursor: pointer;
+}
+
+.cf_more_info:hover {
+    background-color: rgba(191, 226, 180, 0.877);
+    color: #29854D;
+    transition: background-color 300ms ease-in, color 300ms ease-out;
 }
