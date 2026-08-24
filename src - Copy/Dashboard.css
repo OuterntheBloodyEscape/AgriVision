@@ -1,0 +1,86 @@
+ @import url("https://fonts.googleapis.com/scc2?family=Poppins:wght@300,400,500,600,700,800&display=swap");
+
+ /*-------------------------Root Variables----------------------------*/
+ :root {
+   --color-primary: #7380ec;
+   --color-danger: #ff7782;
+   --color-success: #41f1b6;
+   --color-warning: #ffbb55;
+   --color-white: #fff;
+   --color-info-dark: #7d8da1;
+   --color-info-light: #dce1eb;
+   --color-dark: #363949;
+   --color-light: rgba(132, 139, 200, 0.18);
+   --color-primary-variant: #111e88;
+   --color-dark-variant: #677483;
+   --color-background: #f6f6f9;
+
+   --card-border-radius: 2rem;
+   --border-radius-1: 0.4rem;
+   --border-radius-2: 0.8rem;
+   --border-radius-3: 1.2rem;
+
+   --card-padding: 1.8rem;
+   --padding-1: 1.2rem;
+
+   --box-shadow: 0 2rem 3rem var(--color-light);
+ }
+
+ .head_dashBoard {
+   font-weight: 800;
+   font-size: 1.8rem;
+   user-select: none;
+ }
+
+ .ch2 {
+   font-size: 1.4rem;
+ }
+
+ .ch3 {
+   font-size: 0.87rem;
+ }
+
+ .main_DeshBoard {
+   padding: 20px;
+ }
+
+ /*--------------------------------Middle--------------------------------*/
+
+ .insights {
+   width: 25rem;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   background-color: whitesmoke;
+   border-radius: var(--card-border-radius);
+   padding: var(--card-padding);
+   margin-top: 2rem;
+ }
+
+ .insights>.weather {
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-start;
+   align-items: center;
+   width: 100%;
+   margin: 0;
+   gap: 0.75rem;
+   padding: 0.5rem;
+ }
+
+ .insights>.weather span {
+   width: 1.5rem;
+   min-width: 1.5rem;
+   text-align: left;
+ }
+
+ .numbers {
+   flex: 1;
+   display: flex;
+   flex-direction: row-reverse;
+ }
+
+ .horizontal {
+   display: flex;
+   gap: 1.5rem;
+ }
