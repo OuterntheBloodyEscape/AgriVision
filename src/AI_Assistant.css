@@ -1,0 +1,201 @@
+.AI-Assistant-page-container{
+  display: flex;
+  position: relative;
+  height: 100vh;
+}
+
+.sidebar{
+  position: fixed;
+  right: 0px;
+  background-color: #F0EDFD;
+  border-left: 1px solid grey; 
+  height: 100vh;
+  width: 56px;
+}
+
+.sidebar-things{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  row-gap: 10px;
+  padding-top: 20px;
+}
+
+.sidebar-button{
+  height: 46px;
+  width: 46px;
+  border: none;
+  position: relative;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.sidebar-button:hover{
+  background-color: #c7c7ca;
+  border-radius: 100%;
+}
+
+.sidebar-logo-size{
+  height: 26px;
+}
+
+.AI-Assistant-tooltip{
+  opacity: 0; 
+  white-space: nowrap;
+  color: grey;
+  position: absolute;
+  right: 60px;
+  top:50%;
+  transform: translateY(-50%);
+  border: 1px solid grey;
+  padding: 6px 10px;
+  background-color: #F0EDFD;
+  border-radius: 14px;
+  pointer-events: none;
+  font-weight: 550;
+}
+
+.sidebar-button:hover .AI-Assistant-tooltip{
+  opacity: 1;
+}
+
+.aia-search-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(237, 231, 231);
+  width: 100%;
+}
+
+.chatbot-pic{
+  height:160px;
+  width: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0px;
+}
+
+.edit-AI-logo{
+  height:140px;
+}
+
+.welcome-text{
+  font-size: 30px;
+  font-weight: 600;
+  color: blueviolet;
+}
+
+.how{
+  font-size: 30px;
+  font-weight: 600;
+  color: black;
+  margin-bottom: 30px;
+}
+
+.ai-search-box{
+  height: 188px;
+  width: 600px;
+  background-color: #F0EDFD;
+  outline: none;
+  border: 1px solid grey;
+  border-radius: 14px;
+}
+
+.search-box-first-line{
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  position: relative;
+}
+
+.voice-search-icon-button{
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+  width: 32px;
+  background-color: transparent;
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  cursor: pointer;
+}
+
+.voice-search-icon-button:hover{
+  background-color: #c7c7ca;
+  border-radius: 50%;
+}
+
+.vsib-tooltip{
+  position: absolute;
+  top: 44px;
+  opacity: 0;
+  white-space: nowrap;
+  border: 1px solid grey;
+  padding: 6px 10px;
+  background-color: #F0EDFD;
+  color: grey;
+  border-radius: 14px;
+  pointer-events: none;
+  font-weight: 550;
+}
+
+.voice-search-icon-button:hover .vsib-tooltip{
+  opacity: 1;
+}
+
+.edit-textarea{
+  padding: 8px;
+  height: 110px;
+  width: 94%;
+  resize: none;
+  border: none;
+  color: grey;
+  font-size: 15px;
+  border-radius: 8px;
+  margin-left: 10px;
+  outline: none;
+}
+
+.edit-voice-search-icon{
+  height: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.search-box-last-line{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.deep-research-icon-edit{
+  height: 18px;
+  margin-right: 10px;
+}
+
+.deep-research-button, .attach-file-button{
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  font-weight: 550;
+  height: 10px;
+  border-radius: 14px;
+  border: 1px solid grey;
+  background-color: white;
+  cursor: pointer;
+}
+
+.deep-research-button:hover, .attach-file-button:hover{
+  background-color: #d9d7dc;
+}
+
+.attach-file-icon-edit{
+  height: 14px;
+  margin-right: 10px;
+}
+
