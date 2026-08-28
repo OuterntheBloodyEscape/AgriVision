@@ -15,19 +15,19 @@ let Contract_Farming = () => {
         <>
             <div id='Contract_Farming_others_root'>
                 <div id='Contract_Farming_others_top'>
-                    <div id='search_div'>
+                    <div id='cf_search_div'>
                         <input type="search" placeholder='Search List...' id='cf_search_input' />
-                        <div id='list_search_div'>
+                        <div id='cf_search_button_div'>
                             <img src={list_search} alt="list_search" height={30} width={30} />
                         </div>
                     </div>
                     <div id='cf_others_div'>
-                        <button id='My_list_button' onClick={() => { setPage('/MainPage/Contract_Farming_my') }}>My List</button>
+                        <button id='cf_my_list_button' onClick={() => { setPage('/MainPage/Contract_Farming_my') }}>My List</button>
                         <div id='cf_sort'></div>
                     </div>
                 </div>
                 <div id='Contract_Farming_others_bottom'>
-                    <div id='Contract_Farming_others_bottom_heading'><p>Available Contracts</p></div>
+                    <div id='Contract_Farming_others_bottom_heading'><p>{`Available Contracts (${Card_Titel.length})`}</p></div>
                     <div id='Contract_Farming_others_bottom_cc'>
                         {
                             Card_Titel.map((c, i) => (

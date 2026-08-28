@@ -1,23 +1,21 @@
-h4 {
-    user-select: none;
-}
-
 #aidd_root {
     height: 100%;
     display: flex;
     flex-direction: column;
     position: relative;
+    user-select: none;
 }
 
 #aidd_top {
     display: flex;
+    min-height: 0;
     flex-direction: column;
     text-align: left;
     background-color: white;
     margin: 20px;
     margin-top: 10px;
     border-radius: 20px;
-    height: 100%;
+    flex: 1;
     padding: 10px;
     position: relative;
 }
@@ -28,6 +26,33 @@ h4 {
     width: 100%;
     margin-left: 10px;
     margin-bottom: 10px;
+}
+
+.aidd_result {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 20px;
+    background-color: rgb(214, 236, 188);
+    color: #29854D;
+    border-radius: 20px;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.aidd_result::-webkit-scrollbar {
+    display: none;
+}
+
+.aidd_result_w {
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(216, 216, 216);
+    color: gray;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 #aidd_bottom {

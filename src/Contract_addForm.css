@@ -1,0 +1,115 @@
+#caf_heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #29854D;
+    border-radius: 20px 20px 0px 0px;
+    padding: 10px;
+    color: white;
+    position: relative;
+}
+
+#caf_rp {
+    position: absolute;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#caf_rpi {
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+}
+
+#caf_body {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+}
+
+#caf_form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.caf_entry_box_button,
+.caf_entry_box {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.caf_entry_box_button {
+    margin-top: 10px;
+}
+
+
+.caf_mul_entry_box {
+    display: flex;
+    flex-direction: row;
+}
+
+#caf_more_info,
+#caf_add,
+#caf_Delivery,
+#caf_select,
+#caf_price,
+#caf_need,
+#caf_title {
+    font-size: 17px;
+    padding: 6px;
+    border: 1px solid gray;
+    border-radius: 8px;
+}
+
+#caf_more_info {
+    resize: none;
+    height: 20px;
+    transition: height 300ms ease;
+}
+
+#caf_more_info:focus {
+    height: 120px;
+}
+
+#caf_add {
+    background-color: white;
+    color: #29854D;
+    border: 1px solid #29854D;
+}
+
+#caf_add:hover {
+    background-color: #29854D;
+    color: white;
+    transition: background-color 300ms ease-in, color 300ms ease-out;
+}
+
+#caf_add:active {
+    background-color: #19532f;
+}
+
+#caf_need,
+#caf_select {
+    border: 0px solid transparent;
+    outline: 0px solid transparent;
+}
+
+#caf_need::-webkit-inner-spin-button {
+    display: none;
+}
+
+#caf_input_select {
+    border: 1px solid gray;
+    border-radius: 2px;
+    margin-right: 10px;
+    border-radius: 8px;
+}
+
+#caf_input_select:focus-within {
+    outline: 1px solid black;
+    border-color: black;
+}
