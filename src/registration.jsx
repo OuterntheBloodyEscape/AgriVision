@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import './registration.css'
 import AgriVisionLogo from './assets/Agri_Vision_logo-main.png'
 
-function Registration() {
+function Registration({ tm }) {
   const pageNavigat = useNavigate()
   const [name, setName] = useState('')
   const [companyName, setCompanyName] = useState('')
@@ -26,6 +26,7 @@ function Registration() {
     })
     const data = await res.json();
 
+    tm(data.message)
     console.log(data);
     return res.status;
   }
