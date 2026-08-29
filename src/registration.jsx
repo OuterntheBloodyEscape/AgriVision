@@ -2,7 +2,7 @@ import React from "react";
 import './registration.css'
 import AgriVisionLogo from './assets/Agri_Vision_logo-main.png'
 
-function Registration({ cp }) {
+function registration() {
   return (
     <>
       <div className="registration-page">
@@ -18,7 +18,7 @@ function Registration({ cp }) {
               Create your account
             </h1>
 
-            <form className="box" onSubmit={() => { cp(1) }}>
+            <form className="box">
               <label className="field-group extra-space">
                 <span className="field-label">Name</span>
                 <input className="field-input" type="text" placeholder="Enter your full name" required />
@@ -53,7 +53,7 @@ function Registration({ cp }) {
 
             <div>
               <span className="already">
-                Already have an account?<a href="/LoginPage"> Log in</a>
+                Already have an account?<a href="#"> Log in</a>
               </span>
             </div>
           </div>
@@ -61,8 +61,9 @@ function Registration({ cp }) {
         </div>
       </div>
 
+
     </>
   );
 }
 
-export default Registration
+export default registration
