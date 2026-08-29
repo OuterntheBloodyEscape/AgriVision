@@ -1,0 +1,87 @@
+#settings_body {
+    display: flex;
+    flex-direction: row;
+    height: max-content;
+    width: 600px;
+}
+
+#settings_body_left {
+    width: 120px;
+    border-right: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+#settings_body_right {
+    flex: 1;
+}
+
+#set_back {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 7px;
+
+}
+
+#set_back_button {
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#set_back_button:hover {
+    background-color: rgb(206, 206, 206);
+}
+
+#set_back_button:active {
+    background-color: rgb(164, 163, 163);
+}
+
+.set_nav_img {
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+}
+
+#settings_page_icon_div {
+    border: 1px solid gray;
+    padding: 5px;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#set_nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.set_nav_button {
+    font-size: 15px;
+    padding: 6px;
+    margin-left: 6px;
+    margin-right: 6px;
+    border-width: 0px;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.set_nav_button:hover {
+    background-color: #F0F0F0;
+    transition: background-color 300ms ease;
+}
+
+.set_nav_button:active {
+    background-color: rgba(191, 226, 180, 0.877);
+}

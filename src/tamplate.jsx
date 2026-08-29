@@ -1,5 +1,5 @@
 import './tamplate.css'
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom'
 import { useState } from 'react'
 import homeIcon_ia from './assets/nav_icons/home_inactive.png'
 import homeIcon_a from './assets/nav_icons/home_active.png'
@@ -14,15 +14,16 @@ import market_a from './assets/nav_icons/online-shop-active.png'
 import moon_ia from './assets/nav_icons/moon_inactive.png'
 import moon_a from './assets/nav_icons/moon_active.png'
 import webIcon from './assets/webIcon.png'
-import settings_ia from './assets/nav_icons/settings_inactive.png'
 import search_ia from './assets/nav_icons/search_inactive.png'
-import userP from './assets/nav_icons/user.png'
 import AI_Disease_Detection from './AI_Disease_Detection.jsx'
 import Contract_Farming from './Contract_Farming.jsx'
 import Dashboard from './Dashboard.jsx'
+import Contract_Farming_my from './Contract_Farming_my.jsx'
 import Live_MarketPrices from './Live_MarketPrices.jsx'
-
-
+import TopNav from './top_nav.jsx'
+import Contract_addForm from './Contract_addForm.jsx'
+import SettingsPage from './settings.jsx'
+import Map_weather from './map_weather.jsx'
 
 let MainApp = () => {
     const nev = useNavigate()
@@ -31,11 +32,10 @@ let MainApp = () => {
     const [menuActive, setMenu] = useState(false);
     const [nightMood, setNightMood] = useState(false);
     const [isSearchPage, setSearchPage] = useState(false);
-    const [isSettingsPage, setSettingsPage] = useState(false);
+    const [DefaultPopupPage, callDefaultPopupPage] = useState(0);
     const [isBigPicture, setBigPicture] = useState(false);
     const [bigPictureLink, setBigPictureLink] = useState('');
-    const [marketPage, setMarketpage] = useState(0);
-    const mainSubPageLink = ['/MainPage/Home', '/MainPage/AI_Disease_Detection', '/MainPage/Map', '/MainPage/Contract_Farming', '/MainPage/Live_Market_Prices']
+    const mainSubPageLink = ['/MainPage/Home', '/MainPage/AI_Disease_Detection', '/MainPage/Map_Weather', '/MainPage/Contract_Farming', '/MainPage/Live_Market_Prices']
     let onMenuClick = () => {
         setMenu((v) => (!v))
         // console.log(menuActive)
@@ -49,7 +49,7 @@ let MainApp = () => {
     }
 
     const checkInMarket = () => {
-        return (pathName == mainSubPageLink[3]) || (pathName == mainSubPageLink[4])
+        return (pathName == mainSubPageLink[3]) || (pathName == mainSubPageLink[4]) || (pathName == '/MainPage/Contract_Farming_my')
     }
     return (
         <>
@@ -90,10 +90,12 @@ let MainApp = () => {
                 </div>
                 <div id='main_app_p2'>
                     <div id='main_app_p2_top'>
-                        <div id='main_app_p2_top_p1'>
-                            <img src={webIcon} alt='web_icon' id='webIcon' />
-                            <h2>AgriVision</h2>
-                        </div>
+                        <a href='/MainPage' id='av_title_link'>
+                            <div id='main_app_p2_top_p1'>
+                                <img src={webIcon} alt='web_icon' id='webIcon' />
+                                <h2>AgriVision</h2>
+                            </div>
+                        </a>
                         <div id='main_app_p2_top_p2'>
                             <div id='main_app_p2_top_p2_1'>
                                 {(checkInMarket()) ? (
@@ -106,26 +108,21 @@ let MainApp = () => {
 
                             </div>
                             <div id='main_app_p2_top_p2_2'>
-                                <div className='iconContainer2' onClick={() => { setSettingsPage(true) }}>
-                                    <img src={settings_ia} alt="settings_icon" draggable={false} className='icon2' />
-                                </div>
-                                <div className='iconContainer2' onClick={() => { setSearchPage(true) }}>
-                                    <img src={search_ia} alt="search_icon" draggable={false} className='icon2' />
-                                </div>
-                                <div className='iconContainer2'>
-                                    <img src={userP} alt="user_icon" draggable={false} className='icon2' />
-                                </div>
+                                <TopNav setSearchP={setSearchPage} setSettingsP={callDefaultPopupPage} />
                             </div>
                         </div>
 
                     </div>
                     <div id='main_app_p2_body'>
                         <Routes>
+                            <Route path='/' element={<Navigate to={'/MainPage/Home'} replace />} />
                             <Route path='Home' element={<Dashboard />} />
                             <Route path='AI_Disease_Detection' element={<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />} />
                             <Route path='Map' element={<></>} />
                             <Route path='Contract_Farming' element={<Contract_Farming />} />
+                            <Route path='Contract_Farming_my' element={<Contract_Farming_my cdp={callDefaultPopupPage} />} />
                             <Route path='Live_Market_Prices' element={<Live_MarketPrices />} />
+                            <Route path='Map_Weather' element={<Map_weather />} />
                         </Routes>
                     </div>
                 </div>
@@ -143,8 +140,20 @@ let MainApp = () => {
                     <img src={bigPictureLink} alt="big-picture" height={600} width={600} />
                 </div>
             </div>
-            <div className={`Settings_page ${(isSettingsPage) ? ("pageActive") : ("")}`} onClick={() => { setSettingsPage(false) }}>
-                <div id='settings_container' onClick={(v) => v.stopPropagation()}>
+            <div className={`av_default_popup ${(DefaultPopupPage > 0) ? ("pageActive") : ("")}`}>
+                <div id='popup_container'>
+                    {
+                        (() => {
+                            switch (DefaultPopupPage) {
+                                case 1:
+                                    return (<SettingsPage cdp={callDefaultPopupPage} />)
+                                case 2:
+                                    return (<Contract_addForm cdp={callDefaultPopupPage} />)
+                                default:
+                                    return (<></>)
+                            }
+                        })()
+                    }
                 </div>
             </div>
         </>

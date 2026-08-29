@@ -1,0 +1,226 @@
+#CFM_root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    position: relative;
+}
+
+#CFM_end {
+    border: 1px solid transparent;
+}
+
+#CFM_top {
+    height: 60px;
+    background-color: white;
+    margin: 20px;
+    margin-top: 15px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#CFM_search_div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#CFM_search_input {
+    width: 500px;
+    height: 40px;
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    outline-color: #29854D;
+    font-size: 16px;
+}
+
+#CFM_search_button_div {
+    background-color: #29854D;
+    user-select: none;
+    cursor: pointer;
+    padding: 2px;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+#CFM_search_button_div:hover {
+    background-color: #063620;
+    transition: background-color 300ms ease-in;
+}
+
+#CFM_others_div {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 100%;
+    width: 100%;
+    flex: 1;
+    align-items: center;
+}
+
+#CFM_sort {
+    height: 100%;
+    flex: 1;
+    width: 100%;
+    /* border-right: 1px dashed gray; */
+    border-left: 1px dashed gray;
+}
+
+#CFM_add_button {
+    height: 40px;
+    width: 40px;
+    background-color: #29854D;
+    border: 1px solid #29854D;
+    border-radius: 15px;
+    color: white;
+    font-size: 16px;
+    padding: 5px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+}
+
+#CFM_add_button:hover {
+    background-color: #063620;
+    transition: background-color 300ms ease-in;
+}
+
+#CFM_add_button:active {
+    background-color: black;
+}
+
+#Contract_Farming_my_bottom {
+    flex: 1;
+    margin: 20px;
+    margin-top: 0px;
+}
+
+#Contract_Farming_myContract {
+    max-height: max-content;
+    background-color: white;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#Contract_Farming_myAddedContract {
+    max-height: max-content;
+    background-color: white;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Contract_Farming_my_heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    height: max-content;
+    position: relative;
+}
+
+.Contract_Farming_my_heading_text {
+    margin: 10px;
+    font-size: 16px;
+    transition: font-size 300ms ease-in;
+}
+
+.Contract_Farming_my_cc {
+    flex: 1;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: grid;
+}
+
+.Contract_Farming_my_card {
+    width: max-content;
+    border: 2px solid gray;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+}
+
+.Contract_Farming_my_card_info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.Contract_Farming_my_card_button_div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    user-select: none;
+}
+
+.Contract_Farming_my_card_button {
+    background-color: white;
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 12px;
+    width: 150px;
+    cursor: pointer;
+}
+
+.Contract_Farming_my_card_button:hover {
+    border-color: #29854D;
+    color: #29854D;
+    transition: border-color 300ms ease-in, color 300ms ease-out;
+}
+
+.Contract_Farming_my_card_button:active {
+    background-color: rgba(191, 226, 180, 0.877);
+}
+
+.Contract_Farming_my_fold_button {
+    position: absolute;
+    right: 0;
+    margin-right: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.Contract_Farming_my_fold_button:hover {
+    background-color: rgba(191, 226, 180, 0.877);
+    transition: background-color 300ms ease-in;
+}
+
+.Contract_Farming_my_fold_button:active {
+    background-color: #E4E4E4;
+}
+
+.fold_Contract_Farming_my_CC {
+    display: none;
+}
+
+.fold_Contract_Farming_my_fs {
+    font-size: 20px;
+}

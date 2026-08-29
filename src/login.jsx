@@ -23,6 +23,32 @@ let Login = () => {
         return () => (clearInterval(interval));
     }, []);
 
+    const [email, setEmail] = useState('')
+    const [pass, setPass] = useState('')
+    const [resStatus, setResStatus] = useState(0);
+
+    const makeLogin = async () => {
+        const res = await fetch("http://localhost:5000/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                password: pass
+            })
+        })
+
+        const data = await res.json();
+
+        if (res.status === 200) {
+            console.log(data.message)
+            localStorage.setItem('av_token', data.token)
+        }
+
+        return res.status;
+    }
+
     return (
         <>
             <div id="login_bg_image"></div>
@@ -46,13 +72,22 @@ let Login = () => {
                             <h1 id='Login_heading'>Login you account</h1>
                         </div>
                         <div id='form_container'>
-                            <form autoComplete='on' id='login_form' onSubmit={(e) => {
-                                e.preventDefault(); nev('/MainPage/Home')
+                            <form autoComplete='on' id='login_form' onSubmit={async (e) => {
+                                e.preventDefault();
+                                const rs = await makeLogin();
+                                if (rs === 200) {
+                                    nev('/MainPage');
+                                } else {
+                                    setResStatus(rs);
+                                }
+
                             }} autoSave='off'>
-                                < label htmlFor='user_email' className='form_label' > Email: </label>
-                                <input name='user_email' id='user_email' type='email' placeholder='example@mail.com' required autoFocus />
+                                <label htmlFor='user_email' className='form_label' > Email: </label>
+                                <input name='user_email' id='user_email' type='email' placeholder='example@mail.com' required autoFocus
+                                    onInput={(e) => { setEmail(e.target.value) }} />
                                 <label htmlFor='user_pass' className='form_label'>Password: </label>
-                                <input name='user_pass' id='user_pass' type='password' placeholder='Your Account Password' minLength={8} maxLength={16} required />
+                                <input name='user_pass' id='user_pass' type='password' placeholder='Your Account Password' minLength={8} maxLength={16} required
+                                    onInput={(e) => { setPass(e.target.value) }} />
                                 <div id='form_submit_container'><input type='submit' id='form_submit'></input></div>
                             </form>
                         </div>
