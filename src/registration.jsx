@@ -105,4 +105,4 @@ function Registration() {
   );
 }
 
-export default registration
+export default Registration
