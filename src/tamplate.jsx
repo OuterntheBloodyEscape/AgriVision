@@ -23,6 +23,7 @@ import Live_MarketPrices from './Live_MarketPrices.jsx'
 import TopNav from './top_nav.jsx'
 import Contract_addForm from './Contract_addForm.jsx'
 import SettingsPage from './settings.jsx'
+import Map_weather from './map_weather.jsx'
 
 let MainApp = () => {
     const nev = useNavigate()
@@ -34,7 +35,7 @@ let MainApp = () => {
     const [DefaultPopupPage, callDefaultPopupPage] = useState(0);
     const [isBigPicture, setBigPicture] = useState(false);
     const [bigPictureLink, setBigPictureLink] = useState('');
-    const mainSubPageLink = ['/MainPage/Home', '/MainPage/AI_Disease_Detection', '/MainPage/Map', '/MainPage/Contract_Farming', '/MainPage/Live_Market_Prices']
+    const mainSubPageLink = ['/MainPage/Home', '/MainPage/AI_Disease_Detection', '/MainPage/Map_Weather', '/MainPage/Contract_Farming', '/MainPage/Live_Market_Prices']
     let onMenuClick = () => {
         setMenu((v) => (!v))
         // console.log(menuActive)
@@ -121,6 +122,7 @@ let MainApp = () => {
                             <Route path='Contract_Farming' element={<Contract_Farming />} />
                             <Route path='Contract_Farming_my' element={<Contract_Farming_my cdp={callDefaultPopupPage} />} />
                             <Route path='Live_Market_Prices' element={<Live_MarketPrices />} />
+                            <Route path='Map_Weather' element={<Map_weather />} />
                         </Routes>
                     </div>
                 </div>

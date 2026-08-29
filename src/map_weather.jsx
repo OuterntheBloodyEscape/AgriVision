@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./map_weather.css";
-function map_weather() {
+function Map_weather() {
   return (
     <div>
       <img
@@ -11,4 +11,4 @@ function map_weather() {
   );
 }
 
-export default map_weather;
+export default Map_weather;
