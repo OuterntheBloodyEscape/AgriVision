@@ -9,7 +9,7 @@ import farm from './assets/photo_lib/farm.png'
 import chick from './assets/photo_lib/chick.png'
 import eco from './assets/photo_lib/eco-world.png'
 
-let Login = () => {
+let Login = ({ tm }) => {
     const slidephotos = [shovel, fruit, robotic, farm, chick, eco];
     const [photoIndex, setIndex] = useState(0);
     const nev = useNavigate();
@@ -40,7 +40,7 @@ let Login = () => {
         })
 
         const data = await res.json();
-
+        tm(data.message)
         if (res.status === 200) {
             console.log(data.message)
             localStorage.setItem('av_token', data.token)

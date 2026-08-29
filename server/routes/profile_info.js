@@ -16,7 +16,34 @@ router.post('/getProfileInfo', async (req, res) => {
             about: user.about
         })
     } catch (e) {
-        console.log(e)
+        console.error(e)
+    }
+})
+
+router.post('/updateProfileInfo', async (req, res) => {
+    const { token, name, companyName, email, phone, about } = req.body
+    const decode = jwt.verify(token, process.env.JWT_KEY)
+    try {
+        const user = await User.findByIdAndUpdate(
+            decode.userId,
+            {
+                name,
+                Company_name: companyName,
+                email,
+                phone,
+                about
+            },
+            { new: true }
+        )
+
+        if (user) {
+            res.status(200).json({
+                message: 'Change success fully'
+            })
+        }
+
+    } catch (e) {
+        console.error(e)
     }
 })
 
