@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp");
+
 /*-------------------------Root Variables----------------------------*/
 :root {
   --color-primary: #7380ec;
@@ -31,18 +32,24 @@
   font-size: 1.8rem;
   user-select: none;
 }
+
 .h1 {
   font-size: 2rem;
 }
+
 .h2 {
   font-size: 1.4rem;
 }
+
 .main_DeshBoard {
   padding: 18px;
 }
-* {
+
+.main_DeshBoard,
+.main_DeshBoard * {
   box-sizing: border-box;
 }
+
 /*===========================================header=================================*/
 .header {
   margin-bottom: 20px;
@@ -50,6 +57,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
 .search_box {
   visibility: hidden;
   font-size: 1.4rem;
@@ -64,16 +72,20 @@
     border-color 0.2s ease,
     box-shadow 0.2s ease;
 }
+
 .search_box:focus {
   border-color: #16a34a;
   box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.3);
 }
+
 .search_box:hover {
   border-color: #16a34a;
 }
+
 .search_box::placeholder {
   font-size: 1.4rem;
 }
+
 .notification_button {
   height: 2.4rem;
   width: 2.4rem;
@@ -89,11 +101,13 @@
 
   transition: border-color 0.2s easebox-shadow 0.2s ease;
 }
+
 .notification_button:hover {
   border-color: #16a34a;
   box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.5);
   background-color: rgba(120, 235, 162, 0.15);
 }
+
 .notification_count {
   position: absolute;
   top: -5px;
@@ -109,6 +123,7 @@
   font-size: 1.4rem;
   font-weight: 600;
 }
+
 /*===============================================Welcome===============================================*/
 .welcome {
   margin-top: 2rem;
@@ -130,12 +145,15 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
+
 .date_filter:hover {
   background-color: rgb(31, 158, 78);
 }
+
 .welcome_buttons {
   display: flex;
 }
+
 .Add_buttons {
   height: 3rem;
   width: 7rem;
@@ -148,9 +166,11 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
+
 .Add_buttons:hover {
   background-color: rgb(31, 158, 78);
 }
+
 /*=================================================Welcome-grid=========================================*/
 .welcome_grid {
   display: grid;
@@ -160,6 +180,7 @@
   gap: 1rem;
   margin: 0 auto 2rem;
 }
+
 .welcome_grid_contents {
   padding: 1.5rem;
   display: flex;
@@ -173,10 +194,12 @@
 .grid_icons_writings {
   display: flex;
 }
+
 .grid_contents_writing {
   display: flex;
   flex-direction: column;
 }
+
 .grid_icons {
   height: 2rem;
   width: 2rem;
@@ -187,18 +210,21 @@
   justify-content: center;
   margin-right: 10px;
 }
+
 /*==========================================================Dashboard==========================================*/
 .main_dashboard {
   width: 90%;
   max-width: 1400px;
   margin: 0 auto;
 }
+
 .dashboard_parent {
   width: 100%;
   margin: 0;
 
   align-content: start;
 }
+
 .dashboard_grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -213,6 +239,7 @@
   width: 100%;
   gap: 0.5rem;
 }
+
 .insights {
   display: flex;
   flex-direction: column;
@@ -224,9 +251,11 @@
   border: 2px solid rgb(31, 158, 78);
   transition: box-shadow 0.2s ease;
 }
+
 .insights:hover {
   box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.5);
 }
+
 .insights_extended {
   display: flex;
   flex-direction: column;
@@ -240,18 +269,22 @@
   grid-column: span 2;
   gap: 1rem;
 }
+
 .insights_extended:hover {
   box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.5);
 }
+
 @media (max-width: 650px) {
   .insights_extended {
     grid-column: span 1;
   }
 }
+
 .insights,
 .insights_extended {
   margin: 0;
 }
+
 .insights .weather {
   display: flex;
   flex-direction: row;
@@ -263,7 +296,7 @@
   padding: 0.5rem;
 }
 
-.insights > .weather span {
+.insights>.weather span {
   width: 1.5rem;
   min-width: 1.5rem;
   text-align: left;
@@ -279,27 +312,32 @@
   width: 100%;
   height: 40%;
 }
+
 .health_legend {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
+
 .legend_item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-style: 0.9rem;
 }
+
 .legend_left {
   display: flex;
   align-items: center;
   gap: 10px;
 }
+
 .legend_dot {
   width: 9px;
   height: 9px;
   border-radius: 50%;
 }
+
 .grid_icons_dashboard {
   height: 2rem;
   width: 2rem;
@@ -310,6 +348,7 @@
   justify-content: center;
   margin-right: 2px;
 }
+
 /*=============================================================Field Status=====================================*/
 
 .field_status_header {
@@ -342,11 +381,13 @@
   object-fit: cover;
   border-radius: 8px;
 }
+
 .field_row_image {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
+
 .field_status {
   width: 100%;
   overflow-x: auto;
@@ -364,7 +405,7 @@
   border-bottom: 2px solid green;
 }
 
-.field_row > div {
+.field_row>div {
   padding: 1rem;
   min-width: 0;
 }

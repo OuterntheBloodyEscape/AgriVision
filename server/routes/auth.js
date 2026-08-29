@@ -47,7 +47,7 @@ router.post("/login", async (req, res) => {
 
         if (!user) {
             return res.status(400).json({
-                message: "Invalid email or password"
+                message: `${email} no user found`
             });
         }
 
@@ -59,7 +59,7 @@ router.post("/login", async (req, res) => {
 
         if (!passwordMatch) {
             return res.status(400).json({
-                message: "Invalid email or password"
+                message: "Invalid password"
             });
         }
 
@@ -71,7 +71,7 @@ router.post("/login", async (req, res) => {
         );
 
         res.status(200).json({
-            message: `${email} Login successful`,
+            message: `${user.name} Login successful`,
             token
         });
 

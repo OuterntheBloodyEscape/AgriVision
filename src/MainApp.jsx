@@ -1,4 +1,4 @@
-import './tamplate.css'
+import './MainApp.css'
 import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom'
 import { useState } from 'react'
 import homeIcon_ia from './assets/nav_icons/home_inactive.png'
@@ -42,9 +42,9 @@ let MainApp = () => {
         let displayState = ((!menuActive) ? ("block") : ("none"))
         let displaySize = ((!menuActive) ? ("92px") : ("36px"))
         let it = document.getElementsByClassName("iconTxt")
-        it[4].style.display = it[3].style.display = it[2].style.display = it[1].style.display = it[0].style.display = displayState
+        it[5].style.display = it[4].style.display = it[3].style.display = it[2].style.display = it[1].style.display = it[0].style.display = displayState
         let ic = document.getElementsByClassName("iconContainer")
-        ic[4].style.width = ic[3].style.width = ic[2].style.width = ic[1].style.width = ic[0].style.width = displaySize
+        ic[5].style.width = ic[4].style.width = ic[3].style.width = ic[2].style.width = ic[1].style.width = ic[0].style.width = displaySize
     }
 
     const checkInMarket = () => {
