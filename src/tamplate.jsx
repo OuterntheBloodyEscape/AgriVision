@@ -89,10 +89,12 @@ let MainApp = () => {
                 </div>
                 <div id='main_app_p2'>
                     <div id='main_app_p2_top'>
-                        <div id='main_app_p2_top_p1'>
-                            <img src={webIcon} alt='web_icon' id='webIcon' />
-                            <h2>AgriVision</h2>
-                        </div>
+                        <a href='/MainPage' id='av_title_link'>
+                            <div id='main_app_p2_top_p1'>
+                                <img src={webIcon} alt='web_icon' id='webIcon' />
+                                <h2>AgriVision</h2>
+                            </div>
+                        </a>
                         <div id='main_app_p2_top_p2'>
                             <div id='main_app_p2_top_p2_1'>
                                 {(checkInMarket()) ? (
