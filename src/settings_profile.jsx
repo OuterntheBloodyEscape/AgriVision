@@ -1,6 +1,6 @@
 import './settings_profile.css'
 import udp from './assets/nav_icons/user.png'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const SettingsProfile = () => {
     const [nameEdit, setNameEdit] = useState(false);
@@ -8,6 +8,37 @@ const SettingsProfile = () => {
     const [emailEdit, setEmailEdit] = useState(false);
     const [phoneEdit, setPhoneEdit] = useState(false);
     const [aboutEdit, setAboutEdit] = useState(false);
+    const [User, setUser] = useState({
+        name: "",
+        companyName: "",
+        email: "",
+        phone: "",
+        about: ""
+    })
+
+    useEffect(() => {
+        (async () => {
+            const token = localStorage.getItem('av_token')
+            const res = await fetch('http://localhost:5000/api/getProfileInfo', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    token
+                })
+            })
+            const cuser = await res.json()
+
+            setUser(cuser)
+            document.getElementById('sp_name').value = cuser.name
+            document.getElementById('sp_company').value = cuser.companyName
+            document.getElementById('sp_email').value = cuser.email
+            document.getElementById('sp_phone').value = cuser.phone
+            document.getElementById('sp_about').value = cuser.about
+        })()
+    }, [])
+
     return (<>
         <div id='sp_heading'><p>{'settings|Profile'}</p></div>
         <form>
@@ -19,7 +50,7 @@ const SettingsProfile = () => {
                 <div className='sp_input'>
                     <input type='text' id='sp_name' onInput={(e) => {
                         if (!nameEdit) {
-                            e.target.value = 'xyz'
+                            e.target.value = User.name
                         }
                     }} />
                     <button className='sp_edit_button' onClick={(e) => {
@@ -33,7 +64,7 @@ const SettingsProfile = () => {
                 <div className='sp_input'>
                     <input type='text' id='sp_company' onInput={(e) => {
                         if (!companyEdit) {
-                            e.target.value = 'xyz'
+                            e.target.value = User.companyName
                         }
                     }} />
                     <button className='sp_edit_button' onClick={(e) => {
@@ -47,7 +78,7 @@ const SettingsProfile = () => {
                 <div className='sp_input'>
                     <input type='email' id='sp_email' onInput={(e) => {
                         if (!emailEdit) {
-                            e.target.value = 'xyz'
+                            e.target.value = User.email
                         }
                     }} />
                     <button className='sp_edit_button' onClick={(e) => {
@@ -62,7 +93,7 @@ const SettingsProfile = () => {
                 <div className='sp_input'>
                     <input type='text' onInput={(e) => {
                         if (!phoneEdit) {
-                            e.target.value = '0158'
+                            e.target.value = User.phone
                         } else {
                             e.target.value = e.target.value.replace(/\D/g, "")
                         }
@@ -83,7 +114,7 @@ const SettingsProfile = () => {
                 </div>
                 <textarea id="sp_about" maxLength={150} onInput={(e) => {
                     if (!aboutEdit) {
-                        e.target.value = 'xyz'
+                        e.target.value = User.about
                     }
                 }}></textarea>
             </div>
