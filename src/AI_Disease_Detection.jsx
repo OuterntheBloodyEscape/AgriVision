@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { GoogleGenAI } from '@google/genai'
 import Markdown from 'react-markdown'
 import './AI_Disease_Detection.css'
@@ -13,10 +13,33 @@ let AI_Disease_Detection = ({ ibp, bpl }) => {
     const [isMouseImgAddOver, setMouseImgAddOver] = useState(false);
     const [addImgWarning, setAddImgWarning] = useState(true);
     const [aiResponse, setAiResponse] = useState('');
-    const gAi = new GoogleGenAI({
-        apiKey: import.meta.env.VITE_GEMINI_API_KEY
-    });
+    const [Key, setkey] = useState('');
+    useEffect(() => {
+        (async () => {
+            const res = await fetch('http://localhost:5000/api/getAiKey', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: "gemini"
+                })
+            })
+            const data = await res.json()
+            setkey(data.key)
+        })()
+    }, [])
     const checkAi = async () => {
+
+        if (!Key) {
+            console.log("API key hasn't loaded yet");
+            return;
+        }
+
+        const gAi = new GoogleGenAI({
+            apiKey: Key
+        });
+
         if (photos.length > 0) {
             setAddImgWarning(false);
             const tla = [...photos];

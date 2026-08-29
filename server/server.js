@@ -1,5 +1,6 @@
 const authRoutes = require("./routes/auth");
 const profileInfo = require('./routes/profile_info')
+const AiKey = require('./routes/ai_key')
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -9,8 +10,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use("/api/auth", authRoutes);
-app.use("/api", profileInfo);
+app.use("/api/auth", authRoutes)
+app.use("/api", profileInfo)
+app.use('/api', AiKey)
 
 app.get("/", (req, res) => {
   res.send("AgriVision is running");
