@@ -1,10 +1,19 @@
-const express = require('express')
-const User = require('../models/user')
-const router = express.Router()
-const jwt = require('jsonwebtoken')
+import express from 'express'
+import User from '../models/user.js'
+import jwt from 'jsonwebtoken'
 
-router.post('/getProfileInfo', async (req, res) => {
-    const { token } = req.body
+const router = express.Router()
+
+router.get('/getProfileInfo', async (req, res) => {
+    const authorization = req.headers.authorization
+    if (!authorization) {
+        res.status(120).json(
+            {
+                message: 'No user Login',
+            }
+        )
+    }
+    const token = authorization.split(' ')[1]
     try {
         const decode = jwt.verify(token, process.env.JWT_KEY)
         const user = await User.findById(decode.userId)
@@ -20,12 +29,21 @@ router.post('/getProfileInfo', async (req, res) => {
     }
 })
 
-router.post('/updateProfileInfo', async (req, res) => {
-    const { token, name, companyName, email, phone, about } = req.body
+router.patch('/updateProfileInfo', async (req, res) => {
+    const { name, companyName, email, phone, about } = req.body
+    const authorization = req.headers.authorization
+    if (!authorization) {
+        res.status(120).json(
+            {
+                message: 'No user Login',
+            }
+        )
+    }
+    const token = authorization.split(' ')[1]
     const decode = jwt.verify(token, process.env.JWT_KEY)
     try {
-        const user = await User.findByIdAndUpdate(
-            decode.userId,
+        const user = await User.findOneAndUpdate(
+            { _id: decode.userId },
             {
                 name,
                 Company_name: companyName,
@@ -33,7 +51,9 @@ router.post('/updateProfileInfo', async (req, res) => {
                 phone,
                 about
             },
-            { new: true }
+            {
+                returnDocument: "after"
+            }
         )
 
         if (user) {
@@ -47,4 +67,4 @@ router.post('/updateProfileInfo', async (req, res) => {
     }
 })
 
-module.exports = router
+export default router
