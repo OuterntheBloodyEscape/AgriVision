@@ -34,7 +34,7 @@ let MainApp = () => {
     const [DefaultPopupPage, callDefaultPopupPage] = useState(0);
     const [isBigPicture, setBigPicture] = useState(false);
     const [bigPictureLink, setBigPictureLink] = useState('');
-    const mainSubPageLink = ['/MainPage/Home', '/MainPage/AI_Disease_Detection', '/MainPage/Map', '/MainPage/Contract_Farming', '/MainPage/Live_Market_Prices']
+    const mainSubPageLink = ['/main_page/home', '/main_page/ai_disease_detection', '/main_page/map', '/main_page/contract_farming', '/main_page/live_market_prices']
     let onMenuClick = () => {
         setMenu((v) => (!v))
         // console.log(menuActive)
@@ -48,7 +48,7 @@ let MainApp = () => {
     }
 
     const checkInMarket = () => {
-        return (pathName == mainSubPageLink[3]) || (pathName == mainSubPageLink[4]) || (pathName == '/MainPage/Contract_Farming_my')
+        return (pathName == mainSubPageLink[3]) || (pathName == mainSubPageLink[4]) || (pathName == '/main_page/contract_farming_my')
     }
     return (
         <>
@@ -114,13 +114,13 @@ let MainApp = () => {
                     </div>
                     <div id='main_app_p2_body'>
                         <Routes>
-                            <Route path='/' element={<Navigate to={'/MainPage/Home'} replace />} />
-                            <Route path='Home' element={<Dashboard />} />
-                            <Route path='AI_Disease_Detection' element={<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />} />
-                            <Route path='Map' element={<></>} />
-                            <Route path='Contract_Farming' element={<Contract_Farming />} />
-                            <Route path='Contract_Farming_my' element={<Contract_Farming_my cdp={callDefaultPopupPage} />} />
-                            <Route path='Live_Market_Prices' element={<Live_MarketPrices />} />
+                            <Route path='/' element={<Navigate to={'/main_page/home'} replace />} />
+                            <Route path='home' element={<Dashboard />} />
+                            <Route path='ai_disease_detection' element={<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />} />
+                            <Route path='map' element={<></>} />
+                            <Route path='contract_farming' element={<Contract_Farming />} />
+                            <Route path='contract_farming_my' element={<Contract_Farming_my cdp={callDefaultPopupPage} />} />
+                            <Route path='live_market_prices' element={<Live_MarketPrices />} />
                         </Routes>
                     </div>
                 </div>
