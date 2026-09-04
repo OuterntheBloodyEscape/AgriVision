@@ -23,6 +23,7 @@ import Live_MarketPrices from './Live_MarketPrices.jsx'
 import TopNav from './top_nav.jsx'
 import Contract_addForm from './Contract_addForm.jsx'
 import SettingsPage from './settings.jsx'
+import Map_weather from './map_weather.jsx'
 
 let MainApp = () => {
     const nev = useNavigate()

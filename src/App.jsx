@@ -5,6 +5,8 @@ import Login from './login.jsx';
 import MainApp from './MainApp.jsx';
 import Registration from './registration.jsx';
 import { useEffect, useState } from 'react';
+import SendOTP from './send_OTP.jsx';
+import ResetPassword from './reset_password.jsx';
 function App() {
   const [toast_message, setToastMessage] = useState('')
   useEffect(() => {
