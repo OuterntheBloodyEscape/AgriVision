@@ -1,5 +1,5 @@
 const authRoutes = require("./routes/auth");
-const profileInfo = require('./routes/profile_info')
+const profileInfo = require("./routes/profile_info");
 const farmRoutes = require("./routes/farmRoutes");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -14,8 +14,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api", profileInfo);
 app.use("/api/farms", farmRoutes);
 
+const port = 5000;
+
 app.get("/", (req, res) => {
-  res.send("AgriVision is running");
+  res.status(200).send("AgriVision is running");
 });
 
 mongoose
@@ -23,8 +25,8 @@ mongoose
   .then(() => {
     console.log("MongoDB connected successfully!");
 
-    app.listen(5000, () => {
-      console.log("Server running on port 5000");
+    app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
     });
   })
   .catch((error) => {

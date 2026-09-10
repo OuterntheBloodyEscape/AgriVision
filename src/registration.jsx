@@ -93,7 +93,7 @@ function Registration({ tm }) {
 
             <div>
               <span className="already">
-                Already have an account?<a href="#"> Log in</a>
+                Already have an account?<a href="/LoginPage"> Log in</a>
               </span>
             </div>
           </div>

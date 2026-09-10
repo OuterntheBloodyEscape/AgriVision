@@ -30,13 +30,10 @@ const SettingsProfile = () => {
     useEffect(() => {
         (async () => {
             const res = await fetch('http://localhost:5000/api/getProfileInfo', {
-                method: 'POST',
+                method: 'GET',
                 headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    token
-                })
+                    Authorization: `Bearer ${token}`
+                }
             })
             const cuser = await res.json()
 
@@ -61,12 +58,12 @@ const SettingsProfile = () => {
             if (edited) {
                 (async () => {
                     const res = await fetch('http://localhost:5000/api/updateProfileInfo', {
-                        method: 'POST',
+                        method: 'PATCH',
                         headers: {
-                            "Content-Type": "application/json"
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
                         },
                         body: JSON.stringify({
-                            token,
                             name: User.name,
                             companyName: User.companyName,
                             email: User.email,

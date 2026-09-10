@@ -2,10 +2,12 @@ import React from "react";
 import './reset_password.css';
 import AgriVisionLogo from './assets/Agri_Vision_logo-main.png';
 import Backbutton from './assets/left-arrow-recolored.png'
+import { useNavigate } from "react-router-dom";
 
 function ResetPassword() {
 
   const userEmail = localStorage.getItem('userEmail') || 'your email';
+  const nav = useNavigate()
 
   function handleFinalSubmit(event) {
     event.preventDefault();
@@ -17,12 +19,15 @@ function ResetPassword() {
       return;
     }
     alert("Password reset successfully!");
+    nav("/LoginPage")
   }
 
   return (
     <>
       <div className="reset-password-page">
-        <button className="back-button">
+        <button className="back-button" onClick={() => {
+          nav('/SendOTP')
+        }}>
           <img className="edit-back-button-icon" src={Backbutton} alt="backbutton" />
           Back
         </button>
@@ -71,7 +76,7 @@ function ResetPassword() {
             </form>
 
             <div>
-              <span className="back">Back to<a href="#"> Log in</a></span>
+              <span className="back">Back to<a href="/LoginPage"> Log in</a></span>
             </div>
             <div className="resend-container">
               <span className="back">Didn't receive OTP?<a href="#"> Resend</a></span>
