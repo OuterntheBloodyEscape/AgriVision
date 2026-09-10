@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { PieChart, Pie, ResponsiveContainer, Tooltip } from "recharts";
+import { useEffect} from "react";
 import "./Dashboard.css";
 function Dashboard() {
   const [search, setSearch] = useState("");
@@ -8,6 +9,27 @@ function Dashboard() {
     { name: "Moderate Risk", value: 26, fill: "#fbbf24" },
     { name: "Needs Attention", value: 5, fill: "#ef4444" },
   ];
+
+   const [farms, setFarms] = useState([]);
+
+  useEffect(() => {
+    const fetchFarms = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/farms/USER_ID"
+        );
+
+        const data = await response.json();
+
+        setFarms(data);
+      } catch (error) {
+        console.error("Error fetching farms:", error);
+      }
+    };
+
+    fetchFarms();
+  }, []);
+
   return (
     <main className="main_DeshBoard">
       <header className="header">
