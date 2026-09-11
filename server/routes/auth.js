@@ -85,4 +85,25 @@ router.post("/login", async (req, res) => {
     }
 });
 
+router.get('/check-login', async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1]
+    try {
+        const dec = jwt.verify(token, process.env.JWT_KEY)
+        const user = await User.findOne({ _id: dec.userId })
+        if (!user) {
+            res.status(401).json({
+                message: 'No user Logedin'
+            })
+        }
+
+        res.status(200).json({
+            message: `${user.name} Login successful`
+        })
+    } catch (e) {
+        res.status(401).json({
+            message: 'No user Logedin'
+        })
+    }
+})
+
 export default router

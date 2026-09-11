@@ -20,6 +20,8 @@
     position: relative;
 }
 
+
+
 #aidd_heading {
     display: flex;
     flex-direction: row;
@@ -65,6 +67,12 @@
     justify-content: center;
     align-items: center;
     position: relative;
+}
+
+#aidd_bottom:hover,
+#aidd_top:hover {
+    box-shadow: 0px 0px 10px #29854D;
+    transition: box-shadow 300ms ease;
 }
 
 #image_up {
@@ -187,7 +195,7 @@
     border-radius: 8px;
     padding: 10px;
     font-size: 17px;
-    transition: max-height 300ms ease-in;
+    transition: height 300ms ease;
     margin: 15px;
 }
 
