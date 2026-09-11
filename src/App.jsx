@@ -23,7 +23,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Navigate to={'/welcome_screen'} replace />} />
-          <Route path='/welcome_screen' element={<WelcomeScreen />} />
+          <Route path='/welcome_screen' element={<WelcomeScreen tm={setToastMessage} />} />
           <Route path='/login_page' element={<Login tm={setToastMessage} />} />
           <Route path='/registration' element={<Registration tm={setToastMessage} />} />
           <Route path='/main_page/*' element={<MainApp />} />

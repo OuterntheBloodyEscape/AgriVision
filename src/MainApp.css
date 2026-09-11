@@ -204,7 +204,7 @@
     transition: display 300ms ease-in;
 }
 
-.Search_page {
+.Search_page_container {
     background-color: rgba(128, 128, 128, 0.616);
     position: absolute;
     height: 100%;
@@ -212,34 +212,7 @@
     display: none;
     flex-direction: column;
     align-items: center;
-}
-
-#search_container {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: white;
-    display: flex;
-    flex-direction: row;
-    border-radius: 20px;
-}
-
-#search_bar {
-    height: 40px;
-    width: 500px;
-    padding: 7px;
-    font-size: 16px;
-    border-radius: 10px;
-    border: 1px solid gray;
-    outline-color: #29854D;
-}
-
-#search_button {
-    margin-left: 10px;
-    width: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
+    gap: 20px;
 }
 
 .big_picture {
