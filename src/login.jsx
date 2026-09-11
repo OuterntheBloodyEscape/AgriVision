@@ -76,7 +76,7 @@ let Login = ({ tm }) => {
                                 e.preventDefault();
                                 const rs = await makeLogin();
                                 if (rs === 200) {
-                                    nav('/MainPage');
+                                    nev('/main_page', { replace: true });
                                 } else {
                                     setResStatus(rs);
                                 }
@@ -91,7 +91,7 @@ let Login = ({ tm }) => {
                                 <div id='form_submit_container'><input type='submit' id='form_submit'></input></div>
                             </form>
                         </div>
-                        <div id='lcp2_bottom_txt'><p>Don't have any account?</p><a href='/Registration'>Registration</a></div>
+                        <div id='lcp2_bottom_txt'><p>Don't have any account? </p><a href='/registration'>Registration</a></div>
                         <div id='lcp2_bottom_txt'><p>Don't remember the password?</p><a href='/SendOTP'>Forget password</a></div>
                     </div >
                 </dev >
