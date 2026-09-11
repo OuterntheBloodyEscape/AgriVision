@@ -128,7 +128,7 @@ let MainApp = () => {
                             <Route path='home' element={<Dashboard />} />
                             <Route path='ai_disease_detection' element={<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />} />
                             <Route path='ai_assistant' element={<AI_Assistant />} />
-                            <Route path='map' element={<></>} />
+                            <Route path='map' element={<Map_weather />} />
                             <Route path='contract_farming' element={<Contract_Farming />} />
                             <Route path='contract_farming_my' element={<Contract_Farming_my cdp={callDefaultPopupPage} />} />
                             <Route path='live_market_prices' element={<Live_MarketPrices />} />
