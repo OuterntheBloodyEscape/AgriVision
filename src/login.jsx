@@ -76,7 +76,7 @@ let Login = ({ tm }) => {
                                 e.preventDefault();
                                 const rs = await makeLogin();
                                 if (rs === 200) {
-                                    nev('/main_page', { replace: true });
+                                    nav('/main_page', { replace: true });
                                 } else {
                                     setResStatus(rs);
                                 }
