@@ -101,6 +101,7 @@ function Registration({ tm }) {
         </div>
       </div>
 
+
     </>
   );
 }

@@ -1,19 +1,19 @@
-.AI-Assistant-page-container{
+.AI-Assistant-page-container {
   display: flex;
   position: relative;
   height: 100vh;
 }
 
-.sidebar{
+.sidebar {
   position: fixed;
   right: 0px;
   background-color: #F0EDFD;
-  border-left: 1px solid grey; 
+  border-left: 1px solid grey;
   height: 100vh;
   width: 56px;
 }
 
-.sidebar-things{
+.sidebar-things {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +22,7 @@
   padding-top: 20px;
 }
 
-.sidebar-button{
+.sidebar-button {
   height: 46px;
   width: 46px;
   border: none;
@@ -31,22 +31,22 @@
   cursor: pointer;
 }
 
-.sidebar-button:hover{
+.sidebar-button:hover {
   background-color: #c7c7ca;
   border-radius: 100%;
 }
 
-.sidebar-logo-size{
+.sidebar-logo-size {
   height: 26px;
 }
 
-.AI-Assistant-tooltip{
-  opacity: 0; 
+.AI-Assistant-tooltip {
+  opacity: 0;
   white-space: nowrap;
   color: grey;
   position: absolute;
   right: 60px;
-  top:50%;
+  top: 50%;
   transform: translateY(-50%);
   border: 1px solid grey;
   padding: 6px 10px;
@@ -56,11 +56,11 @@
   font-weight: 550;
 }
 
-.sidebar-button:hover .AI-Assistant-tooltip{
+.sidebar-button:hover .AI-Assistant-tooltip {
   opacity: 1;
 }
 
-.aia-search-container{
+.aia-search-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -69,8 +69,8 @@
   width: 100%;
 }
 
-.chatbot-pic{
-  height:160px;
+.chatbot-pic {
+  height: 160px;
   width: 160px;
   display: flex;
   justify-content: center;
@@ -78,24 +78,24 @@
   margin-bottom: 0px;
 }
 
-.edit-AI-logo{
-  height:140px;
+.edit-AI-logo {
+  height: 140px;
 }
 
-.welcome-text{
+.welcome-text {
   font-size: 30px;
   font-weight: 600;
   color: blueviolet;
 }
 
-.how{
-  font-size: 30px;
+.how {
+  font-size: 28px;
   font-weight: 600;
   color: black;
   margin-bottom: 30px;
 }
 
-.ai-search-box{
+.ai-search-box {
   height: 188px;
   width: 600px;
   background-color: #F0EDFD;
@@ -104,14 +104,42 @@
   border-radius: 14px;
 }
 
-.search-box-first-line{
+@media (max-width:800px) {
+  .ai-search-box {
+    height: 300px;
+    width: 320px;
+  }
+
+  .edit-textarea {
+    width: 282px !important;
+    height: 220px !important;
+  }
+
+  .voice-search-icon-button {
+    right: 4% !important;
+  }
+
+  .welcome-text {
+    font-size: 26px;
+  }
+
+  .how {
+    font-size: 24px;
+  }
+
+  .edit-AI-logo {
+    height: 120px;
+  }
+}
+
+.search-box-first-line {
   display: flex;
   align-items: center;
   margin-top: 10px;
   position: relative;
 }
 
-.voice-search-icon-button{
+.voice-search-icon-button {
   border: none;
   display: flex;
   justify-content: center;
@@ -120,17 +148,17 @@
   width: 32px;
   background-color: transparent;
   position: absolute;
-  top: 3%;
+  top: 1%;
   right: 3%;
   cursor: pointer;
 }
 
-.voice-search-icon-button:hover{
+.voice-search-icon-button:hover {
   background-color: #c7c7ca;
   border-radius: 50%;
 }
 
-.vsib-tooltip{
+.vsib-tooltip {
   position: absolute;
   top: 44px;
   opacity: 0;
@@ -144,11 +172,11 @@
   font-weight: 550;
 }
 
-.voice-search-icon-button:hover .vsib-tooltip{
+.voice-search-icon-button:hover .vsib-tooltip {
   opacity: 1;
 }
 
-.edit-textarea{
+.edit-textarea {
   padding: 8px;
   height: 110px;
   width: 94%;
@@ -161,24 +189,25 @@
   outline: none;
 }
 
-.edit-voice-search-icon{
+.edit-voice-search-icon {
   height: 20px;
   margin-left: 10px;
   margin-right: 10px;
 }
 
-.search-box-last-line{
+.search-box-last-line {
   display: flex;
   justify-content: space-between;
   padding: 10px;
 }
 
-.deep-research-icon-edit{
+.deep-research-icon-edit {
   height: 18px;
   margin-right: 10px;
 }
 
-.deep-research-button, .attach-file-button{
+.deep-research-button,
+.attach-file-button {
   display: flex;
   align-items: center;
   padding: 15px;
@@ -190,12 +219,12 @@
   cursor: pointer;
 }
 
-.deep-research-button:hover, .attach-file-button:hover{
+.deep-research-button:hover,
+.attach-file-button:hover {
   background-color: #d9d7dc;
 }
 
-.attach-file-icon-edit{
+.attach-file-icon-edit {
   height: 14px;
   margin-right: 10px;
 }
-

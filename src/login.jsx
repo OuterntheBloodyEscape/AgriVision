@@ -12,7 +12,7 @@ import eco from './assets/photo_lib/eco-world.png'
 let Login = ({ tm }) => {
     const slidephotos = [shovel, fruit, robotic, farm, chick, eco];
     const [photoIndex, setIndex] = useState(0);
-    const nev = useNavigate();
+    const nav = useNavigate();
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((currentIndex) => {
@@ -92,6 +92,7 @@ let Login = ({ tm }) => {
                             </form>
                         </div>
                         <div id='lcp2_bottom_txt'><p>Don't have any account? </p><a href='/registration'>Registration</a></div>
+                        <div id='lcp2_bottom_txt'><p>Don't remember the password?</p><a href='/SendOTP'>Forget password</a></div>
                     </div >
                 </dev >
             </div >

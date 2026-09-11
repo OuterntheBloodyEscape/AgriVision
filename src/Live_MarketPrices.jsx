@@ -45,7 +45,7 @@ function Live_MarketPrices() {
               Filter by Category
             </p>
 
-            <div>
+            <div className="all-filter-buttons">
               <button className="for-all-button only-all">
                 All
               </button>

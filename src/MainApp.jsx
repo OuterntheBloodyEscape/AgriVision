@@ -24,6 +24,7 @@ import Contract_addForm from './Contract_addForm.jsx'
 import SettingsPage from './settings.jsx'
 import AI_Assistant from './AI_Assistant.jsx'
 import SearchPage from './Search_page.jsx'
+import Map_weather from './map_weather.jsx'
 
 let MainApp = () => {
     const nev = useNavigate()
