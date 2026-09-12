@@ -114,6 +114,7 @@
 #lcp2_bottom_txt {
     display: flex;
     flex-direction: row;
+    font-size: 12px;
 }
 
 #lcp2_bottom_txt a {

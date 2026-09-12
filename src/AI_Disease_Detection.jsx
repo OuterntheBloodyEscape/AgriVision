@@ -22,7 +22,7 @@ let AI_Disease_Detection = ({ ibp, bpl, tm }) => {
                 nav('/login_page', { replace: true })
             }
         })()
-    }, [])
+    }, [nav])
     const [photos, addPhotos] = useState([])
     const [analyzedPhotos, setAnalyzedPhotos] = useState([])
     const [isMouseImgAddOver, setMouseImgAddOver] = useState(false)
@@ -40,7 +40,7 @@ let AI_Disease_Detection = ({ ibp, bpl, tm }) => {
 
         setWFAR(true)
         setAddImgWarning(false);
-        setAiResponse('AI tinking');
+        setAiResponse('AI thinking');
         setAnalyzedPhotos([...photos]);
 
         try {
