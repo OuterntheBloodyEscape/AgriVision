@@ -23,7 +23,7 @@ let Contract_Farming = () => {
                 setPage('/login_page', { replace: true })
             }
         })()
-    }, [])
+    }, [setPage])
     return (
         <>
             <div id='Contract_Farming_others_root'>

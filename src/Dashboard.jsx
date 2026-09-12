@@ -16,7 +16,7 @@ function Dashboard() {
         nav('/login_page', { replace: true })
       }
     })()
-  }, [])
+  }, [nav])
   const [search, setSearch] = useState("");
   const PieChart_data = [
     { name: "Healthy Fields", value: 43, fill: "#16a34a" },

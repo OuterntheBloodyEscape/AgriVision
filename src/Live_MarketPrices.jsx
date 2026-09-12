@@ -26,7 +26,7 @@ function Live_MarketPrices() {
         nav('/login_page', { replace: true })
       }
     })()
-  }, [])
+  }, [nav])
   return (
     <>
       <div className="All-containers">
