@@ -28,7 +28,7 @@ const TopNav = ({ setSettingsP, setSearchP }) => {
                 <img src={userP} alt="user_icon" draggable={false} className='icon2' />
             </div>
             <div className='profile_section'>
-                <p>{uname}</p>
+                <p id='uname_text'>{uname.substring(0, (uname.length > 12) ? (12) : (uname.length))}</p>
             </div>
         </div>
     </>);

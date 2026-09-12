@@ -35,13 +35,22 @@
 .profile_section {
     background-color: white;
     position: absolute;
-    bottom: -40px;
+    bottom: -45px;
+    right: 0;
     box-shadow: 0px 0px 10px rgb(56, 184, 34);
     border-radius: 7px;
     visibility: hidden;
     z-index: 1;
+    width: 100px;
+    text-align: center;
+    overflow-x: hidden;
 }
 
 #profile_Container:hover .profile_section {
     visibility: visible;
+}
+
+#uname_text {
+    margin: 10px;
+    white-space: nowrap;
 }

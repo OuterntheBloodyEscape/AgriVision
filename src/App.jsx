@@ -27,6 +27,8 @@ function App() {
           <Route path='/login_page' element={<Login tm={setToastMessage} />} />
           <Route path='/registration' element={<Registration tm={setToastMessage} />} />
           <Route path='/main_page/*' element={<MainApp tm={setToastMessage} />} />
+          <Route path='/send_otp' element={<SendOTP />} />
+          <Route path='/reset_password' element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>
       <div className={`toast_message_box ${(toast_message.length == 0) ? '' : 'toast_message_box_active'}`}>
