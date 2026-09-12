@@ -30,6 +30,7 @@ let Login = ({ tm }) => {
     const makeLogin = async () => {
         const res = await fetch("http://localhost:5000/api/auth/login", {
             method: "POST",
+            credentials: 'include',
             headers: {
                 "Content-Type": "application/json"
             },
@@ -41,11 +42,6 @@ let Login = ({ tm }) => {
 
         const data = await res.json();
         tm(data.message)
-        if (res.status === 200) {
-            console.log(data.message)
-            localStorage.setItem('av_token', data.token)
-        }
-
         return res.status;
     }
 

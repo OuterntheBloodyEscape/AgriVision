@@ -26,10 +26,10 @@ function App() {
           <Route path='/welcome_screen' element={<WelcomeScreen tm={setToastMessage} />} />
           <Route path='/login_page' element={<Login tm={setToastMessage} />} />
           <Route path='/registration' element={<Registration tm={setToastMessage} />} />
-          <Route path='/main_page/*' element={<MainApp />} />
+          <Route path='/main_page/*' element={<MainApp tm={setToastMessage} />} />
         </Routes>
       </BrowserRouter>
-      <div className={`toast_message_box ${(toast_message === '') ? '' : 'toast_message_box_active'}`}>
+      <div className={`toast_message_box ${(toast_message.length == 0) ? '' : 'toast_message_box_active'}`}>
         <p>{toast_message}</p>
       </div>
     </div>

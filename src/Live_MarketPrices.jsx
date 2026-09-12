@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './Live_MarketPrices.css'
 import broccoli from './assets/broccoli.jpg'
 import rui from './assets/rui-fish.jpg'
@@ -10,8 +10,23 @@ import oil from './assets/soyabean-oil.jpg'
 import onion from './assets/onion.jpeg'
 import view from './assets/up-recolored.png'
 import searchicon from './assets/searchicon.png'
+import { useNavigate } from "react-router-dom";
 
 function Live_MarketPrices() {
+  const nav = useNavigate()
+  useEffect(() => {
+    (async () => {
+      const res = await fetch('http://localhost:5000/api/auth/check-login', {
+        method: 'GET',
+        credentials: 'include',
+      })
+      const data = await res.json()
+
+      if (res.status === 401) {
+        nav('/login_page', { replace: true })
+      }
+    })()
+  }, [])
   return (
     <>
       <div className="All-containers">
