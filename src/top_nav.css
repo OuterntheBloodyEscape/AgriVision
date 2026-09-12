@@ -30,6 +30,7 @@
     height: 32px;
     pointer-events: none;
     user-select: none;
+    border-radius: 50%;
 }
 
 .profile_section {

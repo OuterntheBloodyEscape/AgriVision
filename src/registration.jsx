@@ -49,7 +49,7 @@ function Registration({ tm }) {
               e.preventDefault();
               const rs = await makeRegistration()
               if (rs === 201) {
-                pageNavigat("/LoginPage")
+                pageNavigat("/login_page")
               }
             }}>
               <label className="field-group extra-space">

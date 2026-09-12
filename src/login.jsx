@@ -25,7 +25,6 @@ let Login = ({ tm }) => {
 
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
-    const [resStatus, setResStatus] = useState(0);
 
     const makeLogin = async () => {
         const res = await fetch("http://localhost:5000/api/auth/login", {
@@ -49,7 +48,7 @@ let Login = ({ tm }) => {
         <>
             <div id="login_bg_image"></div>
             <div id='container'>
-                <dev id='login_container'>
+                <div id='login_container'>
                     <div id='lcp1'>
                         <div id='login_photo_display'>
                             <img src={slidephotos[photoIndex]} alt="photo_display" id='login_photo_display_img' />
@@ -73,10 +72,7 @@ let Login = ({ tm }) => {
                                 const rs = await makeLogin();
                                 if (rs === 200) {
                                     nav('/main_page', { replace: true });
-                                } else {
-                                    setResStatus(rs);
                                 }
-
                             }} autoSave='off'>
                                 <label htmlFor='user_email' className='form_label' > Email: </label>
                                 <input name='user_email' id='user_email' type='email' placeholder='example@mail.com' required autoFocus
@@ -90,7 +86,7 @@ let Login = ({ tm }) => {
                         <div id='lcp2_bottom_txt'><p>Don't have any account? </p><a href='/registration'>Registration</a></div>
                         <div id='lcp2_bottom_txt'><p>Don't remember the password?</p><a href='/send_otp'>Forget password</a></div>
                     </div >
-                </dev >
+                </div >
             </div >
         </>
     );
