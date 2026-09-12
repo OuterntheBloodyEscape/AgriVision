@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp");
+.heading {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 10px 10px 10px;
+}
+.addButton {
+  padding: 5px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: green;
+  cursor: pointer;
+}
+.addButtonColor {
+  color: white;
+}
+.gridBody {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.grid {
+  padding: 20px;
+
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+
+  justify-content: center;
+  gap: 1rem;
+  border-radius: 20px;
+}
+.map {
+  border-radius: 20px;
+  overflow: hidden;
+}
+.map:hover {
+  border: 2px solid rgb(31, 158, 78);
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.3);
+}
+.secondGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: violet;
+  width: 50%;
+}
+
+.weatherConditionHeader {
+  display: flex;
+  justify-content: space-between;
+}
+.weatherConditions {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: pink;
+}
+.weatherCondition {
+  display: flex;
+  justify-content: start;
+}
+.weatherConditionChild {
+  display: flex;
+  flex-direction: column;
+  background-color: blue;
+}
+.weatherConditionVertical {
+  display: flex;
+  align-content: center;
+  background-color: pink;
+}
+.icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 2px solid green;
+  background-color: lightgreen;
+}

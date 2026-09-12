@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose"
 
 const farmSchema = new mongoose.Schema(
   {
@@ -7,30 +7,18 @@ const farmSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-
-    farmName: {
-      type: String,
-      required: true,
-    },
-
-    location: {
-      type: String,
-      required: true,
-    },
-
-    area: {
+    latitude: {
       type: Number,
+      required: true,
     },
-
-    crops: [
-      {
-        type: String,
-      },
-    ],
+    longitude: {
+      type: Number,
+      required: true,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model("Farm", farmSchema);
+export default mongoose.model("Farm", farmSchema);

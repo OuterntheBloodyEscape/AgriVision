@@ -1,22 +1,47 @@
-const express = require("express");
-const Farm = require("../models/Farm");
+import express from "express";
+import jwt from "jsonwebtoken";
+import Farm from "../models/Farm.js";
+import dotenv from "dotenv";
 
+dotenv.config();
 const router = express.Router();
 
-router.get("/:userId", async (req, res) => {
+router.post("/location", async (req, res) => {
   try {
-    const farms = await Farm.find({
-      owner: req.params.userId,
+    const { latitude, longitude } = req.body;
+    const authorization = req.headers.authorization;
+    if (!authorization) {
+      return res.status(401).json({
+        message: "No user Login",
+      });
+    }
+
+    const token = authorization.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_KEY);
+
+    // Create farm document
+    const farm = new Farm({
+      owner: decoded.userId,
+      latitude: latitude,
+      longitude: longitude,
     });
 
-    res.json(farms);
+    // Save to MongoDB
+    await farm.save();
+
+    res.status(200).json({
+      message: "Location saved successfully",
+      farm: farm,
+    });
+
   } catch (error) {
     console.error(error);
 
     res.status(500).json({
-      message: "Failed to fetch farms",
+      message: "Failed to save location",
+      error: error.message,
     });
   }
 });
 
-module.exports = router;
+export default router;

@@ -1,23 +1,23 @@
 import { useState, useEffect } from "react";
 import { PieChart, Pie, ResponsiveContainer, Tooltip } from "recharts";
-import { useEffect} from "react";
+// import { useEffect} from "react";
 import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
 function Dashboard() {
-  const nav = useNavigate()
+  const nav = useNavigate();
   useEffect(() => {
     (async () => {
-      const res = await fetch('http://localhost:5000/api/auth/check-login', {
-        method: 'GET',
-        credentials: 'include',
-      })
-      const data = await res.json()
+      const res = await fetch("http://localhost:5000/api/auth/check-login", {
+        method: "GET",
+        credentials: "include",
+      });
+      const data = await res.json();
 
       if (res.status === 401) {
-        nav('/login_page', { replace: true })
+        nav("/login_page", { replace: true });
       }
-    })()
-  }, [])
+    })();
+  }, []);
   const [search, setSearch] = useState("");
   const PieChart_data = [
     { name: "Healthy Fields", value: 43, fill: "#16a34a" },
@@ -25,14 +25,12 @@ function Dashboard() {
     { name: "Needs Attention", value: 5, fill: "#ef4444" },
   ];
 
-   const [farms, setFarms] = useState([]);
+  const [farms, setFarms] = useState([]);
 
   useEffect(() => {
     const fetchFarms = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:5000/api/farms/USER_ID"
-        );
+        const response = await fetch("http://localhost:5000/api/farms/USER_ID");
 
         const data = await response.json();
 
