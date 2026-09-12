@@ -125,7 +125,7 @@ let MainApp = ({ tm }) => {
                         <Routes>
                             <Route path='/' element={<Navigate to={'/main_page/home'} replace />} />
                             <Route path='home' element={<Dashboard />} />
-                            <Route path='ai_disease_detection' element={<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />} />
+                            <Route path='ai_disease_detection' element={<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} tm={tm} />} />
                             <Route path='ai_assistant' element={<AI_Assistant />} />
                             <Route path='map' element={<Map_weather />} />
                             <Route path='contract_farming' element={<Contract_Farming />} />

@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 
-let AI_Disease_Detection = ({ ibp, bpl }) => {
+let AI_Disease_Detection = ({ ibp, bpl, tm }) => {
     const nav = useNavigate()
     useEffect(() => {
         (async () => {
@@ -23,11 +23,13 @@ let AI_Disease_Detection = ({ ibp, bpl }) => {
             }
         })()
     }, [])
-    const [photos, addPhotos] = useState([]);
-    const [isMouseImgAddOver, setMouseImgAddOver] = useState(false);
-    const [addImgWarning, setAddImgWarning] = useState(true);
-    const [aiResponse, setAiResponse] = useState('');
-    const [additionalInfo, setAdditionalInfo] = useState('');
+    const [photos, addPhotos] = useState([])
+    const [analyzedPhotos, setAnalyzedPhotos] = useState([])
+    const [isMouseImgAddOver, setMouseImgAddOver] = useState(false)
+    const [addImgWarning, setAddImgWarning] = useState(true)
+    const [aiResponse, setAiResponse] = useState('')
+    const [additionalInfo, setAdditionalInfo] = useState('')
+    const [waitForAIRespnsce, setWFAR] = useState(false)
 
     const checkAi = async () => {
 
@@ -36,16 +38,20 @@ let AI_Disease_Detection = ({ ibp, bpl }) => {
             return;
         }
 
+        setWFAR(true)
         setAddImgWarning(false);
+        setAiResponse('AI tinking');
+        setAnalyzedPhotos([...photos]);
 
         try {
             const formData = new FormData();
 
+            formData.append('additionalInfo', additionalInfo);
+            setAdditionalInfo('');
+
             for (const photo of photos) {
                 formData.append('images', photo.file);
             }
-
-            formData.append('additionalInfo', additionalInfo);
 
             const res = await fetch(
                 'http://localhost:5000/api/ai_disease_detection/disease',
@@ -66,6 +72,7 @@ let AI_Disease_Detection = ({ ibp, bpl }) => {
             setAiResponse(data.result);
 
             addPhotos([]);
+            setWFAR(false)
 
         } catch (error) {
             console.error('AI Error:', error);
@@ -77,12 +84,39 @@ let AI_Disease_Detection = ({ ibp, bpl }) => {
             <div id='aidd_root'>
                 <div id='aidd_top'>
                     <div id='aidd_heading'><h4>AI Disease Detection</h4></div>
-                    <div className={`aidd_result ${(addImgWarning) ? 'aidd_result_w' : ''}`}>
-                        <Markdown >
+                    <div className={`aidd_result ${(addImgWarning) ? 'aidd_result_w' : ''} ${(waitForAIRespnsce) ? ('wfar') : ('')}`}>
+
+                        {(waitForAIRespnsce) ? (<></>) : (analyzedPhotos.length > 0 && (
+                            <div id='aidd_analyzed_images'>
+
+                                {analyzedPhotos.map((p, idx) => (
+                                    <div
+                                        className='aidd_analyzed_image_div'
+                                        key={idx}
+                                        onClick={() => {
+                                            ibp(true);
+                                            bpl(p.link);
+                                        }}
+                                    >
+                                        <img
+                                            src={p.link}
+                                            alt={`Analyzed image ${idx + 1}`}
+                                            className='aidd_analyzed_image'
+                                        />
+                                    </div>
+                                ))}
+
+                            </div>
+                        ))}
+
+                        <Markdown>
                             {
-                                (addImgWarning) ? ('Attach image first') : (aiResponse)
+                                (addImgWarning)
+                                    ? ('Attach image first')
+                                    : (aiResponse)
                             }
                         </Markdown>
+
                     </div>
                 </div>
                 <div id='aidd_bottom'>
@@ -91,10 +125,14 @@ let AI_Disease_Detection = ({ ibp, bpl }) => {
                             <img src={(isMouseImgAddOver) ? iuh : iu} alt="uplode" id='uplode_icon' draggable={false} />
                             <p>Uplode Image</p>
                             <input type='file' id='image_up' onChange={(f) => {
-                                let l = f.target.files.length
-                                for (let i = 0; i < l; i++) {
-                                    let pl = URL.createObjectURL(f.target.files[i]);
-                                    addPhotos((p) => ([...p, { file: f.target.files[i], link: pl }]));
+                                if (!waitForAIRespnsce) {
+                                    let l = f.target.files.length
+                                    for (let i = 0; i < l; i++) {
+                                        let pl = URL.createObjectURL(f.target.files[i]);
+                                        addPhotos((p) => ([...p, { file: f.target.files[i], link: pl }]));
+                                    }
+                                } else {
+                                    tm('wait for AI response. No photo can be uploaded now')
                                 }
                             }} accept='image/*' multiple />
                         </label>
@@ -105,7 +143,11 @@ let AI_Disease_Detection = ({ ibp, bpl }) => {
                                         <img className='photo' src={p.link} alt='uploded...'></img>
                                     </div>
                                     <div className='rm_div' onClick={() => {
-                                        addPhotos((pr) => pr.filter((e) => e.link !== p.link));
+                                        if (!waitForAIRespnsce) {
+                                            addPhotos((pr) => pr.filter((e) => e.link !== p.link))
+                                        } else {
+                                            tm('wait for AI response. No photo can be removed now')
+                                        }
                                     }}>
                                         <img src={rm} alt="remove" className='img_remove' />
                                     </div>
@@ -113,12 +155,16 @@ let AI_Disease_Detection = ({ ibp, bpl }) => {
                             ))}
                         </div>
                     </div>
-                    <div id='txt_container'>
+                    <form id='txt_container' onSubmit={(e) => {
+                        e.preventDefault()
+                        checkAi()
+                        e.target.reset()
+                    }}>
                         <textarea id='txt' placeholder='Additional Info...' onChange={(e) => { setAdditionalInfo(e.target.value) }}></textarea>
-                        <div id='send_button' onClick={() => { checkAi(); }}>
+                        <button id='send_button'>
                             <img src={send} height={20} width={20}></img>
-                        </div>
-                    </div>
+                        </button>
+                    </form>
                 </div>
             </div>
         </>

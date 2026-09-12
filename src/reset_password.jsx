@@ -76,7 +76,7 @@ function ResetPassword() {
             </form>
 
             <div>
-              <span className="back">Back to<a href="/LoginPage"> Log in</a></span>
+              <span className="back">Back to<a href="/login_page"> Log in</a></span>
             </div>
             <div className="resend-container">
               <span className="back">Didn't receive OTP?<a href="#"> Resend</a></span>

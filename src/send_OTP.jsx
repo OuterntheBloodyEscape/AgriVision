@@ -21,7 +21,7 @@ function SendOTP() {
 
     setTimeout(() => {
       messageBox.innerHTML = "";
-      nav('/ResetPassword')
+      nav('/reset_password')
     }, 3000);
   }
 
@@ -60,7 +60,7 @@ function SendOTP() {
             </form>
 
             <div>
-              <span className="back">Back to<a href="/LoginPage"> Log in</a></span>
+              <span className="back">Back to<a href="/login_page"> Log in</a></span>
             </div>
 
           </div>

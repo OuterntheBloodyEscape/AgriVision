@@ -88,7 +88,7 @@ let Login = ({ tm }) => {
                             </form>
                         </div>
                         <div id='lcp2_bottom_txt'><p>Don't have any account? </p><a href='/registration'>Registration</a></div>
-                        <div id='lcp2_bottom_txt'><p>Don't remember the password?</p><a href='/SendOTP'>Forget password</a></div>
+                        <div id='lcp2_bottom_txt'><p>Don't remember the password?</p><a href='/send_otp'>Forget password</a></div>
                     </div >
                 </dev >
             </div >
