@@ -5,8 +5,8 @@ import userP from './assets/nav_icons/user.png'
 import { useState } from 'react'
 
 const TopNav = ({ setSettingsP, setSearchP }) => {
-    const [logoutCall, setLogoutCall] = useState(false)
     const [uname, setUName] = useState('')
+    const [uphoto, setUphoto] = useState('')
     const fetchUName = async () => {
         const res = await fetch('http://localhost:5000/api/getProfileInfo', {
             method: 'GET',
@@ -14,6 +14,7 @@ const TopNav = ({ setSettingsP, setSearchP }) => {
         })
         const cuser = await res.json()
         setUName(cuser.name)
+        setUphoto(cuser.profileImage)
     }
 
     return (<>
@@ -24,8 +25,8 @@ const TopNav = ({ setSettingsP, setSearchP }) => {
             <img src={search_ia} alt="search_icon" draggable={false} className='icon2' />
         </div>
         <div id='profile_Container' onMouseEnter={() => { fetchUName() }}>
-            <div className='iconContainer2' onClick={() => { setLogoutCall((p) => (!p)) }}>
-                <img src={userP} alt="user_icon" draggable={false} className='icon2' />
+            <div className='iconContainer2'>
+                <img src={(uphoto == '') ? (userP) : (uphoto)} alt="user_icon" draggable={false} className='icon2' />
             </div>
             <div className='profile_section'>
                 <p id='uname_text'>{uname.substring(0, (uname.length > 12) ? (12) : (uname.length))}</p>
