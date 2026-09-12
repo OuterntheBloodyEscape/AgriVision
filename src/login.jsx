@@ -30,6 +30,7 @@ let Login = ({ tm }) => {
     const makeLogin = async () => {
         const res = await fetch("http://localhost:5000/api/auth/login", {
             method: "POST",
+            credentials: 'include',
             headers: {
                 "Content-Type": "application/json"
             },
@@ -41,11 +42,6 @@ let Login = ({ tm }) => {
 
         const data = await res.json();
         tm(data.message)
-        if (res.status === 200) {
-            console.log(data.message)
-            localStorage.setItem('av_token', data.token)
-        }
-
         return res.status;
     }
 
@@ -76,7 +72,7 @@ let Login = ({ tm }) => {
                                 e.preventDefault();
                                 const rs = await makeLogin();
                                 if (rs === 200) {
-                                    nev('/main_page', { replace: true });
+                                    nav('/main_page', { replace: true });
                                 } else {
                                     setResStatus(rs);
                                 }
@@ -92,7 +88,7 @@ let Login = ({ tm }) => {
                             </form>
                         </div>
                         <div id='lcp2_bottom_txt'><p>Don't have any account? </p><a href='/registration'>Registration</a></div>
-                        <div id='lcp2_bottom_txt'><p>Don't remember the password?</p><a href='/SendOTP'>Forget password</a></div>
+                        <div id='lcp2_bottom_txt'><p>Don't remember the password?</p><a href='/send_otp'>Forget password</a></div>
                     </div >
                 </dev >
             </div >

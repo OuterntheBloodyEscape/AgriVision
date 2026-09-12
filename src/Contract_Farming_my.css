@@ -149,6 +149,11 @@
     margin-left: 10px;
     margin-right: 10px;
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+    gap: 15px;
+
+    min-width: 0;
 }
 
 .Contract_Farming_my_card {

@@ -1,5 +1,5 @@
 import './MainApp.css'
-import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom'
+import { Routes, Route, useNavigate, useLocation, Navigate, replace } from 'react-router-dom'
 import { useState } from 'react'
 import homeIcon_ia from './assets/nav_icons/home_inactive.png'
 import homeIcon_a from './assets/nav_icons/home_active.png'
@@ -14,7 +14,6 @@ import market_a from './assets/nav_icons/online-shop-active.png'
 import moon_ia from './assets/nav_icons/moon_inactive.png'
 import moon_a from './assets/nav_icons/moon_active.png'
 import webIcon from './assets/webIcon.png'
-import search_ia from './assets/nav_icons/search_inactive.png'
 import AI_Disease_Detection from './AI_Disease_Detection.jsx'
 import Contract_Farming from './Contract_Farming.jsx'
 import Dashboard from './Dashboard.jsx'
@@ -23,9 +22,11 @@ import Live_MarketPrices from './Live_MarketPrices.jsx'
 import TopNav from './top_nav.jsx'
 import Contract_addForm from './Contract_addForm.jsx'
 import SettingsPage from './settings.jsx'
+import AI_Assistant from './AI_Assistant.jsx'
+import SearchPage from './Search_page.jsx'
 import Map_weather from './map_weather.jsx'
 
-let MainApp = () => {
+let MainApp = ({ tm }) => {
     const nev = useNavigate()
     const pathlocation = useLocation()
     let pathName = pathlocation.pathname
@@ -35,10 +36,9 @@ let MainApp = () => {
     const [DefaultPopupPage, callDefaultPopupPage] = useState(0);
     const [isBigPicture, setBigPicture] = useState(false);
     const [bigPictureLink, setBigPictureLink] = useState('');
-    const mainSubPageLink = ['/main_page/home', '/main_page/ai_disease_detection', '/main_page/map', '/main_page/contract_farming', '/main_page/live_market_prices']
+    const mainSubPageLink = ['/main_page/home', '/main_page/ai_disease_detection', '/main_page/map', '/main_page/contract_farming', '/main_page/live_market_prices', '/main_page/ai_assistant']
     let onMenuClick = () => {
         setMenu((v) => (!v))
-        // console.log(menuActive)
         document.getElementById("main_app_p1").style.width = ((!menuActive) ? ("120px") : ("60px"))
         let displayState = ((!menuActive) ? ("block") : ("none"))
         let displaySize = ((!menuActive) ? ("92px") : ("36px"))
@@ -50,6 +50,9 @@ let MainApp = () => {
 
     const checkInMarket = () => {
         return (pathName == mainSubPageLink[3]) || (pathName == mainSubPageLink[4]) || (pathName == '/main_page/contract_farming_my')
+    }
+    const checkInAi = () => {
+        return (pathName == mainSubPageLink[1]) || (pathName == mainSubPageLink[5])
     }
     return (
         <>
@@ -65,8 +68,8 @@ let MainApp = () => {
                         <div className='iconTxtcontainer'><p className='iconTxt'>Home</p></div>
                         <div className={`hintTxtcontainer ${(!menuActive) ? "home_hint" : ""}`}><p className='hintTxt'>Home</p></div>
                     </div>
-                    <div id='ai_icon_container' onClick={() => { nev(mainSubPageLink[1]); }} className={`iconContainer ${(pathName == mainSubPageLink[1]) ? "active" : ""}`}>
-                        <img src={(pathName == mainSubPageLink[1]) ? (ai_a) : (ai_ia)} alt="ai_icon" className='icon' draggable={false} />
+                    <div id='ai_icon_container' onClick={() => { nev(mainSubPageLink[1]); }} className={`iconContainer ${(checkInAi()) ? "active" : ""}`}>
+                        <img src={(checkInAi()) ? (ai_a) : (ai_ia)} alt="ai_icon" className='icon' draggable={false} />
                         <div className='iconTxtcontainer'><p className='iconTxt'>AI</p></div>
                         <div className={`hintTxtcontainer ${(!menuActive) ? "ai_hint" : ""}`}><p className='hintTxt'>AI</p></div>
                     </div>
@@ -104,7 +107,12 @@ let MainApp = () => {
                                         <button className='P2_2_1_button' onClick={() => { nev(mainSubPageLink[3]) }}>Contract Farming</button>
 
                                     </>
-                                ) : (<></>)}
+                                ) : ((checkInAi()) ? (
+                                    <>
+                                        <button className='P2_2_1_button' onClick={() => { nev(mainSubPageLink[1]) }}>AI Disease Detection</button>
+                                        <button className='P2_2_1_button' onClick={() => { nev(mainSubPageLink[5]) }}>AI Assistant</button>
+                                    </>
+                                ) : (<></>))}
 
                             </div>
                             <div id='main_app_p2_top_p2_2'>
@@ -117,8 +125,9 @@ let MainApp = () => {
                         <Routes>
                             <Route path='/' element={<Navigate to={'/main_page/home'} replace />} />
                             <Route path='home' element={<Dashboard />} />
-                            <Route path='ai_disease_detection' element={<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} />} />
-                            <Route path='map' element={<></>} />
+                            <Route path='ai_disease_detection' element={<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} tm={tm} />} />
+                            <Route path='ai_assistant' element={<AI_Assistant />} />
+                            <Route path='map' element={<Map_weather />} />
                             <Route path='contract_farming' element={<Contract_Farming />} />
                             <Route path='contract_farming_my' element={<Contract_Farming_my cdp={callDefaultPopupPage} />} />
                             <Route path='live_market_prices' element={<Live_MarketPrices />} />
@@ -126,13 +135,8 @@ let MainApp = () => {
                     </div>
                 </div>
             </div>
-            <div className={`Search_page ${(isSearchPage) ? ("pageActive") : ("")}`} onClick={() => { setSearchPage(false) }}>
-                <div id='search_container' onClick={(v) => v.stopPropagation()}>
-                    <input type='search' placeholder='Search...' id='search_bar' />
-                    <div id='search_button'>
-                        <img src={search_ia} alt="search_icon" height={20} width={20} />
-                    </div>
-                </div>
+            <div className={`Search_page_container ${(isSearchPage) ? ("pageActive") : ("")}`} onClick={() => { setSearchPage(false) }}>
+                <SearchPage ssp={setSearchPage} />
             </div>
             <div className={`big_picture ${(isBigPicture) ? ("pageActive") : ("")}`} onClick={() => { setBigPicture(false) }}>
                 <div id='big_picture_container' onClick={(v) => v.stopPropagation()}>
@@ -145,7 +149,7 @@ let MainApp = () => {
                         (() => {
                             switch (DefaultPopupPage) {
                                 case 1:
-                                    return (<SettingsPage cdp={callDefaultPopupPage} />)
+                                    return (<SettingsPage cdp={callDefaultPopupPage} tm={tm} />)
                                 case 2:
                                     return (<Contract_addForm cdp={callDefaultPopupPage} />)
                                 default:

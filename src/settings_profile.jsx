@@ -3,39 +3,31 @@ import udp from './assets/nav_icons/user.png'
 import { useEffect, useState } from 'react'
 import edit from './assets/nav_icons/edit.png'
 import edit_active from './assets/nav_icons/edit_active.png'
+import { useNavigate } from 'react-router-dom'
 
-const SettingsProfile = () => {
+const SettingsProfile = ({ tm }) => {
+    const nav = useNavigate()
     const [nameEdit, setNameEdit] = useState(false)
     const [companyEdit, setCompanyEdit] = useState(false)
     const [emailEdit, setEmailEdit] = useState(false)
     const [phoneEdit, setPhoneEdit] = useState(false)
     const [aboutEdit, setAboutEdit] = useState(false)
     const [edited, setEdited] = useState(false)
-    const [token, setToken] = useState(localStorage.getItem('av_token'))
-    const [User, setUser] = useState({
-        name: "",
-        companyName: "",
-        email: "",
-        phone: "",
-        about: ""
-    })
-    const [tUser, setTUser] = useState({
-        name: "",
-        companyName: "",
-        email: "",
-        phone: "",
-        about: ""
-    })
+    const [User, setUser] = useState({})
+    const [tUser, setTUser] = useState({})
 
     useEffect(() => {
         (async () => {
             const res = await fetch('http://localhost:5000/api/getProfileInfo', {
                 method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                credentials: 'include',
             })
             const cuser = await res.json()
+
+            if (res.status === 401) {
+                nav('/login_page', { replace: true })
+                tm(data.message)
+            }
 
             setUser(cuser)
             setTUser(cuser)
@@ -52,16 +44,16 @@ const SettingsProfile = () => {
     }, [User])
 
     return (<>
-        <div id='sp_heading'><p>{'settings|Profile'}</p></div>
+        <div id='sp_heading'><p>{'Settings|Profile'}</p></div>
         <form onSubmit={(e) => {
             e.preventDefault();
             if (edited) {
                 (async () => {
                     const res = await fetch('http://localhost:5000/api/updateProfileInfo', {
                         method: 'PATCH',
+                        credentials: 'include',
                         headers: {
                             "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`
                         },
                         body: JSON.stringify({
                             name: User.name,
@@ -71,7 +63,11 @@ const SettingsProfile = () => {
                             about: User.about
                         })
                     })
-                    const data = res.json();
+                    const data = await res.json();
+                    if (res.status === 401) {
+                        nav('/login_page', { replace: true })
+                    }
+                    tm(data.message)
                 })()
                 setEdited(false)
             }

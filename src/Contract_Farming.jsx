@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Contract_Farming.css'
 import list_search from './assets/nav_icons/list_search.png'
@@ -10,7 +10,20 @@ let Contract_Farming = () => {
     const [amount, setAmount] = useState(["100", "50", "1000", "2000", "200", "120", "200", "200", "200", "200", "1000", "1000", "1000", "1000"]);
     const [price, setPrice] = useState(["50", "70", "30", '60', '30', '120', '60', '60', '60', '60', '90', '80', '80', '72']);
     const [Card_rating, setRating] = useState(["4.8", "4.5", "4.7", "3.9", "4.2", "4.5", "4.2", "4.2", "4.2", "4.2", "4.7", "4.2", "4.5", "3.7"]);
-    const setPage = useNavigate();
+    const setPage = useNavigate()
+    useEffect(() => {
+        (async () => {
+            const res = await fetch('http://localhost:5000/api/auth/check-login', {
+                method: 'GET',
+                credentials: 'include',
+            })
+            const data = await res.json()
+
+            if (res.status === 401) {
+                setPage('/login_page', { replace: true })
+            }
+        })()
+    }, [])
     return (
         <>
             <div id='Contract_Farming_others_root'>
@@ -31,7 +44,7 @@ let Contract_Farming = () => {
                     <div id='Contract_Farming_others_bottom_cc'>
                         {
                             Card_Titel.map((c, i) => (
-                                <div className='CFC_div'>
+                                <div className='CFC_div' key={i}>
                                     <div className='CFC_info_div'>
                                         <h2>{c}</h2>
                                         <h4>{`Company: ${Companys[i]}`}</h4>
