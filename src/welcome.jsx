@@ -2,16 +2,12 @@ import { useNavigate } from 'react-router-dom'
 import info from './assets/info-recolored.png'
 import up_right from './assets/up-right-arrow.png'
 import './welcome.css'
-import { useState } from 'react'
 let Welcome = ({ tm }) => {
     const navigate = useNavigate();
-    const [token, setToken] = useState(localStorage.getItem('av_token'))
     const cl = async () => {
         const res = await fetch('http://localhost:5000/api/auth/check-login', {
             method: 'GET',
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
+            credentials: 'include',
         })
         const data = await res.json()
 

@@ -56,7 +56,7 @@ router.post("/login", async (req, res) => {
         const passwordMatch = await bcrypt.compare(
             password,
             user.password
-        );
+        )
 
         if (!passwordMatch) {
             return res.status(400).json({
@@ -71,9 +71,13 @@ router.post("/login", async (req, res) => {
             { expiresIn: "7d" }
         );
 
-        res.status(200).json({
+        res.cookie('av_token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        }).status(200).json({
             message: `${user.name} Login successful`,
-            token
         });
 
     } catch (error) {
@@ -86,12 +90,18 @@ router.post("/login", async (req, res) => {
 });
 
 router.get('/check-login', async (req, res) => {
-    const token = req.headers.authorization.split(' ')[1]
     try {
+        const token = req.cookies.av_token
+
+        if (!token) {
+            return res.status(401).json({
+                message: 'No user Logedin'
+            });
+        }
         const dec = jwt.verify(token, process.env.JWT_KEY)
         const user = await User.findOne({ _id: dec.userId })
         if (!user) {
-            res.status(401).json({
+            return res.status(401).json({
                 message: 'No user Logedin'
             })
         }
@@ -105,5 +115,17 @@ router.get('/check-login', async (req, res) => {
         })
     }
 })
+
+router.post('/logout', (req, res) => {
+    res.clearCookie('av_token', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax'
+    });
+
+    return res.status(200).json({
+        message: 'Logout successful'
+    });
+});
 
 export default router

@@ -1,0 +1,98 @@
+#security_body {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 1px solid black;
+    height: 100%;
+}
+
+#security_heading {
+    margin-top: 5px;
+    padding-left: 5px;
+    margin-bottom: 20px;
+}
+
+.security_input_box {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    gap: 5px;
+}
+
+.security_input_button_box {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 10px;
+    margin-top: 20px;
+}
+
+.security_input_button {
+    background-color: white;
+    border: 1px solid #29854D;
+    color: #29854D;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color, color 300ms ease;
+}
+
+.security_input_button_a {
+    color: white;
+    background-color: #29854D;
+}
+
+.security_input_button:hover {
+    box-shadow: 0px 0px 7px #29854D;
+}
+
+#old_pass,
+#new_pass,
+.conf_pass {
+    font-size: 16px;
+    flex: 1;
+    padding: 3px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    appearance: none;
+    outline-color: #29854D;
+}
+
+.conf_pass_w {
+    outline-color: #852f29;
+}
+
+.conf_pass_bottom_text {
+    font-size: 14px;
+}
+
+.conf_pass_bottom_text_w {
+    color: #852f29;
+}
+
+.conf_pass_bottom_text_v {
+    color: #29854D;
+}
+
+#Logout_input_button {
+    background-color: white;
+    border: 1px solid #852f29;
+    color: #852f29;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color, color 300ms ease;
+    margin: 20px;
+    position: absolute;
+    bottom: 0;
+}
+
+#Logout_input_button:hover {
+    box-shadow: 0px 0px 7px #852f29;
+}
+
+#Logout_input_button:active {
+    background-color: #852f29;
+    color: white;
+}

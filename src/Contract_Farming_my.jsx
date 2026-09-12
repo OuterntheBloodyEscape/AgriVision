@@ -1,14 +1,28 @@
 import './Contract_Farming_my.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import list_search from './assets/nav_icons/list_search.png'
 import rating from './assets/star.png'
 import atl from './assets/nav_icons/add-to-list.png'
 import down_icon from './assets/nav_icons/down_arrow.png'
 import up_icon from './assets/nav_icons/up_arrow.png'
+import { useNavigate } from 'react-router-dom'
 
 
 const Contract_Farming_my = ({ cdp }) => {
+    const nav = useNavigate()
+    useEffect(() => {
+        (async () => {
+            const res = await fetch('http://localhost:5000/api/auth/check-login', {
+                method: 'GET',
+                credentials: 'include',
+            })
+            const data = await res.json()
 
+            if (res.status === 401) {
+                nav('/login_page', { replace: true })
+            }
+        })()
+    }, [])
     const [topBoxState, setTopBoxState] = useState(false);
     const [bottomBoxState, setBottomBoxState] = useState(false);
 

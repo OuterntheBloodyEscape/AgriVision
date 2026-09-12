@@ -1,5 +1,5 @@
 import './MainApp.css'
-import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom'
+import { Routes, Route, useNavigate, useLocation, Navigate, replace } from 'react-router-dom'
 import { useState } from 'react'
 import homeIcon_ia from './assets/nav_icons/home_inactive.png'
 import homeIcon_a from './assets/nav_icons/home_active.png'
@@ -26,7 +26,7 @@ import AI_Assistant from './AI_Assistant.jsx'
 import SearchPage from './Search_page.jsx'
 import Map_weather from './map_weather.jsx'
 
-let MainApp = () => {
+let MainApp = ({ tm }) => {
     const nev = useNavigate()
     const pathlocation = useLocation()
     let pathName = pathlocation.pathname
@@ -39,7 +39,6 @@ let MainApp = () => {
     const mainSubPageLink = ['/main_page/home', '/main_page/ai_disease_detection', '/main_page/map', '/main_page/contract_farming', '/main_page/live_market_prices', '/main_page/ai_assistant']
     let onMenuClick = () => {
         setMenu((v) => (!v))
-        // console.log(menuActive)
         document.getElementById("main_app_p1").style.width = ((!menuActive) ? ("120px") : ("60px"))
         let displayState = ((!menuActive) ? ("block") : ("none"))
         let displaySize = ((!menuActive) ? ("92px") : ("36px"))
@@ -137,7 +136,7 @@ let MainApp = () => {
                 </div>
             </div>
             <div className={`Search_page_container ${(isSearchPage) ? ("pageActive") : ("")}`} onClick={() => { setSearchPage(false) }}>
-                <SearchPage />
+                <SearchPage ssp={setSearchPage} />
             </div>
             <div className={`big_picture ${(isBigPicture) ? ("pageActive") : ("")}`} onClick={() => { setBigPicture(false) }}>
                 <div id='big_picture_container' onClick={(v) => v.stopPropagation()}>
@@ -150,7 +149,7 @@ let MainApp = () => {
                         (() => {
                             switch (DefaultPopupPage) {
                                 case 1:
-                                    return (<SettingsPage cdp={callDefaultPopupPage} />)
+                                    return (<SettingsPage cdp={callDefaultPopupPage} tm={tm} />)
                                 case 2:
                                     return (<Contract_addForm cdp={callDefaultPopupPage} />)
                                 default:
