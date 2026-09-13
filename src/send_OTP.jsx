@@ -51,14 +51,14 @@ function SendOTP() {
           <span className="agri-forsendotp">AgriVision</span>
         </div>
 
-        <div className="container2">
-          <form className="box" onSubmit={handleNextStep}>
-            <h1 className="reset-pass-text">Reset your password</h1>
+          <div className="container2">
+            <form className="box" onSubmit={handleNextStep}>
+              <h1 className="reset-pass-text">Reset your password</h1>
 
-            <div className="step-1">
-              <p className="instruction">
-                Enter your email address to receive a <br />6-digit verification code.
-              </p>
+              <div className="step-1">
+                <p className="instruction">
+                  Enter your email address to receive a <br />6-digit verification code.
+                </p>
 
               <label className="field-group">
                 <span className="field-label">Email</span>
