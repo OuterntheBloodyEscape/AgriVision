@@ -14,6 +14,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+
 }
 
 #Contract_Farming_others_bottom {
@@ -36,10 +37,12 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    min-width: 0;
 }
 
 #cf_search_input {
-    width: 500px;
+    min-width: 0;
+    width: 400px;
     height: 40px;
     margin: 20px;
     padding: 10px;
@@ -117,40 +120,26 @@
 
 #Contract_Farming_others_bottom_cc {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-
-@media (max-width: 1900px) {
-    #Contract_Farming_others_bottom_cc {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-}
-
-@media (max-width: 1420px) {
-    #Contract_Farming_others_bottom_cc {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media (max-width: 576px) {
-    #Contract_Farming_others_bottom_cc {
-        display: grid;
-        grid-template-columns: 1fr;
-    }
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 15px;
+    padding: 15px;
+    justify-items: center;
 }
 
 .CFC_div {
-    height: max-content;
-    width: 410px;
+    width: 100%;
+    max-width: 410px;
+    min-height: 260px;
+
     border: 2px solid gray;
-    margin: 15px;
-    margin-bottom: 0px;
     border-radius: 20px;
+
     display: flex;
     flex-direction: row;
     cursor: pointer;
+
+    box-sizing: border-box;
+    transition: transform 200ms ease;
 }
 
 .CFC_div:hover {
@@ -223,4 +212,39 @@
     background-color: rgba(191, 226, 180, 0.877);
     color: #29854D;
     transition: background-color 300ms ease-in, color 300ms ease-out;
+}
+
+@media (max-width: 576px) {
+
+    #Contract_Farming_others_bottom_cc {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .CFC_div {
+        max-width: 100%;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .CFC_info_div {
+        width: auto;
+        margin: 20px;
+    }
+
+    .cf_button_div {
+        border-left: none;
+        border-top: 1px dashed gray;
+
+        flex-direction: row;
+        gap: 10px;
+
+        padding: 15px;
+    }
+
+    .cf_more_info,
+    .cf_apply_button {
+        width: 50%;
+        margin: 0;
+    }
 }

@@ -9,10 +9,10 @@ import farm from './assets/photo_lib/farm.png'
 import chick from './assets/photo_lib/chick.png'
 import eco from './assets/photo_lib/eco-world.png'
 
-let Login = () => {
+let Login = ({ tm }) => {
     const slidephotos = [shovel, fruit, robotic, farm, chick, eco];
     const [photoIndex, setIndex] = useState(0);
-    const nev = useNavigate();
+    const nav = useNavigate();
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((currentIndex) => {
@@ -25,11 +25,11 @@ let Login = () => {
 
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
-    const [resStatus, setResStatus] = useState(0);
 
     const makeLogin = async () => {
         const res = await fetch("http://localhost:5000/api/auth/login", {
             method: "POST",
+            credentials: 'include',
             headers: {
                 "Content-Type": "application/json"
             },
@@ -40,12 +40,7 @@ let Login = () => {
         })
 
         const data = await res.json();
-
-        if (res.status === 200) {
-            console.log(data.message)
-            localStorage.setItem('av_token', data.token)
-        }
-
+        tm(data.message)
         return res.status;
     }
 
@@ -53,7 +48,7 @@ let Login = () => {
         <>
             <div id="login_bg_image"></div>
             <div id='container'>
-                <dev id='login_container'>
+                <div id='login_container'>
                     <div id='lcp1'>
                         <div id='login_photo_display'>
                             <img src={slidephotos[photoIndex]} alt="photo_display" id='login_photo_display_img' />
@@ -76,11 +71,8 @@ let Login = () => {
                                 e.preventDefault();
                                 const rs = await makeLogin();
                                 if (rs === 200) {
-                                    nev('/MainPage');
-                                } else {
-                                    setResStatus(rs);
+                                    nav('/main_page', { replace: true });
                                 }
-
                             }} autoSave='off'>
                                 <label htmlFor='user_email' className='form_label' > Email: </label>
                                 <input name='user_email' id='user_email' type='email' placeholder='example@mail.com' required autoFocus
@@ -91,9 +83,10 @@ let Login = () => {
                                 <div id='form_submit_container'><input type='submit' id='form_submit'></input></div>
                             </form>
                         </div>
-                        <div id='lcp2_bottom_txt'><p>Don't have any account? </p><a href='/Registration'>Registration</a></div>
+                        <div id='lcp2_bottom_txt'><p>Don't have any account? </p><a href='/registration'>Registration</a></div>
+                        <div id='lcp2_bottom_txt'><p>Don't remember the password?</p><a href='/send_otp'>Forget password</a></div>
                     </div >
-                </dev >
+                </div >
             </div >
         </>
     );

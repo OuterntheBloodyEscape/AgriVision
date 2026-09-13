@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 import './registration.css'
 import AgriVisionLogo from './assets/Agri_Vision_logo-main.png'
 
-function Registration() {
+function Registration({ tm }) {
   const pageNavigat = useNavigate()
   const [name, setName] = useState('')
   const [companyName, setCompanyName] = useState('')
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
-  const [resStatus, setResStatus] = useState(0);
 
   const makeRegistration = async () => {
     const res = await fetch("http://localhost:5000/api/auth/register", {
@@ -26,6 +25,7 @@ function Registration() {
     })
     const data = await res.json();
 
+    tm(data.message)
     console.log(data);
     return res.status;
   }
@@ -49,9 +49,7 @@ function Registration() {
               e.preventDefault();
               const rs = await makeRegistration()
               if (rs === 201) {
-                pageNavigat("/LoginPage")
-              } else {
-                setResStatus(rs);
+                pageNavigat("/login_page")
               }
             }}>
               <label className="field-group extra-space">
@@ -92,7 +90,7 @@ function Registration() {
 
             <div>
               <span className="already">
-                Already have an account?<a href="#"> Log in</a>
+                Already have an account?<a href='/login_page'> Log in</a>
               </span>
             </div>
           </div>
@@ -105,4 +103,4 @@ function Registration() {
   );
 }
 
-export default registration
+export default Registration

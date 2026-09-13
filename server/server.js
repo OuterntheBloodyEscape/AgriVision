@@ -1,19 +1,28 @@
-const authRoutes = require("./routes/auth");
-const profileInfo = require('./routes/profile_info')
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-require("dotenv").config();
+import 'dotenv/config'
+import authRoutes from './routes/auth.js'
+import profileInfo from './routes/profile_info.js'
+import express from 'express'
+import mongoose from 'mongoose';
+import cors from 'cors'
+import cookieParser from 'cookie-parser';
+import aiRouter from './routes/ai_disease_detection.js'
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
+app.use(cookieParser());
 app.use(express.json());
-app.use("/api/auth", authRoutes);
-app.use("/api", profileInfo);
+app.use("/api/auth", authRoutes)
+app.use("/api", profileInfo)
+app.use('/api/ai_disease_detection', aiRouter)
+
+const port = 5000
 
 app.get("/", (req, res) => {
-  res.send("AgriVision is running");
+  res.status(200).send("AgriVision is running");
 });
 
 mongoose
@@ -21,8 +30,8 @@ mongoose
   .then(() => {
     console.log("MongoDB connected successfully!");
 
-    app.listen(5000, () => {
-      console.log("Server running on port 5000");
+    app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
     });
   })
   .catch((error) => {

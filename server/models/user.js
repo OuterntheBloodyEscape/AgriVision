@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+import mongoose from "mongoose"
 
 const userSchema = new mongoose.Schema(
     {
@@ -16,8 +16,7 @@ const userSchema = new mongoose.Schema(
             lowercase: true,
         },
         phone: {
-            type: String,
-            unique: false
+            type: String
         },
         password: {
             type: String,
@@ -25,8 +24,20 @@ const userSchema = new mongoose.Schema(
         },
         about: {
             type: String
+        },
+        profileImage: {
+            type: String,
+            default: ""
+        },
+        resetOTP: {
+            type: String,
+            default: null
+        },
+        otpExpires: {
+            type: Date,
+            default: null
         }
     }
 )
 
-module.exports = mongoose.model('User', userSchema)
+export default mongoose.model('User', userSchema)
