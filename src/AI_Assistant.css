@@ -1,77 +1,68 @@
+/* 1. Global Box-Sizing Reset */
+
+/* Kill the page-level scrollbar entirely — the app manages its own internal
+   scrolling (chat log, modals), so the document itself should never scroll.
+   Without this, the browser's default body margin makes the page a few
+   pixels taller than 100vh, which triggers a page scrollbar that visually
+   lines up right next to the fixed sidebar and looks like it belongs to it. */
+
+/* 2. Main Page Layout */
 .AI-Assistant-page-container {
   display: flex;
   position: relative;
   height: 100vh;
+  width: 100%;
+  overflow: hidden;
 }
 
-.sidebar {
-  position: fixed;
-  right: 0px;
-  background-color: #F0EDFD;
-  border-left: 1px solid grey;
-  height: 100vh;
-  width: 56px;
-}
-
-.sidebar-things {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  row-gap: 10px;
-  padding-top: 20px;
-}
-
-.sidebar-button {
-  height: 46px;
-  width: 46px;
-  border: none;
-  position: relative;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-.sidebar-button:hover {
-  background-color: #c7c7ca;
-  border-radius: 100%;
-}
-
-.sidebar-logo-size {
-  height: 26px;
-}
-
-.AI-Assistant-tooltip {
-  opacity: 0;
-  white-space: nowrap;
-  color: grey;
-  position: absolute;
-  right: 60px;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 1px solid grey;
-  padding: 6px 10px;
-  background-color: #F0EDFD;
-  border-radius: 14px;
-  pointer-events: none;
-  font-weight: 550;
-}
-
-.sidebar-button:hover .AI-Assistant-tooltip {
-  opacity: 1;
-}
-
+/* 3. Main Search Area — fixed-height column, chat scrolls, input box always visible */
 .aia-search-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  background-color: rgb(237, 231, 231);
+  background-color: #ffffff;
+  width: 100%;
+  height: 100vh;
+  padding: 0 76px 20px 20px;
+  overflow: hidden;
+}
+
+/* Empty chat: logo + welcome text + input box sit together, centered as a group */
+.aia-search-container.centered {
+  justify-content: center;
+}
+
+.aia-search-container.centered .chat-stream-container {
+  flex: 0 0 auto;
+  overflow: visible;
+  padding: 0;
+}
+
+/* Active chat: log fills the space above, input box stays pinned to the bottom */
+.aia-search-container:not(.centered) {
+  justify-content: flex-start;
+}
+
+.aia-search-container:not(.centered) .chat-stream-container {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0; /* required so this can scroll instead of overflowing the page */
+}
+
+/* 4. Branding & Text (shown only when chat is empty) */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
   width: 100%;
 }
 
 .chatbot-pic {
-  height: 160px;
-  width: 160px;
+  height: auto;
+  width: 100%;
+  max-width: 160px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,65 +71,74 @@
 
 .edit-AI-logo {
   height: 140px;
+  width: auto;
 }
 
 .welcome-text {
-  font-size: 30px;
+  font-size: clamp(22px, 4vw, 30px);
   font-weight: 600;
   color: blueviolet;
+  text-align: center;
+  margin-top: 10px;
 }
 
 .how {
-  font-size: 28px;
+  font-size: clamp(20px, 4vw, 28px);
   font-weight: 600;
   color: black;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
+/* Chat Stream Layout Container — base rules; centered vs. pinned-bottom behavior
+   is applied above via .aia-search-container.centered / :not(.centered) */
+.chat-stream-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 20px 10px;
+}
+
+/* 5. Fluid Responsive Search Box — always pinned at the bottom of the viewport */
 .ai-search-box {
-  height: 188px;
-  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 650px;
+  min-height: 100px;
   background-color: #F0EDFD;
-  outline: none;
   border: 1px solid grey;
   border-radius: 14px;
-}
-
-@media (max-width:800px) {
-  .ai-search-box {
-    height: 300px;
-    width: 320px;
-  }
-
-  .edit-textarea {
-    width: 282px !important;
-    height: 220px !important;
-  }
-
-  .voice-search-icon-button {
-    right: 4% !important;
-  }
-
-  .welcome-text {
-    font-size: 26px;
-  }
-
-  .how {
-    font-size: 24px;
-  }
-
-  .edit-AI-logo {
-    height: 120px;
-  }
+  padding: 8px;
+  position: relative;
+  flex-shrink: 0;
+  margin: 10px auto 0 auto;
 }
 
 .search-box-first-line {
   display: flex;
-  align-items: center;
-  margin-top: 10px;
+  align-items: flex-start;
   position: relative;
+  width: 100%;
 }
 
+.edit-textarea {
+  width: 100%;
+  padding: 10px 45px 10px 10px;
+  height: 90px;
+  resize: none;
+  border: none;
+  background-color: transparent;
+  color: #333;
+  font-size: 15px;
+  outline: none;
+}
+
+/* Voice Search Button */
 .voice-search-icon-button {
   border: none;
   display: flex;
@@ -148,8 +148,8 @@
   width: 32px;
   background-color: transparent;
   position: absolute;
-  top: 1%;
-  right: 3%;
+  top: 8px;
+  right: 8px;
   cursor: pointer;
 }
 
@@ -158,65 +158,32 @@
   border-radius: 50%;
 }
 
-.vsib-tooltip {
-  position: absolute;
-  top: 44px;
-  opacity: 0;
-  white-space: nowrap;
-  border: 1px solid grey;
-  padding: 6px 10px;
-  background-color: #F0EDFD;
-  color: grey;
-  border-radius: 14px;
-  pointer-events: none;
-  font-weight: 550;
-}
-
-.voice-search-icon-button:hover .vsib-tooltip {
-  opacity: 1;
-}
-
-.edit-textarea {
-  padding: 8px;
-  height: 110px;
-  width: 94%;
-  resize: none;
-  border: none;
-  color: grey;
-  font-size: 15px;
-  border-radius: 8px;
-  margin-left: 10px;
-  outline: none;
-}
-
 .edit-voice-search-icon {
   height: 20px;
-  margin-left: 10px;
-  margin-right: 10px;
+  width: auto;
 }
 
+/* Bottom Action Buttons Row */
 .search-box-last-line {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-}
-
-.deep-research-icon-edit {
-  height: 18px;
-  margin-right: 10px;
+  align-items: center;
+  gap: 10px;
+  padding: 6px;
+  flex-wrap: wrap;
 }
 
 .deep-research-button,
 .attach-file-button {
   display: flex;
   align-items: center;
-  padding: 15px;
+  padding: 8px 14px;
   font-weight: 550;
-  height: 10px;
   border-radius: 14px;
   border: 1px solid grey;
   background-color: white;
   cursor: pointer;
+  font-size: 13px;
 }
 
 .deep-research-button:hover,
@@ -224,7 +191,481 @@
   background-color: #d9d7dc;
 }
 
+.deep-research-button.active-toggle {
+  background-color: blueviolet;
+  color: white;
+  border-color: blueviolet;
+}
+
+.deep-research-icon-edit {
+  height: 18px;
+  margin-right: 8px;
+}
+
 .attach-file-icon-edit {
   height: 14px;
-  margin-right: 10px;
+  margin-right: 8px;
+}
+
+/* Pending attachments (before sending) */
+.pending-attachments-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 8px 8px 0 8px;
+}
+
+.pending-attachment {
+  position: relative;
+  width: 56px;
+  height: 56px;
+}
+
+.pending-attachment img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.remove-attachment-btn {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  background: #333;
+  color: white;
+  font-size: 10px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Message attachments (already sent) */
+.message-attachments {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.message-attachments img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* 6. SIDEBAR & EXPAND ANIMATIONS */
+.sidebar {
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  background-color: #F0EDFD;
+  border-left: 1px solid grey;
+  height: 100vh;
+  width: 56px;
+  z-index: 20;
+  transition: width 0.3s ease;
+  overflow: hidden; /* no scrollbar — content is fixed height and never exceeds the viewport */
+}
+
+.sidebar.expanded {
+  width: 220px;
+  box-shadow: -4px 0px 10px rgba(0,0,0,0.1);
+}
+
+.sidebar-things {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 5px;
+  padding-top: 20px;
+  row-gap: 10px;
+  overflow: hidden;
+}
+
+.sidebar-button {
+  height: 46px;
+  width: 46px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 23px;
+  transition: width 0.3s ease, background-color 0.2s;
+}
+
+.sidebar-button:hover,
+.sidebar-button.active-nav {
+  background-color: #c7c7ca;
+}
+
+.sidebar.expanded .sidebar-button {
+  width: 200px;
+  justify-content: flex-start;
+  padding-left: 10px;
+}
+
+.sidebar-logo-size {
+  height: 26px;
+  min-width: 26px;
+}
+
+.sidebar-label {
+  margin-left: 16px;
+  font-weight: 550;
+  font-size: 15px;
+  color: #333;
+  white-space: nowrap;
+  opacity: 0;
+  animation: fadeInText 0.3s forwards;
+  animation-delay: 0.15s;
+}
+
+@keyframes fadeInText {
+  to { opacity: 1; }
+}
+
+/* 7. MODALS (SEARCH & IMAGES OVERLAY) */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.modal-large {
+  max-width: 700px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.close-modal-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #666;
+}
+
+.modal-search-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  margin-bottom: 16px;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.history-item:hover {
+  background-color: #F0EDFD;
+}
+
+.history-title {
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 12px;
+}
+
+.history-date {
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+}
+
+.no-results {
+  text-align: center;
+  color: #888;
+  padding: 24px 0;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Image Modal Tab Navigation */
+.image-modal-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background-color: #f1f0f5;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #555;
+  transition: all 0.2s;
+}
+
+.tab-btn.active-tab {
+  background-color: blueviolet;
+  color: white;
+}
+
+/* Images Grid Inside Modal */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  max-height: 350px;
+  overflow-y: auto;
+  padding: 4px;
+}
+
+.image-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background-color: #fafafa;
+}
+
+.image-card img {
+  height: 90px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+
+.delete-image-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-image-btn:hover {
+  background: #d9363e;
+}
+
+.img-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.img-date {
+  font-size: 11px;
+  color: #888;
+  margin-top: 4px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 8. Mobile Breakpoints (< 800px) */
+@media (max-width: 800px) {
+  .aia-search-container {
+    padding: 0 66px 16px 16px;
+  }
+
+  .edit-textarea {
+    height: 70px;
+  }
+
+  .search-box-last-line {
+    gap: 8px;
+  }
+
+  .deep-research-button,
+  .attach-file-button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
+.left-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.submit-prompt-button {
+  padding: 8px 18px;
+  background-color: blueviolet;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.2s;
+}
+
+.submit-prompt-button:hover:not(:disabled) {
+  background-color: #5a2d9c;
+}
+
+.submit-prompt-button:disabled {
+  background-color: #bfa1e6;
+  cursor: not-allowed;
+}
+
+/* Individual Message Row */
+.chat-message-row {
+  display: flex;
+  width: 100%;
+}
+
+.chat-message-row.user {
+  justify-content: flex-end;
+}
+
+.chat-message-row.ai {
+  justify-content: flex-start;
+}
+
+/* Message Bubbles */
+.chat-bubble {
+  max-width: 80%;
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-size: 15px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.chat-bubble.user {
+  background-color: blueviolet;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-bubble.ai {
+  background-color: #F0EDFD;
+  color: #333;
+  border: 1px solid #dcd6f7;
+  border-bottom-left-radius: 4px;
+}
+
+.loading-bubble {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-style: italic;
+  color: #666;
+}
+
+.loading-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: blueviolet;
+  animation: pulse 1s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* Rendered markdown and image styles inside chat bubbles */
+.chat-bubble img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin-top: 10px;
+  display: block;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.chat-bubble p {
+  margin: 0 0 8px 0;
+}
+
+.chat-bubble p:last-child {
+  margin-bottom: 0;
+}
+
+.chat-bubble ul, .chat-bubble ol {
+  margin: 8px 0;
+  padding-left: 20px;
 }
