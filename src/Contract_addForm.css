@@ -56,6 +56,8 @@
 #caf_more_info,
 #caf_add,
 #caf_Delivery,
+#caf_phone,
+#caf_email,
 #caf_select,
 #caf_price,
 #caf_need,
@@ -112,4 +114,118 @@
 #caf_input_select:focus-within {
     outline: 1px solid black;
     border-color: black;
+}
+
+body.night-mode #caf_body {
+    background-color: #202a24;
+    color: #f1f5f2;
+}
+
+body.night-mode #caf_input_select {
+    border-color: #5f7867;
+    background-color: #151a17;
+}
+
+body.night-mode #caf_more_info,
+body.night-mode #caf_Delivery,
+body.night-mode #caf_select,
+body.night-mode #caf_price,
+body.night-mode #caf_need,
+body.night-mode #caf_title {
+    background-color: #151a17;
+    color: #f1f5f2;
+    border-color: #5f7867;
+}
+
+body.night-mode #caf_add {
+    background-color: #26332b;
+    color: #8ee0a8;
+    border-color: #8ee0a8;
+}
+
+body.night-mode #caf_add:hover {
+    background-color: #29854D;
+    color: white;
+}
+
+body.night-mode #caf_rpi {
+    filter: brightness(0) invert(1);
+}
+
+@media (max-width: 600px) {
+    #caf_body {
+        width: calc(100vw - 40px);
+        max-width: calc(100vw - 40px);
+        box-sizing: border-box;
+    }
+
+    #caf_form {
+        width: 100%;
+        min-width: 0;
+    }
+
+    #caf_heading {
+        padding: 8px;
+    }
+
+    #caf_heading h2 {
+        font-size: 20px;
+        margin: 4px;
+    }
+
+    .caf_entry_box,
+    .caf_entry_box_button {
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+
+    #caf_more_info,
+    #caf_Delivery,
+    #caf_phone,
+    #caf_email,
+    #caf_select,
+    #caf_price,
+    #caf_need,
+    #caf_title {
+        box-sizing: border-box;
+        width: 100%;
+        min-width: 0;
+    }
+
+    #caf_input_select {
+        display: flex;
+        width: 100%;
+        box-sizing: border-box;
+        margin-right: 0;
+    }
+
+    #caf_need {
+        flex: 1;
+    }
+
+    #caf_select {
+        width: 76px;
+        flex: 0 0 76px;
+    }
+
+    #caf_add {
+        width: 100%;
+    }
+}
+
+@media (max-width: 430px) {
+    #caf_body {
+        width: calc(100vw - 24px);
+        max-width: calc(100vw - 24px);
+        padding: 8px;
+    }
+
+    #caf_heading h2 {
+        font-size: 18px;
+    }
+
+    .caf_mul_entry_box {
+        flex-direction: column;
+        gap: 15px;
+    }
 }

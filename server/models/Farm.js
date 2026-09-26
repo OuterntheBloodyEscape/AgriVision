@@ -15,6 +15,15 @@ const farmSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    placeName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    weather: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
+    },
   },
   {
     timestamps: true,

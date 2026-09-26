@@ -1,84 +1,964 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp");
-.heading {
-  display: flex;
-  justify-content: space-between;
-  margin: 0px 10px 10px 10px;
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Material+Symbols+Sharp");
+
+.mapPage {
+  --map-ink: #17342c;
+  --map-muted: #70817b;
+  --map-green: #21734b;
+  --map-line: #dfe9e3;
+  min-height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: clip;
+  padding: 28px clamp(18px, 3vw, 42px) 42px;
+  color: var(--map-ink);
+  font-family: "DM Sans", sans-serif;
+  background:
+    radial-gradient(circle at 90% 0%, #f2eadb 0, rgba(242, 234, 219, 0) 29%),
+    #f4f7f2;
 }
-.addButton {
-  padding: 5px;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: green;
-  cursor: pointer;
-}
-.addButtonColor {
-  color: white;
-}
-.gridBody {
+
+.mapPageLoading {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.grid {
-  padding: 20px;
-
-  display: grid;
-  grid-template-columns: 3fr 1fr 1fr;
-
-  justify-content: center;
-  gap: 1rem;
-  border-radius: 20px;
-}
-.map {
-  border-radius: 20px;
-  overflow: hidden;
-}
-.map:hover {
-  border: 2px solid rgb(31, 158, 78);
-  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.3);
-}
-.secondGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  justify-content: space-between;
-  gap: 1rem;
-  background-color: violet;
-  width: 50%;
+  gap: 10px;
+  color: var(--map-green);
+  font-weight: 600;
 }
 
-.weatherConditionHeader {
-  display: flex;
-  justify-content: space-between;
-}
-.weatherConditions {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  border-radius: 20px;
-  background-color: pink;
-}
-.weatherCondition {
-  display: flex;
-  justify-content: start;
-}
-.weatherConditionChild {
-  display: flex;
-  flex-direction: column;
-  background-color: blue;
-}
-.weatherConditionVertical {
-  display: flex;
-  align-content: center;
-  background-color: pink;
-}
-.icons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.loadingDot {
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  border: 2px solid green;
-  background-color: lightgreen;
+  background: #dd9c44;
+  box-shadow: 0 0 0 7px #f7e8cd;
+}
+
+.mapHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1380px;
+  margin: 0 auto 26px;
+}
+
+.eyebrow,
+.sectionKicker {
+  margin: 0 0 8px;
+  color: var(--map-green);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.eyebrow .material-symbols-sharp {
+  font-size: 17px;
+}
+
+.mapHeader h1,
+.mapCard h2,
+.weatherPanel h2 {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.mapHeader h1 {
+  margin: 0;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.mapIntro {
+  max-width: 450px;
+  margin: 11px 0 0;
+  color: var(--map-muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.addButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 0 17px;
+  border: 0;
+  border-radius: 9px;
+  color: #fff;
+  background: var(--map-green);
+  box-shadow: 0 9px 20px rgba(33, 115, 75, 0.2);
+  cursor: pointer;
+  font:
+    700 13px "DM Sans",
+    sans-serif;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.addButton:hover {
+  background: #185c3b;
+  transform: translateY(-2px);
+}
+
+.addButton .material-symbols-sharp {
+  font-size: 19px;
+}
+
+.mapDashboard {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 0.8fr);
+  gap: 20px;
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+.mapCard,
+.weatherPanel {
+  border: 1px solid rgba(209, 224, 215, 0.9);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 18px 45px rgba(34, 70, 53, 0.08);
+}
+
+.mapCard {
+  padding: 18px;
+}
+
+.mapCardTopline,
+.weatherPanelHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.mapCard h2,
+.weatherPanel h2 {
+  margin: 0;
+  font-size: 21px;
+  letter-spacing: -0.03em;
+}
+
+.mapStatus {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--map-muted);
+  font-size: 12px;
+}
+
+.mapStatus span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3bb477;
+  box-shadow: 0 0 0 4px #e1f3e7;
+}
+
+.mapFrame {
+  height: min(53vh, 455px);
+  min-height: 300px;
+  margin-top: 16px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #dce8dd;
+}
+
+.mapCardFooter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  color: var(--map-muted);
+  font-size: 12px;
+}
+
+.mapCardFooter .material-symbols-sharp {
+  color: #d3923f;
+  font-size: 17px;
+}
+
+.locationConfirm {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 14px;
+  padding: 13px 14px;
+  border: 1px solid #d9eadc;
+  border-radius: 9px;
+  background: #f5fbf5;
+}
+
+.locationConfirm div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.locationConfirm strong {
+  overflow: hidden;
+  color: var(--map-ink);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.locationConfirm span:not(.material-symbols-sharp) {
+  color: var(--map-muted);
+  font-size: 11px;
+}
+
+.locationConfirm button {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  border: 1px solid #185c3b;
+  border-radius: 8px;
+  color: #fff;
+  background: linear-gradient(135deg, #21734b, #185c3b);
+  box-shadow: 0 7px 14px rgba(33, 115, 75, 0.2);
+  cursor: pointer;
+  font:
+    700 12px "DM Sans",
+    sans-serif;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease;
+}
+
+.locationConfirm button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2a8959, #21734b);
+  box-shadow: 0 10px 18px rgba(33, 115, 75, 0.27);
+  transform: translateY(-1px);
+}
+
+.locationConfirm button:focus-visible {
+  outline: 3px solid rgba(33, 115, 75, 0.22);
+  outline-offset: 2px;
+}
+
+.locationConfirm button:active:not(:disabled) {
+  box-shadow: 0 4px 8px rgba(33, 115, 75, 0.18);
+  transform: translateY(1px);
+}
+
+.locationConfirm button .material-symbols-sharp {
+  font-size: 18px;
+}
+
+.locationConfirm button:disabled {
+  cursor: wait;
+  background: #8aa99a;
+  box-shadow: none;
+  opacity: 0.65;
+}
+
+.weatherPanel {
+  padding: 22px;
+}
+
+.farmList {
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 1380px;
+  margin: 20px auto 0;
+  padding: 22px;
+  border: 1px solid rgba(209, 224, 215, 0.9);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 18px 45px rgba(34, 70, 53, 0.08);
+}
+
+.farmListHeader {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.farmListHeader h2 {
+  margin: 0;
+  font:
+    21px "Space Grotesk",
+    sans-serif;
+}
+
+.farmCount {
+  color: var(--map-muted);
+  font-size: 12px;
+}
+
+.equipmentButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 11px;
+  border: 1px solid #c8dfcd;
+  border-radius: 7px;
+  color: var(--map-green);
+  background: #f5fbf5;
+  cursor: pointer;
+  font:
+    700 11px "DM Sans",
+    sans-serif;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.equipmentButton:hover,
+.equipmentButton:focus-visible {
+  border-color: var(--map-green);
+  background: #e9f5eb;
+  outline: 0;
+}
+
+.equipmentButton .material-symbols-sharp {
+  font-size: 16px;
+}
+
+.farmRows {
+  display: grid;
+  min-width: 0;
+  border-top: 1px solid var(--map-line);
+}
+
+.farmRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  align-items: center;
+  gap: 12px;
+  min-height: 66px;
+  padding: 0;
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  border-bottom: 1px solid var(--map-line);
+  color: var(--map-ink);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.farmRowLocation {
+  display: flex;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  gap: 12px;
+  align-self: stretch;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.farmRowLocation:focus-visible {
+  outline: 0;
+}
+
+.farmRowActions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-width: 0;
+  gap: 8px;
+}
+
+.farmRowActions .equipmentButton {
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.farmRow:hover,
+.farmRow:focus-visible {
+  outline: 0;
+  background: #f3f9f3;
+}
+
+.farmRowIcon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 9px;
+  color: var(--map-green);
+  background: #e9f5eb;
+  font-size: 18px;
+}
+
+.farmRowDetails {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.farmRowDetails strong {
+  font-size: 13px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.farmRowDetails span {
+  color: var(--map-muted);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.farmListEmpty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 0 4px;
+  color: var(--map-muted);
+  font-size: 12px;
+}
+
+.farmListEmpty p {
+  margin: 0;
+}
+
+.equipmentOverlay {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  overflow-y: auto;
+  background: rgba(20, 40, 33, 0.52);
+  backdrop-filter: blur(7px);
+  animation: equipmentOverlayIn 0.2s ease-out;
+}
+
+.equipmentPopup {
+  width: min(100%, 460px);
+  max-height: calc(100dvh - 40px);
+  box-sizing: border-box;
+  overflow-y: auto;
+  padding: 26px;
+  border: 1px solid rgba(221, 234, 223, 0.92);
+  border-radius: 16px;
+  background:
+    radial-gradient(
+      ellipse at 100% 0%,
+      rgba(228, 241, 223, 0.72),
+      transparent 45%
+    ),
+    #fff;
+  box-shadow: 0 28px 80px rgba(13, 35, 25, 0.3);
+  animation: equipmentPopupIn 0.24s cubic-bezier(0.2, 0.75, 0.3, 1);
+}
+
+.equipmentPopupHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.equipmentPopup h2 {
+  margin: 0;
+  color: var(--map-ink);
+  font:
+    28px "Space Grotesk",
+    sans-serif;
+  line-height: 1.1;
+}
+
+.equipmentCloseButton {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid #e2ebe3;
+  border-radius: 9px;
+  color: #64776d;
+  background: rgba(255, 255, 255, 0.78);
+  cursor: pointer;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.equipmentCloseButton:hover,
+.equipmentCloseButton:focus-visible {
+  color: var(--map-ink);
+  background: #e4efe5;
+  border-color: #cbdccb;
+  outline: 0;
+}
+
+.equipmentCloseButton:hover {
+  transform: rotate(4deg);
+}
+
+.equipmentCloseButton:focus-visible,
+.toolButton:focus-visible {
+  outline: 3px solid rgba(33, 115, 75, 0.24);
+  outline-offset: 2px;
+}
+
+.equipmentToolSlot {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--map-line);
+}
+
+.equipmentToolSlot > p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--map-muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.equipmentToolSlot > p:first-child {
+  color: var(--map-ink);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.equipmentToolSlot > div {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  width: auto !important;
+  padding: 16px;
+  border: 1px solid #e1ebe1;
+  border-radius: 12px;
+  background: rgba(248, 251, 247, 0.9);
+}
+
+.equipmentToolSlot > div > p {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.equipmentToolSlot > div > p:first-child {
+  color: var(--map-ink);
+  font-size: 14px;
+}
+
+.equipmentToolSlot > div > p:nth-child(2) {
+  margin-top: -8px;
+  color: var(--map-muted);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.toolButton {
+  display: flex;
+  min-height: 82px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  flex-direction: column;
+  padding: 12px 8px;
+  border: 1px solid #d7e5d7;
+  border-radius: 10px;
+  color: #42634e;
+  background: #fff;
+  cursor: pointer;
+  font:
+    700 12px "DM Sans",
+    sans-serif;
+  text-transform: uppercase;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.toolButton:hover,
+.toolButton.isSelected {
+  color: #fff;
+  border-color: #256d49;
+  background: linear-gradient(145deg, #32865a, #1c6140);
+  box-shadow: 0 7px 15px rgba(33, 115, 75, 0.18);
+  transform: translateY(-2px);
+}
+
+.toolButton .material-symbols-sharp {
+  font-size: 24px;
+}
+
+@keyframes equipmentOverlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes equipmentPopupIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .equipmentOverlay,
+  .equipmentPopup {
+    animation: none;
+  }
+
+  .equipmentCloseButton,
+  .toolButton {
+    transition: none;
+  }
+}
+
+.weatherIcon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 12px;
+  color: #b3782d;
+  background: #f7e8cf;
+  font-size: 25px;
+}
+
+.weatherSummary {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 27px 0 23px;
+  border-bottom: 1px solid var(--map-line);
+}
+
+.weatherSummary > strong {
+  font:
+    600 58px/1 "Space Grotesk",
+    sans-serif;
+  letter-spacing: -0.08em;
+}
+
+.weatherSummary div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: var(--map-ink);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.weatherSummary small {
+  color: var(--map-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.weatherMetrics {
+  display: grid;
+  gap: 4px;
+  padding: 17px 0;
+  border-bottom: 1px solid var(--map-line);
+}
+
+.weatherMetric {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.metricIcon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 9px;
+  font-size: 19px;
+}
+
+.humidity {
+  color: #2c8290;
+  background: #e0f3f4;
+}
+.wind {
+  color: #66834f;
+  background: #e9f1dd;
+}
+.rain {
+  color: #6871a8;
+  background: #e8e9f7;
+}
+
+.weatherMetric div {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.weatherMetric small {
+  color: var(--map-muted);
+  font-size: 12px;
+}
+
+.weatherMetric strong {
+  font-size: 13px;
+}
+
+.fieldNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 19px;
+  padding: 13px;
+  border-radius: 10px;
+  color: var(--map-green);
+  background: #edf7ef;
+}
+
+.fieldNote .material-symbols-sharp {
+  font-size: 21px;
+}
+
+.fieldNote p {
+  margin: 0;
+  color: #557064;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.fieldNote strong {
+  color: var(--map-ink);
+  font-size: 13px;
+}
+
+@media (max-width: 850px) {
+  .mapHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .mapHeader > div {
+    min-width: 0;
+  }
+
+  .mapHeader .addButton {
+    align-self: flex-start;
+  }
+
+  .mapDashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .locationConfirm {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .locationConfirm button {
+    width: 100%;
+  }
+
+  .mapFrame {
+    height: 370px;
+  }
+
+  .farmRow {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 10px 0;
+  }
+
+  .farmRowLocation {
+    min-height: 44px;
+  }
+
+  .farmRowActions {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .equipmentButtonRow {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .mapPage {
+    padding: 20px 12px 28px;
+  }
+
+  .mapHeader h1 {
+    font-size: 32px;
+    line-height: 1.08;
+  }
+
+  .addButton {
+    width: 100%;
+    align-self: stretch;
+    justify-content: center;
+  }
+
+  .mapCard,
+  .weatherPanel {
+    padding: 15px;
+  }
+
+  .mapFrame {
+    min-height: 240px;
+    height: 65vw;
+  }
+
+  .mapCardTopline {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mapCard h2,
+  .weatherPanel h2 {
+    font-size: 19px;
+    overflow-wrap: anywhere;
+  }
+
+  .mapCardFooter {
+    align-items: flex-start;
+    line-height: 1.45;
+  }
+
+  .locationConfirm {
+    padding: 12px;
+  }
+
+  .locationConfirm strong {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .weatherSummary > strong {
+    font-size: 50px;
+  }
+
+  .farmRow {
+    gap: 7px;
+  }
+
+  .farmRowActions {
+    gap: 7px;
+  }
+
+  .equipmentButtonRow {
+    min-height: 40px;
+    padding: 0 8px;
+    font-size: 10px;
+  }
+
+  .equipmentButtonRow .material-symbols-sharp {
+    font-size: 15px;
+  }
+
+  .equipmentToolSlot {
+    grid-template-columns: 1fr;
+  }
+
+  .equipmentPopup {
+    width: 100%;
+    max-height: calc(100dvh - 24px);
+    padding: 18px;
+  }
+
+  .equipmentOverlay {
+    padding: 12px;
+  }
+
+  .equipmentPopup h2 {
+    font-size: 24px;
+  }
+
+  .equipmentToolSlot > div {
+    grid-template-columns: 1fr;
+    gap: 9px;
+    padding: 12px;
+  }
+
+  .equipmentToolSlot > div > p,
+  .equipmentToolSlot > div > p:nth-child(2) {
+    grid-column: 1;
+    margin-top: 0;
+  }
+
+  .equipmentToolSlot > div > p:nth-child(2) {
+    margin-top: -5px;
+  }
+
+  .toolButton {
+    min-height: 58px;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 360px) {
+  .mapPage {
+    padding-right: 9px;
+    padding-left: 9px;
+  }
+
+  .mapCard,
+  .weatherPanel,
+  .farmList {
+    padding: 12px;
+  }
+
+  .equipmentButtonRow {
+    gap: 4px;
+    min-height: 38px;
+    padding: 0 8px;
+    font-size: 10px;
+  }
+
+  .farmRowActions {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
 }

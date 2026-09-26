@@ -17,7 +17,7 @@ const Security = ({ tm }) => {
                 tm(data.message)
             }
         })()
-    }, [])
+    }, [nav])
     const [oldPass, setOldPass] = useState('')
     const [newPass, setNewPass] = useState('')
     const [confPass, setConfPass] = useState('')

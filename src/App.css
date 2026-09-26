@@ -7,6 +7,7 @@
 
 .toast_message_box {
     position: fixed;
+    z-index: 9999;
     width: 80%;
     height: max-content;
     background-color: rgba(0, 0, 0, 0.773);
@@ -26,4 +27,16 @@
 
 .toast_message_box_active {
     visibility: visible;
+}
+
+body.night-mode,
+body.night-mode #av_body {
+    background-color: #151a17;
+    color: #f1f5f2;
+}
+
+body.night-mode .toast_message_box {
+    background-color: #26332b;
+    color: #f1f5f2;
+    border: 1px solid #5f7867;
 }

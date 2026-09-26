@@ -9,7 +9,6 @@ function Registration({ tm }) {
   const [companyName, setCompanyName] = useState('')
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
-  const [resStatus, setResStatus] = useState(0);
 
   const makeRegistration = async () => {
     const res = await fetch("http://localhost:5000/api/auth/register", {
@@ -50,9 +49,7 @@ function Registration({ tm }) {
               e.preventDefault();
               const rs = await makeRegistration()
               if (rs === 201) {
-                pageNavigat("/LoginPage")
-              } else {
-                setResStatus(rs);
+                pageNavigat("/login_page")
               }
             }}>
               <label className="field-group extra-space">

@@ -24,6 +24,22 @@ const userSchema = new mongoose.Schema(
         },
         about: {
             type: String
+        },
+        profileImage: {
+            type: String,
+            default: ""
+        },
+        nightMood: {
+            type: Boolean,
+            default: false
+        },
+        resetOTP: {
+            type: String,
+            default: null
+        },
+        otpExpires: {
+            type: Date,
+            default: null
         }
     }
 )

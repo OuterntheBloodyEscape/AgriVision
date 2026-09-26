@@ -123,12 +123,14 @@
     grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
     gap: 15px;
     padding: 15px;
-    justify-items: center;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .CFC_div {
     width: 100%;
-    max-width: 410px;
+    max-width: none;
+    box-sizing: border-box;
     min-height: 260px;
 
     border: 2px solid gray;
@@ -214,10 +216,29 @@
     transition: background-color 300ms ease-in, color 300ms ease-out;
 }
 
+.cf_no_results {
+    grid-column: 1 / -1;
+    margin: 20px 0;
+    color: gray;
+    text-align: left;
+}
+
+.CFM_contact_info {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #ddd;
+}
+
+.CFM_contact_info p {
+    margin: 3px 0;
+    font-size: 14px;
+}
+
 @media (max-width: 576px) {
 
     #Contract_Farming_others_bottom_cc {
         grid-template-columns: 1fr;
+        gap: 12px;
         padding: 10px;
     }
 
@@ -229,7 +250,8 @@
 
     .CFC_info_div {
         width: auto;
-        margin: 20px;
+        margin: 16px;
+        gap: 7px;
     }
 
     .cf_button_div {
@@ -239,7 +261,7 @@
         flex-direction: row;
         gap: 10px;
 
-        padding: 15px;
+        padding: 12px;
     }
 
     .cf_more_info,

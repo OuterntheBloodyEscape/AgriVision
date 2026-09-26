@@ -3,6 +3,7 @@ import { PieChart, Pie, ResponsiveContainer, Tooltip } from "recharts";
 // import { useEffect} from "react";
 import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
+import { getAuthHeaders } from "./utils/auth.js";
 function Dashboard() {
   const nav = useNavigate();
   useEffect(() => {
@@ -10,6 +11,7 @@ function Dashboard() {
       const res = await fetch("http://localhost:5000/api/auth/check-login", {
         method: "GET",
         credentials: "include",
+        headers: getAuthHeaders(),
       });
       const data = await res.json();
 
