@@ -524,15 +524,29 @@ Prioritize accuracy and useful action over sounding certain.
 Now analyze the provided image(s) and respond using the format above.
 `;
 
-        const response = await ai.models.generateContent({
-            model: 'gemini-3.6-flash',
-            contents: [
-                ...images,
-                {
-                    text: prompt
+        let response
+        for (let attempt = 0; attempt < 3; attempt++) {
+            try {
+                response = await ai.models.generateContent({
+                    model: 'gemini-3.8-flash',
+                    contents: [{
+                        role: 'user',
+                        parts: [
+                            ...images,
+                            { text: prompt }
+                        ]
+                    }]
+                })
+                break
+            } catch (error) {
+                const isTemporaryError = error.status === 429 || error.status === 503
+                if (!isTemporaryError || attempt === 2) {
+                    throw error
                 }
-            ]
-        })
+
+                await new Promise((resolve) => setTimeout(resolve, 1000 * (attempt + 1)))
+            }
+        }
 
         return res.status(200).json({
             result: response.text
@@ -540,6 +554,12 @@ Now analyze the provided image(s) and respond using the format above.
 
     } catch (error) {
         console.error('Gemini Error:', error)
+
+        if (error.status === 429 || error.status === 503) {
+            return res.status(error.status).json({
+                message: 'The AI service is busy. Please try again in a moment.'
+            })
+        }
 
         return res.status(500).json({
             message: 'AI analysis failed'

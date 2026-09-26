@@ -75,6 +75,28 @@
     transition: box-shadow 300ms ease;
 }
 
+#aidd_top.aidd_root_waiting {
+    animation: aidd-response-shadow 1.4s linear infinite;
+}
+
+@keyframes aidd-response-shadow {
+    0% {
+        box-shadow: 0 -8px 18px rgba(41, 133, 77, 0.7);
+    }
+    25% {
+        box-shadow: 8px 0 18px rgba(41, 133, 77, 0.7);
+    }
+    50% {
+        box-shadow: 0 8px 18px rgba(41, 133, 77, 0.7);
+    }
+    75% {
+        box-shadow: -8px 0 18px rgba(41, 133, 77, 0.7);
+    }
+    100% {
+        box-shadow: 0 -8px 18px rgba(41, 133, 77, 0.7);
+    }
+}
+
 #image_up {
     display: none;
 }

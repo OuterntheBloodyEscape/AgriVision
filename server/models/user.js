@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema(
         profileImage: {
             type: String,
             default: ""
+        },
+        nightMood: {
+            type: Boolean,
+            default: false
         }
     }
 )

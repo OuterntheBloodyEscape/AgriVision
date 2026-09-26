@@ -78,6 +78,7 @@ router.post("/login", async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000
         }).status(200).json({
             message: `${user.name} Login successful`,
+            nightMood: user.nightMood === true
         });
 
     } catch (error) {
@@ -127,5 +128,6 @@ router.post('/logout', (req, res) => {
         message: 'Logout successful'
     });
 });
+
 
 export default router
