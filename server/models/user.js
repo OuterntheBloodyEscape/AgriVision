@@ -29,9 +29,19 @@ const userSchema = new mongoose.Schema(
             type: String,
             default: ""
         },
+<<<<<<< HEAD
         nightMood: {
             type: Boolean,
             default: false
+=======
+        resetOTP: {
+            type: String,
+            default: null
+        },
+        otpExpires: {
+            type: Date,
+            default: null
+>>>>>>> origin/main
         }
     }
 )
