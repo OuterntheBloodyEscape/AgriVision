@@ -138,8 +138,6 @@ router.post('/logout', (req, res) => {
     });
 });
 
-<<<<<<< HEAD
-=======
 router.post('/send-otp', async (req, res) => {
     const { email } = req.body;
 
@@ -208,6 +206,5 @@ router.post('/reset-password', async (req, res) => {
         res.status(500).json({ success: false, message: "Server error while resetting password." });
     }
 });
->>>>>>> origin/main
 
 export default router

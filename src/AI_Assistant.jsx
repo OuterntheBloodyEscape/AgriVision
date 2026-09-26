@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-// import './AI_Assistant.css'
-import AIlogo from './assets/Agribuddy-logo.png'
-import image from './assets/image.png'
-import newChat from './assets/new-chat.png'
-import searchLogo from './assets/search-logo.png'
-import sidebar from './assets/sidebar.png'
-import voicesearch from './assets/voice.png'
-import deepresearch from './assets/Deep_research.png'
-import attachfile from './assets/attach-file.png'
-=======
 import React, { useState, useEffect, useRef } from "react";
 import { GoogleGenAI } from "@google/genai";
 import ReactMarkdown from "react-markdown";
@@ -68,12 +56,15 @@ async function callGeminiWithRetry(requestFn) {
     } catch (err) {
       lastError = err;
       const message = err?.message || "";
-      const is429 = message.includes("429") || message.includes("RESOURCE_EXHAUSTED");
+      const is429 =
+        message.includes("429") || message.includes("RESOURCE_EXHAUSTED");
 
       if (is429) {
         // Try to read the server-suggested retry delay, otherwise back off.
         const retryMatch = message.match(/"retryDelay":"(\d+)s"/);
-        const waitSeconds = retryMatch ? parseInt(retryMatch[1], 10) : (attempt + 1) * 3;
+        const waitSeconds = retryMatch
+          ? parseInt(retryMatch[1], 10)
+          : (attempt + 1) * 3;
 
         if (attempt < MAX_RETRIES) {
           await sleep(waitSeconds * 1000);
@@ -82,7 +73,7 @@ async function callGeminiWithRetry(requestFn) {
         throw new Error(
           "QUOTA_EXCEEDED: You've hit today's free-tier request limit for this model. " +
           "This isn't a bug — Google's free tier caps requests per day. Wait for the quota " +
-          "to reset, or enable billing on your Google AI Studio project for higher limits."
+          "to reset, or enable billing on your Google AI Studio project for higher limits.",
         );
       }
 
@@ -92,7 +83,6 @@ async function callGeminiWithRetry(requestFn) {
   }
   throw lastError;
 }
->>>>>>> origin/main
 
 function AI_Assistant() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -127,7 +117,12 @@ function AI_Assistant() {
   }, []);
 
   const nowLabel = () =>
-    new Date().toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+    new Date().toLocaleString(undefined, {
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
 
   const handleToggleSidebar = () => setIsExpanded(!isExpanded);
 
@@ -173,7 +168,10 @@ function AI_Assistant() {
 
   function extractSubject(text) {
     const cleaned = text
-      .replace(/show me|pictures? of|photos? of|images? of|draw (a|an|me)?|generate (a|an)?|can you see|give me/gi, "")
+      .replace(
+        /show me|pictures? of|photos? of|images? of|draw (a|an|me)?|generate (a|an)?|can you see|give me/gi,
+        "",
+      )
       .trim();
     return cleaned || text;
   }
@@ -202,7 +200,7 @@ function AI_Assistant() {
         previewUrl: URL.createObjectURL(file),
         base64: await fileToBase64(file),
         mimeType: file.type || "image/png",
-      }))
+      })),
     );
 
     setPendingAttachments((prev) => [...prev, ...newAttachments]);
@@ -234,7 +232,7 @@ function AI_Assistant() {
       ai.models.generateContent({
         model: TEXT_MODEL,
         contents: `Break this research topic into 3 focused sub-questions, one per line, no numbering or extra text: "${topic}"`,
-      })
+      }),
     );
 
     const subQuestions = (outlineResp.text || "")
@@ -252,11 +250,15 @@ function AI_Assistant() {
             model: TEXT_MODEL,
             contents: question,
             config: { tools: [{ googleSearch: {} }] }, // grounds the answer in live search results
-          })
+          }),
         );
-        findings.push(`### ${question}\n${resp.text || "No information found."}`);
+        findings.push(
+          `### ${question}\n${resp.text || "No information found."}`,
+        );
       } catch (err) {
-        findings.push(`### ${question}\n_Could not complete this part: ${err.message}_`);
+        findings.push(
+          `### ${question}\n_Could not complete this part: ${err.message}_`,
+        );
       }
     }
 
@@ -267,7 +269,7 @@ function AI_Assistant() {
         contents:
           `Write a clear, well-organized research summary on "${topic}" using the findings below. ` +
           `Use headers and keep it readable, cite key facts.\n\n${findings.join("\n\n")}`,
-      })
+      }),
     );
 
     return synthesisResp.text || findings.join("\n\n");
@@ -276,12 +278,16 @@ function AI_Assistant() {
   // ---------- Send ----------
   const handleSendPrompt = async () => {
     const trimmedText = promptText.trim();
-    if ((trimmedText === "" && pendingAttachments.length === 0) || loading) return;
+    if ((trimmedText === "" && pendingAttachments.length === 0) || loading)
+      return;
 
     if (!ai) {
       setMessages((prev) => [
         ...prev,
-        { sender: "ai", text: "No API key found. Add `VITE_GEMINI_API_KEY` to your `.env` file and restart the dev server." },
+        {
+          sender: "ai",
+          text: "No API key found. Add `VITE_GEMINI_API_KEY` to your `.env` file and restart the dev server.",
+        },
       ]);
       return;
     }
@@ -309,12 +315,21 @@ function AI_Assistant() {
       ]);
     }
 
-    setChatHistory((prev) => [{ id: Date.now(), title: trimmedText || "Image message", date: currentDate }, ...prev]);
+    setChatHistory((prev) => [
+      {
+        id: Date.now(),
+        title: trimmedText || "Image message",
+        date: currentDate,
+      },
+      ...prev,
+    ]);
 
     setPromptText("");
     setPendingAttachments([]);
     setLoading(true);
-    setLoadingLabel(isDeepResearch ? "Starting deep research..." : "Thinking...");
+    setLoadingLabel(
+      isDeepResearch ? "Starting deep research..." : "Thinking...",
+    );
 
     try {
       let aiAnswer;
@@ -331,7 +346,7 @@ function AI_Assistant() {
           ai.models.generateContent({
             model: TEXT_MODEL,
             contents: [{ role: "user", parts }],
-          })
+          }),
         );
         aiAnswer = response.text || "No response received.";
       }
@@ -344,7 +359,12 @@ function AI_Assistant() {
         aiAnswer += `\n\n![Generated: ${subject}](${visualUrl})`;
 
         setGeneratedImages((prev) => [
-          { id: Date.now(), title: trimmedText, url: visualUrl, date: currentDate },
+          {
+            id: Date.now(),
+            title: trimmedText,
+            url: visualUrl,
+            date: currentDate,
+          },
           ...prev,
         ]);
       }
@@ -369,7 +389,7 @@ function AI_Assistant() {
   };
 
   const filteredHistory = chatHistory.filter((item) =>
-    item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    item.title.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (
@@ -379,8 +399,14 @@ function AI_Assistant() {
         <div className={`sidebar ${isExpanded ? "expanded" : ""}`}>
           <div className="sidebar-things">
             <button className="sidebar-button" onClick={handleToggleSidebar}>
-              <img className="sidebar-logo-size" src={sidebar} alt="Toggle sidebar" />
-              {isExpanded && <span className="sidebar-label">Close sidebar</span>}
+              <img
+                className="sidebar-logo-size"
+                src={sidebar}
+                alt="Toggle sidebar"
+              />
+              {isExpanded && (
+                <span className="sidebar-label">Close sidebar</span>
+              )}
             </button>
 
             <button className="sidebar-button" onClick={handleNewChat}>
@@ -388,12 +414,24 @@ function AI_Assistant() {
               {isExpanded && <span className="sidebar-label">New chat</span>}
             </button>
 
-            <button className={`sidebar-button ${activeModal === "search" ? "active-nav" : ""}`} onClick={handleOpenSearch}>
-              <img className="sidebar-logo-size" src={searchLogo} alt="Search chats" />
-              {isExpanded && <span className="sidebar-label">Search chats</span>}
+            <button
+              className={`sidebar-button ${activeModal === "search" ? "active-nav" : ""}`}
+              onClick={handleOpenSearch}
+            >
+              <img
+                className="sidebar-logo-size"
+                src={searchLogo}
+                alt="Search chats"
+              />
+              {isExpanded && (
+                <span className="sidebar-label">Search chats</span>
+              )}
             </button>
 
-            <button className={`sidebar-button ${activeModal === "images" ? "active-nav" : ""}`} onClick={handleOpenImages}>
+            <button
+              className={`sidebar-button ${activeModal === "images" ? "active-nav" : ""}`}
+              onClick={handleOpenImages}
+            >
               <img className="sidebar-logo-size" src={image} alt="Images" />
               {isExpanded && <span className="sidebar-label">Images</span>}
             </button>
@@ -401,7 +439,9 @@ function AI_Assistant() {
         </div>
 
         {/* Main area */}
-        <div className={`aia-search-container ${messages.length === 0 ? "centered" : ""}`}>
+        <div
+          className={`aia-search-container ${messages.length === 0 ? "centered" : ""}`}
+        >
           <div className="chat-stream-container">
             {messages.length === 0 ? (
               <div className="empty-state">
@@ -447,7 +487,10 @@ function AI_Assistant() {
                 {pendingAttachments.map((a) => (
                   <div key={a.id} className="pending-attachment">
                     <img src={a.previewUrl} alt={a.name} />
-                    <button className="remove-attachment-btn" onClick={() => removePendingAttachment(a.id)}>
+                    <button
+                      className="remove-attachment-btn"
+                      onClick={() => removePendingAttachment(a.id)}
+                    >
                       ✕
                     </button>
                   </div>
@@ -469,26 +512,11 @@ function AI_Assistant() {
                 disabled={loading}
               />
               <button className="voice-search-icon-button">
-<<<<<<< HEAD
-                <img className="edit-voice-search-icon" src={voicesearch} alt="search-with-voice" />
-                <span className="vsib-tooltip">
-                  Voice search
-                </span>
-              </button>
-
-            </div>
-
-            <div className="search-box-last-line">
-              <button className="deep-research-button">
-                <img className="deep-research-icon-edit" src={deepresearch} alt="deep-research-icon" />
-                Deep Research
-              </button>
-
-              <button className="attach-file-button">
-                <img className="attach-file-icon-edit" src={attachfile} alt="attach-file-icon" />
-                Attach files
-=======
-                <img className="edit-voice-search-icon" src={voicesearch} alt="Voice search" />
+                <img
+                  className="edit-voice-search-icon"
+                  src={voicesearch}
+                  alt="Voice search"
+                />
               </button>
             </div>
 
@@ -507,8 +535,15 @@ function AI_Assistant() {
                   Deep Research{isDeepResearch ? " " : ""}
                 </button>
 
-                <button className="attach-file-button" onClick={handleAttachClick}>
-                  <img className="attach-file-icon-edit" src={attachfile} alt="Attach files" />
+                <button
+                  className="attach-file-button"
+                  onClick={handleAttachClick}
+                >
+                  <img
+                    className="attach-file-icon-edit"
+                    src={attachfile}
+                    alt="Attach files"
+                  />
                   Attach files
                 </button>
                 <input
@@ -521,9 +556,12 @@ function AI_Assistant() {
                 />
               </div>
 
-              <button className="submit-prompt-button" onClick={handleSendPrompt} disabled={loading}>
+              <button
+                className="submit-prompt-button"
+                onClick={handleSendPrompt}
+                disabled={loading}
+              >
                 {loading ? "Working..." : "Submit"}
->>>>>>> origin/main
               </button>
             </div>
           </div>
@@ -536,7 +574,9 @@ function AI_Assistant() {
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
               <h3>Search Your Chats</h3>
-              <button className="close-modal-btn" onClick={handleCloseModal}>✕</button>
+              <button className="close-modal-btn" onClick={handleCloseModal}>
+                ✕
+              </button>
             </div>
             <div className="modal-body">
               <input
@@ -550,7 +590,11 @@ function AI_Assistant() {
               <div className="history-list">
                 {filteredHistory.length > 0 ? (
                   filteredHistory.map((item) => (
-                    <div key={item.id} className="history-item" onClick={handleCloseModal}>
+                    <div
+                      key={item.id}
+                      className="history-item"
+                      onClick={handleCloseModal}
+                    >
                       <span className="history-title">💬 {item.title}</span>
                       <span className="history-date">{item.date}</span>
                     </div>
@@ -567,22 +611,36 @@ function AI_Assistant() {
       {/* IMAGES GALLERY MODAL */}
       {activeModal === "images" && (
         <div className="modal-backdrop" onClick={handleCloseModal}>
-          <div className="modal-content modal-large" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="modal-content modal-large"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="modal-header">
               <h3>Media Gallery</h3>
-              <button className="close-modal-btn" onClick={handleCloseModal}>✕</button>
+              <button className="close-modal-btn" onClick={handleCloseModal}>
+                ✕
+              </button>
             </div>
             <div className="image-modal-tabs">
-              <button className={`tab-btn ${imageTab === "generated" ? "active-tab" : ""}`} onClick={() => setImageTab("generated")}>
+              <button
+                className={`tab-btn ${imageTab === "generated" ? "active-tab" : ""}`}
+                onClick={() => setImageTab("generated")}
+              >
                 Generated Images ({generatedImages.length})
               </button>
-              <button className={`tab-btn ${imageTab === "uploaded" ? "active-tab" : ""}`} onClick={() => setImageTab("uploaded")}>
+              <button
+                className={`tab-btn ${imageTab === "uploaded" ? "active-tab" : ""}`}
+                onClick={() => setImageTab("uploaded")}
+              >
                 Uploaded Images ({uploadedImages.length})
               </button>
             </div>
             <div className="modal-body">
               <div className="image-grid">
-                {(imageTab === "generated" ? generatedImages : uploadedImages).map((img) => (
+                {(imageTab === "generated"
+                  ? generatedImages
+                  : uploadedImages
+                ).map((img) => (
                   <div key={img.id} className="image-card">
                     <button
                       className="delete-image-btn"
@@ -596,9 +654,10 @@ function AI_Assistant() {
                     <span className="img-date">{img.date}</span>
                   </div>
                 ))}
-                {(imageTab === "generated" ? generatedImages : uploadedImages).length === 0 && (
-                  <p className="no-results full-width">No images yet.</p>
-                )}
+                {(imageTab === "generated" ? generatedImages : uploadedImages)
+                  .length === 0 && (
+                    <p className="no-results full-width">No images yet.</p>
+                  )}
               </div>
             </div>
           </div>
