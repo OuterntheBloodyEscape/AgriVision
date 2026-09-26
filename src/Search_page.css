@@ -1,10 +1,11 @@
 #search_input_container {
     margin-top: 20px;
     padding: 10px;
-    background-color: white;
+    background-color: #f7fbf8;
     display: flex;
     flex-direction: row;
     border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.35);
 }
 
 #search_bar {
@@ -29,13 +30,14 @@
 #search_foundItem_container {
     width: 30vw;
     height: max-content;
-    background-color: white;
+    background-color: #f7fbf8;
     border-radius: 20px;
     padding: 10px;
     position: relative;
     display: flex;
     gap: 5px;
     flex-direction: column;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.35);
 }
 
 #no_item_box {
@@ -63,4 +65,24 @@
 #search_item_box_text {
     margin-left: 10px;
     color: #29854D;
+}
+
+.Search_page_container {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+body.night-mode .Search_page_container {
+    background-color: rgba(0, 0, 0, 0.72);
+}
+
+body.night-mode #search_input_container,
+body.night-mode #search_foundItem_container {
+    background-color: #202a24;
+    color: #f1f5f2;
+}
+
+body.night-mode #search_bar {
+    background-color: #151a17;
+    color: #f1f5f2;
+    border-color: #5f7867;
 }

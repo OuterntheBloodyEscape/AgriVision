@@ -1,0 +1,140 @@
+.contract_action_overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.contract_action_popup {
+    position: relative;
+    width: min(460px, 100%);
+    max-height: min(620px, 90vh);
+    overflow-y: auto;
+    padding: 28px;
+    border-radius: 16px;
+    background-color: white;
+    color: #202020;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.35);
+}
+
+.contract_action_close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    border: 0;
+    background: transparent;
+    color: #202020;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.contract_action_close img {
+    width: 24px;
+    height: 24px;
+    display: block;
+    filter: brightness(0);
+}
+
+.contract_apply_form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contract_apply_form input,
+.contract_apply_form textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #9b9b9b;
+    border-radius: 8px;
+    font: inherit;
+}
+
+.contract_apply_form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+#main_app_root.night-mode .contract_action_popup {
+    background-color: #202a24;
+    color: #f1f5f2;
+}
+
+#main_app_root.night-mode .contract_apply_form input,
+#main_app_root.night-mode .contract_apply_form textarea {
+    background-color: #151a17;
+    color: #f1f5f2;
+    border-color: #5f7867;
+}
+
+.contract_bid_info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    padding: 12px;
+    margin: 5px 0 10px 0;
+
+    border: 1px solid #d0d0d0;
+    border-radius: 10px;
+
+    background-color: #f7f7f7;
+}
+
+.contract_bid_info div {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.contract_bid_info span {
+    text-align: right;
+}
+
+.bid_price_input_div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bid_price_input_div input {
+    flex: 1;
+}
+
+.bid_price_input_div span {
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.bid_total_price {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+
+    border-radius: 8px;
+
+    background-color: rgba(41, 133, 77, 0.1);
+}
+
+.bid_total_price span {
+    font-weight: bold;
+}
+
+#main_app_root.night-mode .contract_bid_info {
+    background-color: #151a17;
+    border-color: #5f7867;
+}
+
+#main_app_root.night-mode .bid_total_price {
+    background-color: rgba(41, 133, 77, 0.2);
+}
+
+#main_app_root.night-mode .contract_action_close img {
+    filter: brightness(0) invert(1);
+}

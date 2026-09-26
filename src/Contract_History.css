@@ -1,0 +1,148 @@
+.cfh_overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.cfh_popup {
+    position: relative;
+    width: min(700px, 100%);
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.cfh_heading {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid gray;
+    margin-bottom: 15px;
+}
+
+.cfh_heading p {
+    margin: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.cfh_close {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cfh_close img {
+    width: 24px;
+    height: 24px;
+    display: block;
+    filter: brightness(0);
+}
+
+.cfh_close:hover {
+    background-color: #E4E4E4;
+}
+
+.cfh_content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.cfh_card {
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid gray;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+}
+
+.cfh_card_info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.cfh_card_info h2,
+.cfh_card_info h4,
+.cfh_card_info p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.cfh_empty {
+    color: gray;
+}
+
+
+/* Night mode */
+
+body.night-mode .cfh_popup {
+    background-color: #202a24;
+    color: #f1f5f2;
+}
+
+body.night-mode .cfh_close {
+    color: #f1f5f2;
+}
+
+body.night-mode .cfh_close img {
+    filter: brightness(0) invert(1);
+}
+
+body.night-mode .cfh_close:hover {
+    background-color: #35443b;
+}
+
+body.night-mode .cfh_card {
+    border-color: #526057;
+    background-color: #151a17;
+}
+
+
+/* Mobile */
+
+@media (max-width: 576px) {
+
+    .cfh_overlay {
+        padding: 10px;
+    }
+
+    .cfh_popup {
+        max-height: 90vh;
+        padding: 15px;
+    }
+
+    .cfh_content {
+        grid-template-columns: 1fr;
+    }
+
+    .cfh_card_info {
+        padding-left: 8px;
+        padding-right: 8px;
+        gap: 7px;
+    }
+}

@@ -47,7 +47,7 @@ let Login = ({ tm }) => {
     return (
         <>
             <div id="login_bg_image"></div>
-            <div id='container'>
+            <div id='login_page_container'>
                 <div id='login_container'>
                     <div id='lcp1'>
                         <div id='login_photo_display'>

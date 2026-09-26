@@ -87,6 +87,7 @@ router.post("/login", async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000
         }).status(200).json({
             message: `${user.name} Login successful`,
+            nightMood: user.nightMood === true
         });
 
     } catch (error) {
@@ -137,6 +138,8 @@ router.post('/logout', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+=======
 router.post('/send-otp', async (req, res) => {
     const { email } = req.body;
 
@@ -205,5 +208,6 @@ router.post('/reset-password', async (req, res) => {
         res.status(500).json({ success: false, message: "Server error while resetting password." });
     }
 });
+>>>>>>> origin/main
 
 export default router

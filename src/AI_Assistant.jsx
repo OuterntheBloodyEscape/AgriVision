@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+import React from "react";
+// import './AI_Assistant.css'
+import AIlogo from './assets/Agribuddy-logo.png'
+import image from './assets/image.png'
+import newChat from './assets/new-chat.png'
+import searchLogo from './assets/search-logo.png'
+import sidebar from './assets/sidebar.png'
+import voicesearch from './assets/voice.png'
+import deepresearch from './assets/Deep_research.png'
+import attachfile from './assets/attach-file.png'
+=======
 import React, { useState, useEffect, useRef } from "react";
 import { GoogleGenAI } from "@google/genai";
 import ReactMarkdown from "react-markdown";
@@ -80,6 +92,7 @@ async function callGeminiWithRetry(requestFn) {
   }
   throw lastError;
 }
+>>>>>>> origin/main
 
 function AI_Assistant() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -456,6 +469,25 @@ function AI_Assistant() {
                 disabled={loading}
               />
               <button className="voice-search-icon-button">
+<<<<<<< HEAD
+                <img className="edit-voice-search-icon" src={voicesearch} alt="search-with-voice" />
+                <span className="vsib-tooltip">
+                  Voice search
+                </span>
+              </button>
+
+            </div>
+
+            <div className="search-box-last-line">
+              <button className="deep-research-button">
+                <img className="deep-research-icon-edit" src={deepresearch} alt="deep-research-icon" />
+                Deep Research
+              </button>
+
+              <button className="attach-file-button">
+                <img className="attach-file-icon-edit" src={attachfile} alt="attach-file-icon" />
+                Attach files
+=======
                 <img className="edit-voice-search-icon" src={voicesearch} alt="Voice search" />
               </button>
             </div>
@@ -491,6 +523,7 @@ function AI_Assistant() {
 
               <button className="submit-prompt-button" onClick={handleSendPrompt} disabled={loading}>
                 {loading ? "Working..." : "Submit"}
+>>>>>>> origin/main
               </button>
             </div>
           </div>

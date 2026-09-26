@@ -55,3 +55,22 @@
     margin: 10px;
     white-space: nowrap;
 }
+
+#main_app_root.night-mode .iconContainer2 {
+    background-color: #26332b;
+    color: #f1f5f2;
+}
+
+#main_app_root.night-mode .iconContainer2:hover {
+    box-shadow: 0px 0px 10px #8ee0a8;
+}
+
+#main_app_root.night-mode #main_app_p2_top_p2_2>.iconContainer2 .icon2 {
+    filter: brightness(0) invert(1);
+}
+
+#main_app_root.night-mode .profile_section {
+    background-color: #202a24;
+    color: #f1f5f2;
+    border: 1px solid #5f7867;
+}

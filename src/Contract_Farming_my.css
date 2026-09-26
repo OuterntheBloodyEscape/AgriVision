@@ -103,6 +103,17 @@
     background-color: black;
 }
 
+.cfm_add_overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
 #Contract_Farming_my_bottom {
     flex: 1;
     margin: 20px;
@@ -145,34 +156,50 @@
 
 .Contract_Farming_my_cc {
     flex: 1;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 0 10px 10px 10px;
+
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 400px));
+    justify-content: start;
+    gap: 20px;
 
-    gap: 15px;
-
-    min-width: 0;
+    box-sizing: border-box;
 }
 
 .Contract_Farming_my_card {
-    width: max-content;
+    width: 100%;
+    max-width: 400px;
+    min-width: 0;
+    box-sizing: border-box;
+
     border: 2px solid gray;
-    padding: 10px;
+    padding: 15px;
+
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     border-radius: 15px;
+
+    transition: transform 200ms ease,
+        box-shadow 200ms ease,
+        border-color 200ms ease;
+}
+
+.Contract_Farming_my_card:hover {
+    border-color: #29854D;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .Contract_Farming_my_card_info {
+    width: 100%;
+    box-sizing: border-box;
+
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
+    gap: 8px;
+
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .Contract_Farming_my_card_button_div {
@@ -228,4 +255,562 @@
 
 .fold_Contract_Farming_my_fs {
     font-size: 20px;
+}
+
+.contract_applications {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    margin-top: 12px;
+}
+
+.contract_application {
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    padding: 8px;
+
+    border: 1px solid gray;
+    border-radius: 8px;
+}
+
+.contract_application_actions {
+    display: flex;
+    gap: 8px;
+}
+
+.contract_application_actions button {
+    flex: 1;
+    padding: 6px;
+    border: 1px solid #29854D;
+    border-radius: 6px;
+    background-color: #29854D;
+    color: white;
+    cursor: pointer;
+}
+
+.contract_application_actions button:last-child {
+    background-color: white;
+    color: #852f29;
+    border-color: #852f29;
+}
+
+body.night-mode .contract_application {
+    border-color: #526057;
+    background-color: #151a17;
+}
+
+body.night-mode .contract_application_actions button:last-child {
+    background-color: #202a24;
+    color: #ffaaa0;
+}
+
+/* Card Action Container */
+.contract_card_actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+/* Primary Action: View Bids */
+.btn_view_bids {
+    width: 100%;
+    padding: 10px;
+    background-color: #29854D;
+    color: #ffffff;
+    border: 1px solid #29854D;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.btn_view_bids:hover {
+    background-color: #1e6339;
+    border-color: #1e6339;
+}
+
+/* Secondary Actions Grid (3 Columns) */
+.contract_card_actions_secondary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    width: 100%;
+}
+
+.btn_action {
+    padding: 8px 4px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid #48564d;
+    color: #d1d5db;
+    transition: all 200ms ease;
+    text-align: center;
+}
+
+.CFM_contact_info {
+    margin-top: 8px;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.CFM_contact_info h4 {
+    margin: 0 0 5px;
+}
+
+.CFM_contact_info p {
+    margin: 3px 0;
+    font-size: 14px;
+}
+
+/* Secondary Action Hover States */
+.btn_action.btn_edit:hover {
+    border-color: #29854D;
+    color: #4ade80;
+    background-color: rgba(41, 133, 77, 0.15);
+}
+
+.btn_action.btn_status.pause:hover {
+    border-color: #eab308;
+    color: #fde047;
+    background-color: rgba(234, 179, 8, 0.15);
+}
+
+.btn_action.btn_status.activate:hover {
+    border-color: #22c55e;
+    color: #86efac;
+    background-color: rgba(34, 197, 94, 0.15);
+}
+
+.btn_action.btn_delete:hover {
+    border-color: #ef4444;
+    color: #fca5a5;
+    background-color: rgba(239, 68, 68, 0.15);
+}
+
+.btn_action:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    border-color: #374151;
+}
+
+.bid_waiting_notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: rgba(234, 179, 8, 0.12);
+    border: 1px solid #eab308;
+    color: #eab308;
+    margin-top: 4px;
+}
+
+#main_app_root.night-mode .bid_waiting_notice {
+    background-color: rgba(234, 179, 8, 0.18);
+    border-color: #ca8a04;
+    color: #fde047;
+}
+
+/* ========================= */
+/* BICED CONTRACT BUTTONS    */
+/* ========================= */
+
+.contract_card_actions_stack {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.btn_stack {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: all 200ms ease;
+    text-align: center;
+}
+
+/* Primary Action / Accept Offer Button */
+.btn_stack.btn_view_bids {
+    background-color: #29854D;
+    color: #ffffff;
+    border: 1px solid #29854D;
+}
+
+.btn_stack.btn_view_bids:hover {
+    background-color: #1e6339;
+    border-color: #1e6339;
+}
+
+/* Secondary / Edit / Counter Button */
+.btn_stack.btn_edit {
+    background-color: white;
+    border: 1px solid gray;
+    color: #202020;
+}
+
+.btn_stack.btn_edit:hover {
+    border-color: #29854D;
+    color: #29854D;
+    background-color: rgba(41, 133, 77, 0.08);
+}
+
+/* Night Mode Support for Bided Buttons */
+body.night-mode .btn_stack.btn_edit {
+    background-color: #202a24;
+    color: #f1f5f2;
+    border-color: #526057;
+}
+
+body.night-mode .btn_stack.btn_edit:hover {
+    border-color: #29854D;
+    color: #7bd49a;
+    background-color: rgba(41, 133, 77, 0.2);
+}
+
+/* Light Mode Overrides (if night-mode class isn't on body) */
+body:not(.night-mode) .btn_action {
+    border-color: #ccc;
+    color: #333;
+}
+
+body:not(.night-mode) .btn_action.btn_edit:hover {
+    color: #29854D;
+}
+
+body:not(.night-mode) .btn_action.btn_status.pause:hover {
+    color: #856404;
+}
+
+body:not(.night-mode) .btn_action.btn_delete:hover {
+    color: #dc3545;
+}
+
+.contract_edit_button {
+    width: 100%;
+    padding: 9px 12px;
+    margin-top: 5px;
+
+    border: 1px solid #29854D;
+    border-radius: 8px;
+
+    background-color: white;
+    color: #29854D;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        background-color 200ms ease,
+        color 200ms ease,
+        border-color 200ms ease;
+}
+
+.contract_edit_button:hover {
+    background-color: #29854D;
+    color: white;
+}
+
+.contract_edit_button:active {
+    background-color: #063620;
+    border-color: #063620;
+    color: white;
+}
+
+.contract_edit_button:disabled {
+    background-color: #e4e4e4;
+    border-color: #b5b5b5;
+    color: #777;
+    cursor: not-allowed;
+}
+
+body.night-mode .contract_edit_button {
+    background-color: #202a24;
+    color: #7bd49a;
+    border-color: #29854D;
+}
+
+body.night-mode .contract_edit_button:hover {
+    background-color: #29854D;
+    color: white;
+}
+
+body.night-mode .contract_edit_button:active {
+    background-color: #063620;
+    border-color: #063620;
+}
+
+body.night-mode .contract_edit_button:disabled {
+    background-color: #303a34;
+    border-color: #526057;
+    color: #777;
+}
+
+.contract_delete_button {
+    width: 100%;
+    padding: 9px 12px;
+    margin-top: 5px;
+    border: 1px solid #852f29;
+    border-radius: 8px;
+    background-color: white;
+    color: #852f29;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        background-color 200ms ease,
+        color 200ms ease,
+        border-color 200ms ease;
+}
+
+.contract_delete_button:hover {
+    background-color: #852f29;
+    color: white;
+}
+
+.contract_delete_button:active {
+    background-color: #5c211d;
+    border-color: #5c211d;
+    color: white;
+}
+
+.contract_delete_button:disabled {
+    background-color: #e4e4e4;
+    border-color: #b5b5b5;
+    color: #777;
+    cursor: not-allowed;
+}
+
+body.night-mode .contract_delete_button {
+    background-color: #202a24;
+    color: #ffaaa0;
+    border-color: #852f29;
+}
+
+body.night-mode .contract_delete_button:hover {
+    background-color: #852f29;
+    color: white;
+}
+
+body.night-mode .contract_delete_button:active {
+    background-color: #5c211d;
+    border-color: #5c211d;
+}
+
+body.night-mode .contract_delete_button:disabled {
+    background-color: #303a34;
+    border-color: #526057;
+    color: #777;
+}
+
+@media (max-width: 800px) {
+    #CFM_top {
+        height: auto;
+        min-height: 60px;
+        padding: 8px;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    #CFM_search_div {
+        flex: 1 1 260px;
+        min-width: 0;
+    }
+
+    #CFM_search_input {
+        width: auto;
+        flex: 1;
+        min-width: 0;
+        margin: 0 8px 0 0;
+    }
+
+    #CFM_search_button_div {
+        flex: 0 0 30px;
+        margin-right: 0;
+    }
+
+    #CFM_sort {
+        display: none;
+    }
+
+    #CFM_others_div {
+        width: auto;
+        flex: 0 0 auto;
+    }
+}
+
+@media (max-width: 576px) {
+    #CFM_top {
+        margin: 10px;
+    }
+
+    #Contract_Farming_my_bottom {
+        margin: 10px;
+        margin-top: 0;
+    }
+
+    .Contract_Farming_my_cc {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
+    .Contract_Farming_my_card {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px;
+    }
+
+    .Contract_Farming_my_card_info {
+        width: 100%;
+        box-sizing: border-box;
+        padding-left: 8px;
+        padding-right: 8px;
+        gap: 7px;
+    }
+
+    .Contract_Farming_my_card_button_div {
+        width: 100%;
+    }
+
+    .Contract_Farming_my_card_button {
+        width: 100%;
+    }
+
+    #CFM_add_button {
+        right: 15px;
+        bottom: 74px;
+    }
+}
+
+.contract_status_button {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #29854D;
+    border-radius: 8px;
+    background-color: #29854D;
+    color: white;
+    cursor: pointer;
+}
+
+.contract_status_button:hover {
+    background-color: #063620;
+}
+
+#CFM_history_button {
+    height: 40px;
+    width: 90px;
+    margin: 10px;
+    margin-right: 20px;
+    background-color: #29854D;
+    border: 1px solid #29854D;
+    border-radius: 15px;
+    color: white;
+    font-size: 16px;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#CFM_history_button:hover {
+    background-color: #063620;
+    transition: background-color 300ms ease-in;
+}
+
+#CFM_history_button:active {
+    background-color: black;
+}
+
+
+/* My Bided Contracts */
+
+#Contract_Farming_myBidedContract {
+    max-height: max-content;
+    background-color: white;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* History */
+
+#Contract_Farming_history {
+    max-height: max-content;
+    background-color: white;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* History / bid information */
+
+.Contract_Farming_my_card_info p {
+    margin: 0;
+}
+
+
+/* Night mode */
+
+body.night-mode #Contract_Farming_myBidedContract,
+body.night-mode #Contract_Farming_history {
+    background-color: #202a24;
+}
+
+body.night-mode #CFM_history_button {
+    background-color: #29854D;
+    color: white;
+}
+
+body.night-mode #CFM_history_button:hover {
+    background-color: #063620;
+}
+
+
+/* Mobile */
+
+@media (max-width: 576px) {
+
+    #CFM_history_button {
+        width: 80px;
+        margin-right: 5px;
+        font-size: 14px;
+    }
+
+    #Contract_Farming_myBidedContract,
+    #Contract_Farming_history {
+        margin-bottom: 12px;
+    }
 }

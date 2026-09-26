@@ -1,0 +1,232 @@
+.contract_edit_overlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: 30;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.contract_edit_popup {
+    position: relative;
+
+    width: min(500px, 100%);
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    padding: 30px;
+
+    box-sizing: border-box;
+
+    background-color: white;
+    border-radius: 16px;
+
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.35);
+}
+
+.contract_edit_close {
+    position: absolute;
+
+    top: 12px;
+    right: 12px;
+
+    width: 32px;
+    height: 32px;
+
+    border: 0;
+    border-radius: 50%;
+
+    background-color: transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+.contract_edit_close img {
+    width: 24px;
+    height: 24px;
+
+    display: block;
+
+    filter: brightness(0);
+}
+
+.contract_edit_close:hover {
+    background-color: #E4E4E4;
+}
+
+.contract_edit_form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.contract_edit_form h2 {
+    margin: 0 0 15px 0;
+
+    text-align: center;
+
+    font-size: 22px;
+}
+
+.contract_edit_form label {
+    margin-top: 6px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.contract_edit_form input,
+.contract_edit_form select,
+.contract_edit_form textarea {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 10px;
+
+    border: 1px solid #aaa;
+    border-radius: 8px;
+
+    outline: none;
+
+    background-color: white;
+
+    font-size: 15px;
+}
+
+.contract_edit_form input:focus,
+.contract_edit_form select:focus,
+.contract_edit_form textarea:focus {
+    border-color: #29854D;
+    box-shadow: 0 0 0 2px rgba(41, 133, 77, 0.12);
+}
+
+.contract_edit_form textarea {
+    min-height: 100px;
+
+    resize: vertical;
+}
+
+.contract_edit_row {
+    display: grid;
+
+    grid-template-columns: 1fr 110px;
+
+    gap: 8px;
+}
+
+.contract_edit_price {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.contract_edit_price input {
+    flex: 1;
+}
+
+.contract_edit_price span {
+    white-space: nowrap;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.contract_edit_submit {
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 11px;
+
+    border: 1px solid #29854D;
+    border-radius: 8px;
+
+    background-color: #29854D;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 200ms ease,
+        border-color 200ms ease;
+}
+
+.contract_edit_submit:hover {
+    background-color: #063620;
+    border-color: #063620;
+}
+
+.contract_edit_submit:active {
+    background-color: black;
+}
+
+.contract_edit_submit:disabled {
+    background-color: #8ca996;
+    border-color: #8ca996;
+    cursor: not-allowed;
+}
+
+
+/* Night mode */
+
+body.night-mode .contract_edit_popup {
+    background-color: #202a24;
+    color: #f1f5f2;
+}
+
+body.night-mode .contract_edit_close img {
+    filter: brightness(0) invert(1);
+}
+
+body.night-mode .contract_edit_close:hover {
+    background-color: #35443b;
+}
+
+body.night-mode .contract_edit_form input,
+body.night-mode .contract_edit_form select,
+body.night-mode .contract_edit_form textarea {
+    background-color: #151a17;
+    color: #f1f5f2;
+    border-color: #526057;
+}
+
+body.night-mode .contract_edit_form input:focus,
+body.night-mode .contract_edit_form select:focus,
+body.night-mode .contract_edit_form textarea:focus {
+    border-color: #29854D;
+}
+
+
+/* Mobile */
+
+@media (max-width: 576px) {
+    .contract_edit_overlay {
+        padding: 10px;
+    }
+
+    .contract_edit_popup {
+        padding: 25px 18px;
+    }
+
+    .contract_edit_row {
+        grid-template-columns: 1fr 90px;
+    }
+}
