@@ -1,322 +1,243 @@
-import React, { useEffect } from "react";
-import './Live_MarketPrices.css'
-import broccoli from './assets/broccoli.jpg'
-import rui from './assets/rui-fish.jpg'
-import tomato from './assets/Tomato.jpg'
-import beef from './assets/beef.jpg'
-import carrot from './assets/carrots.jpg'
-import egg from './assets/chicken-egg.jpg'
-import oil from './assets/soyabean-oil.jpg'
-import onion from './assets/onion.jpeg'
-import view from './assets/up-recolored.png'
-import searchicon from './assets/searchicon.png'
+import React, { useEffect, useState } from "react";
+import './Live_MarketPrices.css';
+import view from './assets/up-recolored.png';
+import searchicon from './assets/searchicon.png';
 import { useNavigate } from "react-router-dom";
 
 function Live_MarketPrices() {
-  const nav = useNavigate()
+  const nav = useNavigate();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All");
+
+ 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+
   useEffect(() => {
     (async () => {
-      const res = await fetch('http://localhost:5000/api/auth/check-login', {
-        method: 'GET',
-        credentials: 'include',
-      })
-      const data = await res.json()
-
-      if (res.status === 401) {
-        nav('/login_page', { replace: true })
+      try {
+        const res = await fetch('http://localhost:5000/api/auth/check-login', {
+          method: 'GET',
+          credentials: 'include',
+        });
+        if (res.status === 401) {
+          nav('/login_page', { replace: true });
+          return;
+        }
+      } catch (err) {
+        console.error("Auth check failed:", err);
       }
-    })()
-  }, [nav])
+
+      try {
+        const productRes = await fetch('http://localhost:5000/api/products');
+        const data = await productRes.json();
+        setProducts(data);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [nav]);
+
+  
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, activeCategory]);
+
+
+  const filteredProducts = products.filter(product => {
+    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = activeCategory === "All" || product.category === activeCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <>
       <div className="All-containers">
         <div className="Motivation_container">
-
-          <p className="live">
-            Live Agricultural Prices BD
-          </p>
+          <p className="live">Live Agricultural Prices BD</p>
           <p className="know">Know the Market.</p>
           <p className="grow">Grow Smarter.</p>
-
         </div>
 
         <div className="Motivation-er-nicher-part">
-
           <div className="Search_container">
-
-            <p className="pro">
-              Product Name
-            </p>
+            <p className="pro">Product Name</p>
 
             <div className="search-bar">
-              <input className="search-box" type="text" placeholder="e.g. Tomato, Rice, Bangus..." />
+              <input 
+                className="search-box" 
+                type="text" 
+                placeholder="e.g. Tomato, Rice, Beef..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
               <button className="search-button">
                 <img className="search-icon" src={searchicon} alt="search-icon" />
                 Search
               </button>
             </div>
 
-            <p className="filter">
-              Filter by Category
-            </p>
+            <p className="filter">Filter by Category</p>
 
             <div className="all-filter-buttons">
-              <button className="for-all-button only-all">
+              <button 
+                className={`for-all-button ${activeCategory === "All" ? "only-all" : ""}`}
+                onClick={() => setActiveCategory("All")}
+                style={{ backgroundColor: activeCategory === "All" ? "#106B33" : "transparent", color: activeCategory === "All" ? "white" : "black" }}
+              >
                 All
               </button>
-              <button className="for-all-button">
+              <button 
+                className={`for-all-button ${activeCategory === "Crops" ? "only-all" : ""}`}
+                onClick={() => setActiveCategory("Crops")}
+                style={{ backgroundColor: activeCategory === "Crops" ? "#106B33" : "transparent", color: activeCategory === "Crops" ? "white" : "black" }}
+              >
                 Crops
               </button>
-              <button className="for-all-button">
+              <button 
+                className={`for-all-button ${activeCategory === "Fishery Products" ? "only-all" : ""}`}
+                onClick={() => setActiveCategory("Fishery Products")}
+                style={{ backgroundColor: activeCategory === "Fishery Products" ? "#106B33" : "transparent", color: activeCategory === "Fishery Products" ? "white" : "black" }}
+              >
                 Fishery Products
               </button>
-              <button className="for-all-button">
+              <button 
+                className={`for-all-button ${activeCategory === "Poultry" ? "only-all" : ""}`}
+                onClick={() => setActiveCategory("Poultry")}
+                style={{ backgroundColor: activeCategory === "Poultry" ? "#106B33" : "transparent", color: activeCategory === "Poultry" ? "white" : "black" }}
+              >
                 Poultry
               </button>
             </div>
-
           </div>
 
           <div className="marketprices">
-            <p className="market">
-              Market Prices
-            </p>
+            <p className="market">Market Prices</p>
             <p className="showing">
-              Showing 1-8 of 180 products
+              Showing {filteredProducts.length > 0 ? indexOfFirstItem + 1 : 0}-{Math.min(indexOfLastItem, filteredProducts.length)} of {filteredProducts.length} products
             </p>
-
           </div>
 
           <div className="cart-container">
+            {loading ? (
+              <h3 style={{ gridColumn: "1 / -1", textAlign: "center", padding: "20px" }}>
+                Loading market prices...
+              </h3>
+            ) : filteredProducts.length === 0 ? (
+              <h3 style={{ gridColumn: "1 / -1", textAlign: "center", padding: "20px" }}>
+                No products found matching your search.
+              </h3>
+            ) : (
+              currentItems.map((product) => (
+                <div className="cart-details" key={product._id}>
+                  <div className="pics-and-fakabox">
+                    <img
+                      className="all-container-pics"
+                      src={product.imageUrl}
+                      alt={product.name}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=500&q=80";
+                      }}
+                    />
+                    <div className="fakabox">
+                      <img className="view-details-pic" src={view} alt="view-details-pic" />
+                      <p className="lm-view-details">View Details</p>
+                    </div>
+                  </div>
 
-            <div className="cart-details">
-              <div className="pics-and-fakabox">
-                <img className="all-container-pics" src={beef} />
-                <div className="fakabox">
-                  <img className="view-details-pic" src={view} alt="view-details-pic" />
-                  <p className="lm-view-details">View Details</p>
+                  <div className="product-details">
+                    <p className="product-name">{product.name}</p>
+                    <p className="product-price">
+                      Taka <sub>{product.price}/{product.unit}</sub>
+                    </p>
+                  </div>
+
+                  <p className="date">{product.dateUpdated}</p>
                 </div>
-              </div>
-
-              <div className="product-details">
-                <p className="product-name">
-                  Beef
-                </p>
-                <p className="product-price">
-                  Taka <sub>800/kg</sub>
-                </p>
-              </div>
-
-              <p className="date">
-                August 19, 2026
-              </p>
-
-            </div>
-
-            <div className="cart-details">
-              <div className="pics-and-fakabox">
-                <img className="all-container-pics" src={egg} />
-                <div className="fakabox">
-                  <img className="view-details-pic" src={view} alt="view-details-pic" />
-                  <p className="lm-view-details">View Details</p>
-                </div>
-              </div>
-
-              <div className="product-details">
-                <p className="product-name">
-                  Chicken Egg
-                </p>
-                <p className="product-price">
-                  Taka <sub>350/cage</sub>
-                </p>
-              </div>
-
-              <p className="date">
-                August 17, 2026
-              </p>
-
-            </div>
-
-
-
-            <div className="cart-details">
-              <div className="pics-and-fakabox">
-                <img className="all-container-pics" src={broccoli} />
-                <div className="fakabox">
-                  <img className="view-details-pic" src={view} alt="view-details-pic" />
-                  <p className="lm-view-details">View Details</p>
-                </div>
-              </div>
-
-              <div className="product-details">
-                <p className="product-name">
-                  Broccoli
-                </p>
-                <p className="product-price">
-                  Taka <sub>180/kg</sub>
-                </p>
-              </div>
-
-              <p className="date">
-                August 16, 2026
-              </p>
-
-            </div>
-
-            <div className="cart-details">
-              <div className="pics-and-fakabox">
-                <img className="all-container-pics" src={rui} />
-                <div className="fakabox">
-                  <img className="view-details-pic" src={view} alt="view-details-pic" />
-                  <p className="lm-view-details">View Details</p>
-                </div>
-              </div>
-
-              <div className="product-details">
-                <p className="product-name">
-                  Rui Fish
-                </p>
-                <p className="product-price">
-                  Taka <sub>380/kg</sub>
-                </p>
-              </div>
-
-              <p className="date">
-                August 16, 2026
-              </p>
-
-            </div>
-
-            <div className="cart-details">
-              <div className="pics-and-fakabox">
-                <img className="all-container-pics" src={carrot} />
-                <div className="fakabox">
-                  <img className="view-details-pic" src={view} alt="view-details-pic" />
-                  <p className="lm-view-details">View Details</p>
-                </div>
-              </div>
-
-              <div className="product-details">
-                <p className="product-name">
-                  Carrot
-                </p>
-                <p className="product-price">
-                  Taka <sub>40/kg</sub>
-                </p>
-              </div>
-
-              <p className="date">
-                August 20, 2026
-              </p>
-
-            </div>
-
-            <div className="cart-details">
-              <div className="pics-and-fakabox">
-                <img className="all-container-pics" src={oil} />
-                <div className="fakabox">
-                  <img className="view-details-pic" src={view} alt="view-details-pic" />
-                  <p className="lm-view-details">View Details</p>
-                </div>
-              </div>
-
-              <div className="product-details">
-                <p className="product-name">
-                  Soyabean Oil
-                </p>
-                <p className="product-price">
-                  Taka <sub>1000/kg</sub>
-                </p>
-              </div>
-
-              <p className="date">
-                August 19, 2026
-              </p>
-
-            </div>
-
-
-
-
-
-            <div className="cart-details">
-              <div className="pics-and-fakabox">
-                <img className="all-container-pics" src={onion} />
-                <div className="fakabox">
-                  <img className="view-details-pic" src={view} alt="view-details-pic" />
-                  <p className="lm-view-details">View Details</p>
-                </div>
-              </div>
-
-              <div className="product-details">
-                <p className="product-name">
-                  Onion
-                </p>
-                <p className="product-price">
-                  Taka <sub>60/kg</sub>
-                </p>
-              </div>
-
-              <p className="date">
-                August 18, 2026
-              </p>
-
-            </div>
-
-            <div className="cart-details">
-              <div className="pics-and-fakabox">
-                <img className="all-container-pics" src={tomato} />
-                <div className="fakabox">
-                  <img className="view-details-pic" src={view} alt="view-details-pic" />
-                  <p className="lm-view-details">View Details</p>
-                </div>
-              </div>
-
-              <div className="product-details">
-                <p className="product-name">
-                  Tomato
-                </p>
-                <p className="product-price">
-                  Taka <sub>80/kg</sub>
-                </p>
-              </div>
-
-              <p className="date">
-                August 16, 2026
-              </p>
-
-            </div>
-
-
-
-
+              ))
+            )}
           </div>
 
-          <div className="no-of-pages">
-            <button className="button-set-no">1</button>
-            <button className="button-set-no">2</button>
-            <div className="dotdot">...</div>
-            <button className="button-set-no">20</button>
-          </div>
+          {totalPages > 0 && (
+            <>
+              <div className="no-of-pages">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
+                  <React.Fragment key={number}>
+                    <button
+                      className="button-set-no"
+                      onClick={() => handlePageClick(number)}
+                      style={{
+                        backgroundColor: currentPage === number ? '#106B33' : 'white',
+                        color: currentPage === number ? 'white' : 'black',
+                        border: currentPage === number ? 'none' : '1px solid #ccc'
+                      }}
+                    >
+                      {number}
+                    </button>
+                    {/* Add visual dots if there are many pages (simplified for 4 pages) */}
+                    {number === 3 && totalPages > 4 && <div className="dotdot">...</div>}
+                  </React.Fragment>
+                ))}
+              </div>
 
-          <div className="prev-next">
-            <button className="prev-next-button">Prev</button>
-            <p className="prev-next-majher-text">Page 1 of 20</p>
-            <button className="prev-next-button">Next</button>
-          </div>
+              <div className="prev-next">
+                <button 
+                  className="prev-next-button" 
+                  onClick={handlePrev} 
+                  disabled={currentPage === 1}
+                  style={{ opacity: currentPage === 1 ? 0.5 : 1, cursor: currentPage === 1 ? 'not-allowed' : 'pointer' }}
+                >
+                  Prev
+                </button>
+                
+                <p className="prev-next-majher-text">Page {currentPage} of {totalPages}</p>
+                
+                <button 
+                  className="prev-next-button" 
+                  onClick={handleNext} 
+                  disabled={currentPage === totalPages}
+                  style={{ opacity: currentPage === totalPages ? 0.5 : 1, cursor: currentPage === totalPages ? 'not-allowed' : 'pointer' }}
+                >
+                  Next
+                </button>
+              </div>
+            </>
+          )}
 
-          <div className="border">
-
-          </div>
+          <div className="border"></div>
 
           <div className="last-text">
             <p>This is the END!</p>
           </div>
         </div>
       </div>
-
     </>
   );
 }
 
-export default Live_MarketPrices
+export default Live_MarketPrices;

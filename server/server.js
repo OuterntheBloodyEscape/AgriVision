@@ -6,6 +6,14 @@ import mongoose from 'mongoose';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import aiRouter from './routes/ai_disease_detection.js'
+import productRoutes from './routes/productRoutes.js' 
+import path from 'path';
+import { fileURLToPath } from 'url';
+import contractRoutes from './routes/contracts.js'
+import farmRoutes from './routes/farmRoutes.js'
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -15,9 +23,24 @@ app.use(cors({
 }));
 app.use(cookieParser());
 app.use(express.json());
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 app.use("/api/auth", authRoutes)
 app.use("/api", profileInfo)
 app.use('/api/ai_disease_detection', aiRouter)
+app.use('/api/products', productRoutes)
+app.use('/api/contracts', contractRoutes)
+app.use("/api/farms", farmRoutes);
+
+app.get("/api/esp32", (req, res) => {
+
+  console.log("ESP32 connected!");
+
+  res.status(200).json({
+    success: true,
+    message: "ESP32 connected successfully!"
+  });
+
+});
 
 const port = 5000
 
@@ -30,7 +53,7 @@ mongoose
   .then(() => {
     console.log("MongoDB connected successfully!");
 
-    app.listen(port, () => {
+    app.listen(port, "0.0.0.0", () => {
       console.log(`Server running on port ${port}`);
     });
   })

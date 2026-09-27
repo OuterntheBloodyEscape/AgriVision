@@ -1,6 +1,6 @@
 import './MainApp.css'
 import { Routes, Route, useNavigate, useLocation, Navigate, replace } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import homeIcon_ia from './assets/nav_icons/home_inactive.png'
 import homeIcon_a from './assets/nav_icons/home_active.png'
 import ai_ia from './assets/nav_icons/robot_inactive.png'
@@ -13,6 +13,7 @@ import market_ia from './assets/nav_icons/online-shop-inactive.png'
 import market_a from './assets/nav_icons/online-shop-active.png'
 import moon_ia from './assets/nav_icons/moon_inactive.png'
 import moon_a from './assets/nav_icons/moon_active.png'
+import downArrow from './assets/nav_icons/down_arrow.png'
 import webIcon from './assets/webIcon.png'
 import AI_Disease_Detection from './AI_Disease_Detection.jsx'
 import Contract_Farming from './Contract_Farming.jsx'
@@ -20,7 +21,6 @@ import Dashboard from './Dashboard.jsx'
 import Contract_Farming_my from './Contract_Farming_my.jsx'
 import Live_MarketPrices from './Live_MarketPrices.jsx'
 import TopNav from './top_nav.jsx'
-import Contract_addForm from './Contract_addForm.jsx'
 import SettingsPage from './settings.jsx'
 import AI_Assistant from './AI_Assistant.jsx'
 import SearchPage from './Search_page.jsx'
@@ -36,16 +36,55 @@ let MainApp = ({ tm }) => {
     const [DefaultPopupPage, callDefaultPopupPage] = useState(0);
     const [isBigPicture, setBigPicture] = useState(false);
     const [bigPictureLink, setBigPictureLink] = useState('');
+    const [isSubnavOpen, setSubnavOpen] = useState(false);
+
+    useEffect(() => {
+        document.body.classList.toggle('night-mode', nightMood)
+    }, [nightMood])
+
+    useEffect(() => {
+        const loadTheme = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/getProfileInfo', {
+                    credentials: 'include'
+                })
+                if (response.ok) {
+                    const user = await response.json()
+                    setNightMood(user.nightMood === true)
+                } else if (response.status !== 401) {
+                    tm('Unable to load theme preference')
+                }
+            } catch (error) {
+                console.error('Unable to load theme preference', error)
+                tm('Unable to load theme preference')
+            }
+        }
+
+        loadTheme()
+    }, [])
+
+    const toggleNightMood = async () => {
+        const nextNightMood = !nightMood
+        setNightMood(nextNightMood)
+
+        try {
+            const response = await fetch('http://localhost:5000/api/updateTheme', {
+                method: 'PATCH',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nightMood: nextNightMood })
+            })
+            if (!response.ok) {
+                tm('Unable to save theme preference')
+            }
+        } catch (error) {
+            console.error('Unable to save theme preference', error)
+            tm('Unable to save theme preference')
+        }
+    }
     const mainSubPageLink = ['/main_page/home', '/main_page/ai_disease_detection', '/main_page/map', '/main_page/contract_farming', '/main_page/live_market_prices', '/main_page/ai_assistant']
     let onMenuClick = () => {
-        setMenu((v) => (!v))
-        document.getElementById("main_app_p1").style.width = ((!menuActive) ? ("120px") : ("60px"))
-        let displayState = ((!menuActive) ? ("block") : ("none"))
-        let displaySize = ((!menuActive) ? ("92px") : ("36px"))
-        let it = document.getElementsByClassName("iconTxt")
-        it[5].style.display = it[4].style.display = it[3].style.display = it[2].style.display = it[1].style.display = it[0].style.display = displayState
-        let ic = document.getElementsByClassName("iconContainer")
-        ic[5].style.width = ic[4].style.width = ic[3].style.width = ic[2].style.width = ic[1].style.width = ic[0].style.width = displaySize
+        setMenu((currentState) => !currentState)
     }
 
     const checkInMarket = () => {
@@ -54,9 +93,21 @@ let MainApp = ({ tm }) => {
     const checkInAi = () => {
         return (pathName == mainSubPageLink[1]) || (pathName == mainSubPageLink[5])
     }
+    const subnavItems = checkInMarket()
+        ? [
+            { label: 'Live Market Prices', path: mainSubPageLink[4] },
+            { label: 'Contract Farming', path: mainSubPageLink[3] }
+        ]
+        : checkInAi()
+            ? [
+                { label: 'AI Disease Detection', path: mainSubPageLink[1] },
+                { label: 'AI Assistant', path: mainSubPageLink[5] }
+            ]
+            : [];
+    const selectedSubnavItem = subnavItems.find((item) => item.path == pathName);
     return (
         <>
-            <div id='main_app_root'>
+            <div id='main_app_root' className={`${nightMood ? 'night-mode' : ''} ${menuActive ? 'menu-open' : ''} ${DefaultPopupPage > 0 ? 'popup-open' : ''}`}>
                 <div id='main_app_p1'>
                     <div id='menu_icon_container' onClick={onMenuClick} className={`iconContainer ${(menuActive) ? "active" : ""}`}>
                         <img src={(menuActive) ? (menu_a) : (menu_ia)} alt="menu_icon" className='icon' draggable={false} />
@@ -84,7 +135,7 @@ let MainApp = ({ tm }) => {
                         <div className={`hintTxtcontainer ${(!menuActive) ? "market_hint" : ""}`}><p className='hintTxt'>Market</p></div>
                     </div>
                     <div id='main_app_p1_bottom'>
-                        <div id='moon_icon_container' onClick={() => { setNightMood((currentState) => (!currentState)) }} className={`iconContainer ${(nightMood) ? "active" : ""}`}>
+                        <div id='moon_icon_container' onClick={toggleNightMood} className={`iconContainer ${(nightMood) ? "active" : ""}`}>
                             <img src={(nightMood) ? (moon_a) : (moon_ia)} alt="moon_icon" className='icon' draggable={false} />
                             <div className='iconTxtcontainer'><p className='iconTxt'>Night</p></div>
                             <div className={`hintTxtcontainer ${(!menuActive) ? "night_hint" : ""}`}><p className='hintTxt'>Night Mood</p></div>
@@ -101,22 +152,45 @@ let MainApp = ({ tm }) => {
                         </a>
                         <div id='main_app_p2_top_p2'>
                             <div id='main_app_p2_top_p2_1'>
-                                {(checkInMarket()) ? (
-                                    <>
-                                        <button className='P2_2_1_button' onClick={() => { nev(mainSubPageLink[4]) }}>Live Market Prices</button>
-                                        <button className='P2_2_1_button' onClick={() => { nev(mainSubPageLink[3]) }}>Contract Farming</button>
-
-                                    </>
-                                ) : ((checkInAi()) ? (
-                                    <>
-                                        <button className='P2_2_1_button' onClick={() => { nev(mainSubPageLink[1]) }}>AI Disease Detection</button>
-                                        <button className='P2_2_1_button' onClick={() => { nev(mainSubPageLink[5]) }}>AI Assistant</button>
-                                    </>
-                                ) : (<></>))}
-
+                                {subnavItems.map((item) => (
+                                    <button
+                                        key={item.path}
+                                        className={`P2_2_1_button ${item.path == pathName ? 'selectedSubnavButton' : ''}`}
+                                        onClick={() => { nev(item.path) }}
+                                        aria-pressed={item.path == pathName}
+                                    >
+                                        {item.label}
+                                    </button>
+                                ))}
                             </div>
+                            {subnavItems.length > 0 && (
+                                <div className='subnavMobile'>
+                                    <button
+                                        className='P2_2_1_button subnavMobileButton'
+                                        onClick={() => { setSubnavOpen((currentState) => !currentState) }}
+                                        aria-expanded={isSubnavOpen}
+                                    >
+                                        <span>{selectedSubnavItem?.label}</span>
+                                        <img src={downArrow} alt='' className='subnavMobileArrow' draggable={false} />
+                                    </button>
+                                    {isSubnavOpen && (
+                                        <div className='subnavMobileMenu'>
+                                            {subnavItems.map((item) => (
+                                                <button
+                                                    key={item.path}
+                                                    className={`P2_2_1_button ${item.path == pathName ? 'selectedSubnavButton' : ''}`}
+                                                    onClick={() => { nev(item.path); setSubnavOpen(false) }}
+                                                    aria-pressed={item.path == pathName}
+                                                >
+                                                    {item.label}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                             <div id='main_app_p2_top_p2_2'>
-                                <TopNav setSearchP={setSearchPage} setSettingsP={callDefaultPopupPage} />
+                                <TopNav setSearchP={setSearchPage} setSettingsP={callDefaultPopupPage} tm={tm} />
                             </div>
                         </div>
 
@@ -128,8 +202,8 @@ let MainApp = ({ tm }) => {
                             <Route path='ai_disease_detection' element={<AI_Disease_Detection ibp={setBigPicture} bpl={setBigPictureLink} tm={tm} />} />
                             <Route path='ai_assistant' element={<AI_Assistant />} />
                             <Route path='map' element={<Map_weather />} />
-                            <Route path='contract_farming' element={<Contract_Farming />} />
-                            <Route path='contract_farming_my' element={<Contract_Farming_my cdp={callDefaultPopupPage} />} />
+                            <Route path='contract_farming' element={<Contract_Farming tm={tm} />} />
+                            <Route path='contract_farming_my' element={<Contract_Farming_my tm={tm} />} />
                             <Route path='live_market_prices' element={<Live_MarketPrices />} />
                         </Routes>
                     </div>
@@ -145,18 +219,7 @@ let MainApp = ({ tm }) => {
             </div>
             <div className={`av_default_popup ${(DefaultPopupPage > 0) ? ("pageActive") : ("")}`}>
                 <div id='popup_container'>
-                    {
-                        (() => {
-                            switch (DefaultPopupPage) {
-                                case 1:
-                                    return (<SettingsPage cdp={callDefaultPopupPage} tm={tm} />)
-                                case 2:
-                                    return (<Contract_addForm cdp={callDefaultPopupPage} />)
-                                default:
-                                    return (<></>)
-                            }
-                        })()
-                    }
+                    {DefaultPopupPage === 1 && <SettingsPage cdp={callDefaultPopupPage} tm={tm} />}
                 </div>
             </div>
         </>

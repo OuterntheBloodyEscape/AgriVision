@@ -11,18 +11,27 @@ import { useNavigate } from 'react-router-dom'
 let AI_Disease_Detection = ({ ibp, bpl, tm }) => {
     const nav = useNavigate()
     useEffect(() => {
-        (async () => {
-            const res = await fetch('http://localhost:5000/api/auth/check-login', {
-                method: 'GET',
-                credentials: 'include',
-            })
-            const data = await res.json()
+        const checkLogin = async () => {
+            try {
+                const res = await fetch('http://localhost:5000/api/auth/check-login', {
+                    method: 'GET',
+                    credentials: 'include',
+                })
+                await res.json()
 
-            if (res.status === 401) {
-                nav('/login_page', { replace: true })
+                if (res.status === 401) {
+                    nav('/login_page', { replace: true })
+                } else if (!res.ok) {
+                    tm('Unable to verify your login session')
+                }
+            } catch (error) {
+                console.error('Login check error:', error)
+                tm('Unable to connect to the server')
             }
-        })()
-    }, [nav])
+        }
+
+        checkLogin()
+    }, [nav, tm])
     const [photos, addPhotos] = useState([])
     const [analyzedPhotos, setAnalyzedPhotos] = useState([])
     const [isMouseImgAddOver, setMouseImgAddOver] = useState(false)
@@ -35,22 +44,37 @@ let AI_Disease_Detection = ({ ibp, bpl, tm }) => {
 
         if (photos.length === 0) {
             setAddImgWarning(true);
+            tm('Please attach at least one image first')
             return;
+        }
+
+        const inputFiles = Array.from(document.getElementById('image_up')?.files || [])
+        const submittedPhotos = photos
+            .map((photo, index) => ({
+                ...photo,
+                file: photo.file || inputFiles[index]
+            }))
+            .filter((photo) => photo.file)
+        if (submittedPhotos.length === 0) {
+            setAddImgWarning(true)
+            tm('The selected image is no longer available. Please choose it again.')
+            return
         }
 
         setWFAR(true)
         setAddImgWarning(false);
+        const submittedInfo = additionalInfo
         setAiResponse('AI thinking');
-        setAnalyzedPhotos([...photos]);
+        setAnalyzedPhotos(submittedPhotos);
 
         try {
             const formData = new FormData();
 
-            formData.append('additionalInfo', additionalInfo);
+            formData.append('additionalInfo', submittedInfo);
             setAdditionalInfo('');
 
-            for (const photo of photos) {
-                formData.append('images', photo.file);
+            for (const photo of submittedPhotos) {
+                formData.append('images', photo.file, photo.file.name || 'uploaded-image');
             }
 
             const res = await fetch(
@@ -65,24 +89,26 @@ let AI_Disease_Detection = ({ ibp, bpl, tm }) => {
             const data = await res.json();
 
             if (!res.ok) {
-                console.error(data.message);
-                return;
+                throw new Error(data.message || 'AI analysis failed')
             }
 
             setAiResponse(data.result);
 
             addPhotos([]);
-            setWFAR(false)
 
         } catch (error) {
             console.error('AI Error:', error);
+            setAiResponse(error.message || 'AI analysis failed. Please try again.')
+            tm(error.message || 'AI analysis failed. Please try again.')
+        } finally {
+            setWFAR(false)
         }
     }
 
     return (
         <>
             <div id='aidd_root'>
-                <div id='aidd_top'>
+                <div id='aidd_top' className={waitForAIRespnsce ? 'aidd_root_waiting' : ''}>
                     <div id='aidd_heading'><h4>AI Disease Detection</h4></div>
                     <div className={`aidd_result ${(addImgWarning) ? 'aidd_result_w' : ''} ${(waitForAIRespnsce) ? ('wfar') : ('')}`}>
 
@@ -125,14 +151,13 @@ let AI_Disease_Detection = ({ ibp, bpl, tm }) => {
                             <img src={(isMouseImgAddOver) ? iuh : iu} alt="uplode" id='uplode_icon' draggable={false} />
                             <p>Uplode Image</p>
                             <input type='file' id='image_up' onChange={(f) => {
-                                if (!waitForAIRespnsce) {
-                                    let l = f.target.files.length
-                                    for (let i = 0; i < l; i++) {
+                                if (waitForAIRespnsce) {
+                                    tm('wait for AI response. No photo can be uploaded now')
+                                } else if (f.target.files.length > 0) {
+                                    for (let i = 0; i < f.target.files.length; i++) {
                                         let pl = URL.createObjectURL(f.target.files[i]);
                                         addPhotos((p) => ([...p, { file: f.target.files[i], link: pl }]));
                                     }
-                                } else {
-                                    tm('wait for AI response. No photo can be uploaded now')
                                 }
                             }} accept='image/*' multiple />
                         </label>
@@ -144,6 +169,7 @@ let AI_Disease_Detection = ({ ibp, bpl, tm }) => {
                                     </div>
                                     <div className='rm_div' onClick={() => {
                                         if (!waitForAIRespnsce) {
+                                            URL.revokeObjectURL(p.link)
                                             addPhotos((pr) => pr.filter((e) => e.link !== p.link))
                                         } else {
                                             tm('wait for AI response. No photo can be removed now')
@@ -161,7 +187,7 @@ let AI_Disease_Detection = ({ ibp, bpl, tm }) => {
                         e.target.reset()
                     }}>
                         <textarea id='txt' placeholder='Additional Info...' onChange={(e) => { setAdditionalInfo(e.target.value) }}></textarea>
-                        <button id='send_button'>
+                        <button id='send_button' type='submit' disabled={waitForAIRespnsce || photos.length === 0}>
                             <img src={send} height={20} width={20}></img>
                         </button>
                     </form>

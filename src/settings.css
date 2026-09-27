@@ -52,6 +52,24 @@
     pointer-events: none;
 }
 
+body.night-mode .set_nav_img {
+    filter: brightness(0) invert(1);
+}
+
+body.night-mode #set_back_button:hover {
+    background-color: #31563d;
+}
+
+body.night-mode .set_nav_button:hover {
+    background-color: #31563d;
+    color: #f1f5f2;
+}
+
+body.night-mode .set_nav_button_active {
+    background-color: #1f4d32;
+    color: #8ee0a8;
+}
+
 #settings_page_icon_div {
     border: 1px solid gray;
     padding: 5px;

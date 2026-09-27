@@ -12,21 +12,6 @@ import deepresearch from "./assets/Deep_research.png";
 import deepresearchwhite from "./assets/Deep_research-recolored.png";
 import attachfile from "./assets/attach-file.png";
 
-/*
-  ⚠️ SECURITY NOTE
-  --------------------------------------------------------------
-  Never hardcode API keys in frontend source. Anything shipped to
-  the browser is visible to every visitor via devtools/network tab.
-
-  1. Put your key in a `.env` file at the project root (never commit it):
-       VITE_GEMINI_API_KEY=your_new_key_here
-  2. Add `.env` to your .gitignore.
-  3. For a real production app, proxy these calls through your own
-     backend so the key never reaches the browser at all.
-
-  If you previously pasted a key anywhere public (chat, GitHub, etc.),
-  treat it as compromised and generate a new one in Google AI Studio.
-*/
 const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
@@ -34,7 +19,6 @@ const TEXT_MODEL = "gemini-2.5-flash";
 const MAX_ATTACHMENTS = 6;
 const MAX_RETRIES = 3;
 
-// Small helper: turn a File into a base64 string + mime type Gemini can read
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -46,8 +30,6 @@ function fileToBase64(file) {
 
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
-// Wraps a Gemini call with retry + backoff, and turns quota errors into a
-// friendly message instead of a raw stack trace.
 async function callGeminiWithRetry(requestFn) {
   let lastError;
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
@@ -59,7 +41,7 @@ async function callGeminiWithRetry(requestFn) {
       const is429 = message.includes("429") || message.includes("RESOURCE_EXHAUSTED");
 
       if (is429) {
-        // Try to read the server-suggested retry delay, otherwise back off.
+    
         const retryMatch = message.match(/"retryDelay":"(\d+)s"/);
         const waitSeconds = retryMatch ? parseInt(retryMatch[1], 10) : (attempt + 1) * 3;
 
@@ -74,7 +56,6 @@ async function callGeminiWithRetry(requestFn) {
         );
       }
 
-      // Non-quota errors: don't retry, surface immediately.
       throw err;
     }
   }
@@ -96,7 +77,7 @@ function AI_Assistant() {
   const [imageTab, setImageTab] = useState("generated");
 
   const [isDeepResearch, setIsDeepResearch] = useState(false);
-  const [pendingAttachments, setPendingAttachments] = useState([]); // images attached to the message being composed
+  const [pendingAttachments, setPendingAttachments] = useState([]); 
 
   const chatBottomRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -137,8 +118,6 @@ function AI_Assistant() {
 
   const handleCloseModal = () => setActiveModal(null);
 
-  // ---------- Image generation (Pollinations.ai — free, no API key needed) ----------
-  // Returns a direct image URL for a generated image of the given prompt.
   function buildGeneratedImageUrl(prompt) {
     const seed = Math.floor(Math.random() * 1_000_000);
     return `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1024&height=768&seed=${seed}&nologo=true`;
@@ -165,7 +144,6 @@ function AI_Assistant() {
     return cleaned || text;
   }
 
-  // ---------- Attach files ----------
   const handleAttachClick = () => fileInputRef.current?.click();
 
   const handleFileChange = async (e) => {
@@ -211,9 +189,6 @@ function AI_Assistant() {
     }
   };
 
-  // ---------- Deep Research ----------
-  // Runs a small multi-step research pass: outline subtopics, research each
-  // with Google Search grounding enabled, then synthesize a final answer.
   async function runDeepResearch(topic) {
     setLoadingLabel("Planning research...");
 

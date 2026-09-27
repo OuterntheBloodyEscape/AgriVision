@@ -32,7 +32,8 @@ router.get('/getProfileInfo', async (req, res) => {
             email: user.email,
             phone: user.phone,
             about: user.about,
-            profileImage: user.profileImage
+            profileImage: user.profileImage,
+            nightMood: user.nightMood === true
         })
     } catch (e) {
         console.error(e)
@@ -242,6 +243,31 @@ router.patch('/updateProfileInfo', upload.single('image'), async (req, res) => {
 
     }
 
+})
+
+router.patch('/updateTheme', async (req, res) => {
+    try {
+        const token = req.cookies.av_token
+        if (!token) {
+            return res.status(401).json({ message: 'No user Logedin' })
+        }
+
+        const decode = jwt.verify(token, process.env.JWT_KEY)
+        const user = await User.findByIdAndUpdate(
+            decode.userId,
+            { nightMood: req.body.nightMood === true },
+            { returnDocument: 'after' }
+        )
+
+        if (!user) {
+            return res.status(401).json({ message: 'No user Logedin' })
+        }
+
+        return res.status(200).json({ nightMood: user.nightMood === true })
+    } catch (e) {
+        console.error(e)
+        return res.status(500).json({ message: 'Server error' })
+    }
 })
 
 router.patch('/updatePass', async (req, res) => {
